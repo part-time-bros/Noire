@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Book an appointment at NOIRE — premium unisex salon in Bandra West, Mumbai. Choose your service, date, and time online." />
+  <title>Book — NOIRE Salon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+
+  <style>
+    /* =====================
+       BOOKING LAYOUT
+       ===================== */
+    .booking {
+      padding-block: var(--space-5xl);
+    }
+
+    .booking__grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--space-5xl);
+      align-items: start;
+    }
+
+    /* =====================
+       BOOKING FORM CARD
+       ===================== */
+    .booking-card {
+      border: var(--border-thin);
+      padding: var(--space-3xl);
+    }
+
+    .booking-card__title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      margin-bottom: var(--space-sm);
+    }
+
+    .booking-card__sub {
+      font-size: 0.875rem;
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-3xl);
+    }
+
+    /* Progress steps */
+    .booking-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: var(--space-3xl);
+      border-bottom: var(--border-thin);
+      padding-bottom: var(--space-xl);
+    }
+
+    .booking-step {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex: 1;
+    }
+
+    .booking-step__num {
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-numeral);
+      font-size: 0.6875rem;
+      color: var(--color-text-dim);
+      flex-shrink: 0;
+      transition: border-color var(--duration-fast) var(--ease-luxury),
+                  background var(--duration-fast) var(--ease-luxury),
+                  color var(--duration-fast) var(--ease-luxury);
+    }
+
+    .booking-step.active .booking-step__num {
+      border-color: var(--color-gold);
+      background: var(--color-gold);
+      color: var(--color-void);
+    }
+
+    .booking-step.done .booking-step__num {
+      border-color: var(--color-gold-muted);
+      color: var(--color-gold);
+    }
+
+    .booking-step__label {
+      font-size: 0.625rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+    }
+
+    .booking-step.active .booking-step__label {
+      color: var(--color-warm-white);
+    }
+
+    .booking-step__line {
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+      max-width: 32px;
+    }
+
+    /* Step panels */
+    .booking-panel {
+      display: none;
+    }
+
+    .booking-panel.active {
+      display: block;
+    }
+
+    /* Step 1 — Service select */
+    .service-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+
+    .service-option {
+      border: 1px solid var(--color-border);
+      padding: var(--space-lg);
+      cursor: pointer;
+      transition: border-color var(--duration-fast) var(--ease-luxury),
+                  background var(--duration-fast) var(--ease-luxury);
+      position: relative;
+    }
+
+    .service-option:hover {
+      border-color: var(--color-border-light);
+      background: var(--color-surface);
+    }
+
+    .service-option.selected {
+      border-color: var(--color-gold);
+      background: var(--color-gold-glow);
+    }
+
+    .service-option__name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: var(--space-xs);
+    }
+
+    .service-option__duration {
+      font-size: 0.75rem;
+      color: var(--color-text-dim);
+    }
+
+    .service-option__check {
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      transition: background var(--duration-fast) var(--ease-luxury),
+                  border-color var(--duration-fast) var(--ease-luxury);
+    }
+
+    .service-option.selected .service-option__check {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+    }
+
+    /* Step 2 — Calendar */
+    .calendar {
+      margin-bottom: var(--space-xl);
+    }
+
+    .calendar__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .calendar__month-label {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 400;
+    }
+
+    .calendar__nav-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.875rem;
+      color: var(--color-warm-white-dim);
+      transition: border-color var(--duration-fast) var(--ease-luxury),
+                  color var(--duration-fast) var(--ease-luxury);
+    }
+
+    .calendar__nav-btn:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+    }
+
+    .calendar__grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+
+    .calendar__day-header {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+      text-align: center;
+      padding: var(--space-sm) 0;
+    }
+
+    .calendar__day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8125rem;
+      color: var(--color-warm-white-dim);
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease-luxury),
+                  color var(--duration-fast) var(--ease-luxury);
+      position: relative;
+    }
+
+    .calendar__day:hover:not(.disabled):not(.empty) {
+      background: var(--color-surface);
+      color: var(--color-warm-white);
+    }
+
+    .calendar__day.selected {
+      background: var(--color-gold);
+      color: var(--color-void);
+    }
+
+    .calendar__day.today {
+      color: var(--color-gold);
+    }
+
+    .calendar__day.today::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      width: 3px;
+      height: 3px;
+      background: var(--color-gold);
+      border-radius: 50%;
+    }
+
+    .calendar__day.today.selected::after {
+      background: var(--color-void);
+    }
+
+    .calendar__day.disabled,
+    .calendar__day.empty {
+      color: var(--color-border-light);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Step 2 — Time slots */
+    .slots-label {
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-md);
+    }
+
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-xs);
+      margin-bottom: var(--space-xl);
+    }
+
+    .slot-btn {
+      border: 1px solid var(--color-border);
+      padding: 0.6rem var(--space-xs);
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      color: var(--color-warm-white-dim);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color var(--duration-fast) var(--ease-luxury),
+                  color var(--duration-fast) var(--ease-luxury),
+                  background var(--duration-fast) var(--ease-luxury);
+    }
+
+    .slot-btn:hover:not(.booked) {
+      border-color: var(--color-border-light);
+      color: var(--color-warm-white);
+    }
+
+    .slot-btn.selected {
+      border-color: var(--color-gold);
+      background: var(--color-gold-glow);
+      color: var(--color-gold);
+    }
+
+    .slot-btn.booked {
+      opacity: 0.3;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    /* Step 3 — Details */
+    .booking-summary {
+      background: var(--color-surface);
+      border: var(--border-thin);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .booking-summary__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: var(--border-thin);
+    }
+
+    .booking-summary__row:last-child {
+      border-bottom: none;
+    }
+
+    .booking-summary__label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+    }
+
+    .booking-summary__value {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-warm-white);
+    }
+
+    /* Nav buttons */
+    .booking-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-xl);
+      border-top: var(--border-thin);
+    }
+
+    .btn--booking-next {
+      background: var(--color-gold);
+      color: var(--color-void);
+      padding: 0.9rem 2rem;
+      font-family: var(--font-ui);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease-luxury);
+      border: none;
+    }
+
+    .btn--booking-next:hover {
+      background: var(--color-warm-white);
+    }
+
+    .btn--booking-next:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .btn--booking-back {
+      background: none;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-dim);
+      padding: 0.9rem 1.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color var(--duration-fast) var(--ease-luxury),
+                  color var(--duration-fast) var(--ease-luxury);
+    }
+
+    .btn--booking-back:hover {
+      border-color: var(--color-border-light);
+      color: var(--color-warm-white-dim);
+    }
+
+    /* =====================
+       SUCCESS STATE
+       ===================== */
+    .booking-success {
+      text-align: center;
+      padding: var(--space-3xl) 0;
+    }
+
+    .booking-success__icon {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--color-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-xl);
+      font-size: 1.5rem;
+    }
+
+    .booking-success__title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: var(--space-md);
+    }
+
+    .booking-success__sub {
+      font-size: 0.9rem;
+      color: var(--color-text-dim);
+      max-width: 320px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* =====================
+       INFO PANEL (right column)
+       ===================== */
+    .contact-info {
+      padding-top: var(--space-md);
+    }
+
+    .info-block {
+      padding: var(--space-2xl) 0;
+      border-bottom: var(--border-thin);
+    }
+
+    .info-block:first-child {
+      padding-top: 0;
+    }
+
+    .info-block__label {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .info-block__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: var(--space-sm);
+    }
+
+    .info-block__text {
+      font-size: 0.875rem;
+      color: var(--color-text-dim);
+      line-height: 1.7;
+    }
+
+    .info-block__text a {
+      color: var(--color-warm-white-dim);
+      transition: color var(--duration-fast) var(--ease-luxury);
+    }
+
+    .info-block__text a:hover {
+      color: var(--color-gold);
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-xs) var(--space-xl);
+    }
+
+    .hours-day {
+      font-size: 0.8125rem;
+      color: var(--color-text-dim);
+    }
+
+    .hours-time {
+      font-size: 0.8125rem;
+      color: var(--color-warm-white-dim);
+    }
+
+    .hours-day.closed,
+    .hours-time.closed {
+      color: var(--color-border-light);
+    }
+
+    /* Map placeholder */
+    .map-placeholder {
+      aspect-ratio: 4/3;
+      background: var(--color-surface);
+      border: var(--border-thin);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-xl);
+    }
+
+    .map-placeholder__label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+    }
+
+    .map-placeholder__addr {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-warm-white-dim);
+      text-align: center;
+    }
+
+    .map-placeholder__link {
+      font-size: 0.75rem;
+      color: var(--color-gold);
+      border-bottom: 1px solid var(--color-gold-muted);
+      margin-top: var(--space-sm);
+      transition: border-color var(--duration-fast) var(--ease-luxury);
+    }
+
+    .map-placeholder__link:hover {
+      border-color: var(--color-gold);
+    }
+
+    @media (max-width: 960px) {
+      .booking__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .booking-card {
+        padding: var(--space-xl);
+      }
+
+      .service-options {
+        grid-template-columns: 1fr;
+      }
+
+      .slots-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <noire-nav page="contact"></noire-nav>
+
+  <main>
+
+    <!-- Page Hero -->
+    <header class="page-hero" style="padding-top: calc(var(--nav-height) + var(--space-4xl));">
+      <div class="container">
+        <div class="page-hero__label">
+          <span class="label">Book an Appointment</span>
+        </div>
+        <h1 class="page-hero__title reveal">
+          Your next visit<br/>
+          <span style="font-style:italic; color: var(--color-warm-white-dim);">begins here.</span>
+        </h1>
+        <p class="body-lg page-hero__sub reveal delay-1">
+          Choose your service, pick a time that works for you, and leave the rest to us.
+        </p>
+      </div>
+    </header>
+
+    <!-- ===================== BOOKING ===================== -->
+    <section class="booking">
+      <div class="container">
+        <div class="booking__grid">
+
+          <!-- LEFT — Booking Form -->
+          <div class="booking-card reveal">
+
+            <!-- Step Progress -->
+            <div class="booking-steps" id="bookingSteps" aria-label="Booking steps">
+              <div class="booking-step active" data-step="1">
+                <div class="booking-step__num">1</div>
+                <div class="booking-step__label">Service</div>
+              </div>
+              <div class="booking-step__line"></div>
+              <div class="booking-step" data-step="2">
+                <div class="booking-step__num">2</div>
+                <div class="booking-step__label">Date &amp; Time</div>
+              </div>
+              <div class="booking-step__line"></div>
+              <div class="booking-step" data-step="3">
+                <div class="booking-step__num">3</div>
+                <div class="booking-step__label">Your Details</div>
+              </div>
+            </div>
+
+            <!-- Step 1: Service -->
+            <div class="booking-panel active" id="step1">
+              <div class="booking-card__title">Choose a Service</div>
+              <p class="booking-card__sub">Select the primary service you'd like to book.</p>
+
+              <div class="service-options" id="serviceOptions" role="radiogroup" aria-label="Service selection">
+                <div class="service-option" data-service="Haircut &amp; Style" data-duration="60" role="radio" aria-checked="false" tabindex="0">
+                  <div class="service-option__name">Haircut &amp; Style</div>
+                  <div class="service-option__duration">60 min · from ₹1,200</div>
+                  <div class="service-option__check" aria-hidden="true"></div>
+                </div>
+                <div class="service-option" data-service="Balayage &amp; Colour" data-duration="150" role="radio" aria-checked="false" tabindex="0">
+                  <div class="service-option__name">Balayage &amp; Colour</div>
+                  <div class="service-option__duration">2.5 hrs · from ₹4,500</div>
+                  <div class="service-option__check" aria-hidden="true"></div>
+                </div>
+                <div class="service-option" data-service="Skincare Facial" data-duration="75" role="radio" aria-checked="false" tabindex="0">
+                  <div class="service-option__name">Skincare Facial</div>
+                  <div class="service-option__duration">75 min · from ₹3,500</div>
+                  <div class="service-option__check" aria-hidden="true"></div>
+                </div>
+                <div class="service-option" data-service="Nail Care" data-duration="60" role="radio" aria-checked="false" tabindex="0">
+                  <div class="service-option__name">Nail Care</div>
+                  <div class="service-option__duration">45–90 min · from ₹900</div>
+                  <div class="service-option__check" aria-hidden="true"></div>
+                </div>
+                <div class="service-option" data-service="Men's Grooming" data-duration="45" role="radio" aria-checked="false" tabindex="0">
+                  <div class="service-option__name">Men's Grooming</div>
+                  <div class="service-option__duration">45 min · from ₹800</div>
+                  <div class="service-option__check" aria-hidden="true"></div>
+                </div>
+                <div class="service-option" data-service="Bridal Package" data-duration="240" role="radio" aria-checked="false" tabindex="0">
+                  <div class="service-option__name">Bridal Package</div>
+                  <div class="service-option__duration">3–4 hrs · from ₹18,000</div>
+                  <div class="service-option__check" aria-hidden="true"></div>
+                </div>
+              </div>
+
+              <div class="booking-nav">
+                <span></span>
+                <button class="btn--booking-next" id="step1Next" disabled>
+                  Next: Choose Date →
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Date & Time -->
+            <div class="booking-panel" id="step2">
+              <div class="booking-card__title">Choose a Date &amp; Time</div>
+              <p class="booking-card__sub" id="step2Sub">Select an available date and time slot.</p>
+
+              <div class="calendar" id="calendar" aria-label="Date picker"></div>
+
+              <div id="slotsContainer" style="display:none;">
+                <div class="slots-label">Available Times</div>
+                <div class="slots-grid" id="slotsGrid" role="radiogroup" aria-label="Time slot selection"></div>
+              </div>
+
+              <div class="booking-nav">
+                <button class="btn--booking-back" id="step2Back">← Back</button>
+                <button class="btn--booking-next" id="step2Next" disabled>
+                  Next: Your Details →
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 3: Details -->
+            <div class="booking-panel" id="step3">
+              <div class="booking-card__title">Your Details</div>
+              <p class="booking-card__sub">Almost done. Review your booking and fill in your contact info.</p>
+
+              <!-- Summary -->
+              <div class="booking-summary" id="bookingSummary" aria-label="Booking summary">
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Service</span>
+                  <span class="booking-summary__value" id="summaryService">—</span>
+                </div>
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Date</span>
+                  <span class="booking-summary__value" id="summaryDate">—</span>
+                </div>
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Time</span>
+                  <span class="booking-summary__value" id="summaryTime">—</span>
+                </div>
+              </div>
+
+              <!-- Contact details -->
+              <div class="form-group">
+                <label class="form-label" for="guestName">Full Name</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="guestName"
+                  name="guestName"
+                  placeholder="Your name"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="guestPhone">Mobile Number</label>
+                <input
+                  class="form-input"
+                  type="tel"
+                  id="guestPhone"
+                  name="guestPhone"
+                  placeholder="+91 98765 43210"
+                  autocomplete="tel"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="guestEmail">Email Address</label>
+                <input
+                  class="form-input"
+                  type="email"
+                  id="guestEmail"
+                  name="guestEmail"
+                  placeholder="you@email.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="guestNote">Special Request (optional)</label>
+                <textarea
+                  class="form-input"
+                  id="guestNote"
+                  name="guestNote"
+                  placeholder="Anything we should know before your visit?"
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <div class="booking-nav">
+                <button class="btn--booking-back" id="step3Back">← Back</button>
+                <button class="btn--booking-next" id="step3Submit">
+                  Confirm Booking →
+                </button>
+              </div>
+            </div>
+
+            <!-- Success -->
+            <div class="booking-panel" id="stepSuccess">
+              <div class="booking-success">
+                <div class="booking-success__icon" aria-hidden="true">✦</div>
+                <div class="booking-success__title">Booking Confirmed</div>
+                <p class="booking-success__sub" id="successMessage">
+                  We'll send a confirmation to your email shortly. See you soon.
+                </p>
+                <a href="index.html" class="btn btn--ghost" style="margin-top: var(--space-xl); display: inline-flex;">
+                  Return Home <span class="btn__arrow">→</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT — Info Panel -->
+          <div class="contact-info reveal delay-2">
+
+            <div class="info-block">
+              <div class="info-block__label">Studio Address</div>
+              <div class="info-block__title">Bandra West</div>
+              <p class="info-block__text">
+                42 Pali Hill, Bandra West<br/>
+                Mumbai 400 050<br/>
+                Maharashtra, India
+              </p>
+              <div class="map-placeholder" role="img" aria-label="Studio location map placeholder">
+                <div class="map-placeholder__label">Find Us</div>
+                <div class="map-placeholder__addr">42 Pali Hill, Bandra West<br/>Mumbai</div>
+                <a href="https://maps.google.com" target="_blank" rel="noopener" class="map-placeholder__link">
+                  Open in Google Maps →
+                </a>
+              </div>
+            </div>
+
+            <div class="info-block">
+              <div class="info-block__label">Studio Hours</div>
+              <div class="info-block__title">When We're Open</div>
+              <div class="hours-grid">
+                <div class="hours-day closed">Monday</div>
+                <div class="hours-time closed">Closed</div>
+                <div class="hours-day">Tuesday</div>
+                <div class="hours-time">10:00 – 20:00</div>
+                <div class="hours-day">Wednesday</div>
+                <div class="hours-time">10:00 – 20:00</div>
+                <div class="hours-day">Thursday</div>
+                <div class="hours-time">10:00 – 20:00</div>
+                <div class="hours-day">Friday</div>
+                <div class="hours-time">10:00 – 20:00</div>
+                <div class="hours-day">Saturday</div>
+                <div class="hours-time">9:00 – 21:00</div>
+                <div class="hours-day">Sunday</div>
+                <div class="hours-time">10:00 – 19:00</div>
+              </div>
+            </div>
+
+            <div class="info-block">
+              <div class="info-block__label">Get in Touch</div>
+              <div class="info-block__title">Direct Contact</div>
+              <p class="info-block__text">
+                Phone: <a href="tel:+912234567890">+91 22 3456 7890</a><br/>
+                Email: <a href="mailto:hello@noire.in">hello@noire.in</a><br/>
+                WhatsApp: <a href="https://wa.me/912234567890" target="_blank" rel="noopener">+91 22 3456 7890</a>
+              </p>
+            </div>
+
+            <div class="info-block" style="border-bottom: none;">
+              <div class="info-block__label">Important Note</div>
+              <p class="info-block__text">
+                For bridal and large group bookings, please call us directly or email <a href="mailto:bridal@noire.in">bridal@noire.in</a> for a personalised consultation.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <noire-footer></noire-footer>
+
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/animations.js" defer></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* =====================
+         STATE
+         ===================== */
+      var state = {
+        step:     1,
+        service:  null,
+        date:     null,
+        slot:     null,
+        calYear:  new Date().getFullYear(),
+        calMonth: new Date().getMonth(),
+      };
+
+      /* =====================
+         BOOKED SLOTS (demo)
+         In production: fetched from Firestore
+         ===================== */
+      var bookedSlots = {
+        /* 'YYYY-MM-DD': ['10:00 AM', '2:00 PM'] */
+      };
+
+      /* =====================
+         ALL SLOTS (working hours: Tue-Sun 10am-8pm)
+         ===================== */
+      var allSlots = [
+        '10:00 AM','10:45 AM','11:30 AM','12:15 PM',
+        '1:00 PM', '1:45 PM', '2:30 PM', '3:15 PM',
+        '4:00 PM', '4:45 PM', '5:30 PM', '6:15 PM',
+        '7:00 PM'
+      ];
+
+      /* =====================
+         HELPERS
+         ===================== */
+      function dateKey(d) {
+        return d.getFullYear() + '-' +
+          String(d.getMonth() + 1).padStart(2, '0') + '-' +
+          String(d.getDate()).padStart(2, '0');
+      }
+
+      function displayDate(d) {
+        return d.toLocaleDateString('en-IN', {
+          weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+        });
+      }
+
+      function setStep(n) {
+        state.step = n;
+        document.querySelectorAll('.booking-panel').forEach(function (p) {
+          p.classList.remove('active');
+        });
+        var panelId = n === 4 ? 'stepSuccess' : 'step' + n;
+        document.getElementById(panelId).classList.add('active');
+
+        // Update step indicators
+        document.querySelectorAll('.booking-step').forEach(function (el) {
+          var s = parseInt(el.getAttribute('data-step'), 10);
+          el.classList.remove('active', 'done');
+          if (s === n)    el.classList.add('active');
+          if (s < n)      el.classList.add('done');
+        });
+      }
+
+      /* =====================
+         STEP 1 — SERVICE
+         ===================== */
+      var step1Next = document.getElementById('step1Next');
+
+      document.querySelectorAll('.service-option').forEach(function (opt) {
+        function selectOption() {
+          document.querySelectorAll('.service-option').forEach(function (o) {
+            o.classList.remove('selected');
+            o.setAttribute('aria-checked', 'false');
+          });
+          opt.classList.add('selected');
+          opt.setAttribute('aria-checked', 'true');
+          state.service  = opt.getAttribute('data-service');
+          state.duration = parseInt(opt.getAttribute('data-duration'), 10);
+          step1Next.disabled = false;
+        }
+        opt.addEventListener('click', selectOption);
+        opt.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectOption();
+          }
+        });
+      });
+
+      step1Next.addEventListener('click', function () {
+        if (!state.service) return;
+        setStep(2);
+        renderCalendar();
+      });
+
+      /* =====================
+         STEP 2 — CALENDAR
+         ===================== */
+      var step2Next = document.getElementById('step2Next');
+      var step2Back = document.getElementById('step2Back');
+
+      function renderCalendar() {
+        var container = document.getElementById('calendar');
+        var year  = state.calYear;
+        var month = state.calMonth;
+
+        var monthNames = ['January','February','March','April','May','June',
+                          'July','August','September','October','November','December'];
+        var dayNames   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+        var firstDay  = new Date(year, month, 1).getDay();
+        var daysCount = new Date(year, month + 1, 0).getDate();
+        var today     = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        var html = '<div class="calendar__header">' +
+          '<button class="calendar__nav-btn" id="calPrev" aria-label="Previous month">‹</button>' +
+          '<div class="calendar__month-label">' + monthNames[month] + ' ' + year + '</div>' +
+          '<button class="calendar__nav-btn" id="calNext" aria-label="Next month">›</button>' +
+          '</div>' +
+          '<div class="calendar__grid" role="grid">';
+
+        // Day headers
+        dayNames.forEach(function (d) {
+          html += '<div class="calendar__day-header">' + d + '</div>';
+        });
+
+        // Empty cells before first day
+        for (var e = 0; e < firstDay; e++) {
+          html += '<div class="calendar__day empty" aria-hidden="true"></div>';
+        }
+
+        // Day cells
+        for (var day = 1; day <= daysCount; day++) {
+          var d  = new Date(year, month, day);
+          var dow = d.getDay(); // 0=Sun, 1=Mon
+          var isToday    = d.getTime() === today.getTime();
+          var isPast     = d < today;
+          var isClosed   = dow === 1; // Monday closed
+          var isDisabled = isPast || isClosed;
+
+          var cls = 'calendar__day';
+          if (isToday)    cls += ' today';
+          if (isDisabled) cls += ' disabled';
+          if (state.date && dateKey(state.date) === dateKey(d)) cls += ' selected';
+
+          var ariaLabel = d.toLocaleDateString('en-IN', {weekday:'long', day:'numeric', month:'long'});
+          if (isDisabled) ariaLabel += ' (unavailable)';
+
+          html += '<div class="' + cls + '" ' +
+            (isDisabled ? '' : 'role="gridcell" tabindex="0"') +
+            ' data-date="' + dateKey(d) + '"' +
+            ' aria-label="' + ariaLabel + '"' +
+            '>' + day + '</div>';
+        }
+
+        html += '</div>';
+        container.innerHTML = html;
+
+        // Bind calendar navigation
+        document.getElementById('calPrev').addEventListener('click', function () {
+          state.calMonth--;
+          if (state.calMonth < 0) { state.calMonth = 11; state.calYear--; }
+          renderCalendar();
+        });
+
+        document.getElementById('calNext').addEventListener('click', function () {
+          state.calMonth++;
+          if (state.calMonth > 11) { state.calMonth = 0; state.calYear++; }
+          renderCalendar();
+        });
+
+        // Bind day clicks
+        container.querySelectorAll('.calendar__day:not(.disabled):not(.empty)').forEach(function (cell) {
+          function pickDate() {
+            var parts = cell.getAttribute('data-date').split('-');
+            state.date = new Date(
+              parseInt(parts[0], 10),
+              parseInt(parts[1], 10) - 1,
+              parseInt(parts[2], 10)
+            );
+            renderCalendar();
+            renderSlots();
+          }
+          cell.addEventListener('click', pickDate);
+          cell.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              pickDate();
+            }
+          });
+        });
+      }
+
+      function renderSlots() {
+        var container = document.getElementById('slotsContainer');
+        var grid      = document.getElementById('slotsGrid');
+
+        if (!state.date) {
+          container.style.display = 'none';
+          return;
+        }
+
+        container.style.display = 'block';
+        var key = dateKey(state.date);
+        var booked = bookedSlots[key] || [];
+
+        var html = '';
+        allSlots.forEach(function (slot) {
+          var isBooked   = booked.indexOf(slot) !== -1;
+          var isSelected = state.slot === slot;
+          var cls = 'slot-btn' + (isBooked ? ' booked' : '') + (isSelected ? ' selected' : '');
+          html += '<button class="' + cls + '" ' +
+            (isBooked ? 'disabled aria-disabled="true"' : '') +
+            ' data-slot="' + slot + '"' +
+            ' role="radio" aria-checked="' + (isSelected ? 'true' : 'false') + '"' +
+            '>' + slot + '</button>';
+        });
+
+        grid.innerHTML = html;
+
+        grid.querySelectorAll('.slot-btn:not(.booked)').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            grid.querySelectorAll('.slot-btn').forEach(function (b) {
+              b.classList.remove('selected');
+              b.setAttribute('aria-checked', 'false');
+            });
+            this.classList.add('selected');
+            this.setAttribute('aria-checked', 'true');
+            state.slot = this.getAttribute('data-slot');
+            step2Next.disabled = false;
+          });
+        });
+
+        // If previously selected slot, keep disabled state
+        step2Next.disabled = !state.slot;
+      }
+
+      step2Back.addEventListener('click', function () {
+        state.date = null;
+        state.slot = null;
+        setStep(1);
+      });
+
+      step2Next.addEventListener('click', function () {
+        if (!state.date || !state.slot) return;
+        // Populate summary
+        document.getElementById('summaryService').textContent = state.service;
+        document.getElementById('summaryDate').textContent    = displayDate(state.date);
+        document.getElementById('summaryTime').textContent    = state.slot;
+        setStep(3);
+      });
+
+      /* =====================
+         STEP 3 — DETAILS
+         ===================== */
+      var step3Back   = document.getElementById('step3Back');
+      var step3Submit = document.getElementById('step3Submit');
+
+      step3Back.addEventListener('click', function () {
+        setStep(2);
+        renderCalendar();
+        renderSlots();
+      });
+
+      step3Submit.addEventListener('click', function () {
+        var name  = document.getElementById('guestName').value.trim();
+        var phone = document.getElementById('guestPhone').value.trim();
+        var email = document.getElementById('guestEmail').value.trim();
+
+        // Basic validation
+        var valid = true;
+
+        if (!name) {
+          document.getElementById('guestName').classList.add('form-input--error');
+          valid = false;
+        } else {
+          document.getElementById('guestName').classList.remove('form-input--error');
+        }
+
+        if (!window.NoireUtils || !window.NoireUtils.isValidPhone(phone)) {
+          document.getElementById('guestPhone').classList.add('form-input--error');
+          valid = false;
+        } else {
+          document.getElementById('guestPhone').classList.remove('form-input--error');
+        }
+
+        if (!window.NoireUtils || !window.NoireUtils.isValidEmail(email)) {
+          document.getElementById('guestEmail').classList.add('form-input--error');
+          valid = false;
+        } else {
+          document.getElementById('guestEmail').classList.remove('form-input--error');
+        }
+
+        if (!valid) return;
+
+        // Disable button and show loading
+        step3Submit.disabled = true;
+        step3Submit.textContent = 'Confirming...';
+
+        // Simulate EmailJS / API call delay
+        setTimeout(function () {
+          // Update success message
+          document.getElementById('successMessage').textContent =
+            'We\'ll send a confirmation to ' + email + '. See you ' +
+            displayDate(state.date) + ' at ' + state.slot + '.';
+
+          setStep(4);
+        }, 1200);
+      });
+
+      /* =====================
+         INIT
+         ===================== */
+      setStep(1);
+
+    })();
+  </script>
+
+</body>
+</html>

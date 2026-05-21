@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NOIRE — Premium unisex salon in Mumbai. Hair, skincare, nail care, bridal and wellness services. Where craft meets ritual." />
+  <meta property="og:title" content="NOIRE — Premium Unisex Salon" />
+  <meta property="og:description" content="Where craft meets ritual. Premium salon experiences in the heart of Mumbai." />
+  <meta property="og:type" content="website" />
+  <title>NOIRE — Premium Unisex Salon</title>
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+
+  <!-- Page-specific styles -->
+  <style>
+    /* =====================
+       HERO
+       ===================== */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: var(--space-4xl);
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: brightness(0.38);
+    }
+
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        var(--color-void) 0%,
+        rgba(8,8,7,0.4) 50%,
+        rgba(8,8,7,0.1) 100%
+      );
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: var(--z-above);
+      padding-top: calc(var(--nav-height) + var(--space-5xl));
+    }
+
+    .hero__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+      opacity: 0;
+      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 400ms forwards;
+    }
+
+    .hero__eyebrow-line {
+      width: 32px;
+      height: 1px;
+      background: var(--color-gold);
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-xl);
+      overflow: hidden;
+    }
+
+    .hero__title-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero__title-word {
+      display: inline-block;
+      opacity: 0;
+      animation: heroWord var(--duration-xslow) var(--ease-out-expo) forwards;
+    }
+
+    .hero__title-word--1 {
+      font-size: clamp(5rem, 14vw, 13rem);
+      animation-delay: 600ms;
+    }
+
+    .hero__title-word--2 {
+      font-size: clamp(5rem, 14vw, 13rem);
+      color: var(--color-gold);
+      font-style: italic;
+      animation-delay: 750ms;
+    }
+
+    .hero__title-word--3 {
+      font-size: clamp(2.5rem, 7vw, 6.5rem);
+      color: var(--color-warm-white-dim);
+      animation-delay: 900ms;
+    }
+
+    .hero__bottom {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: var(--space-xl);
+      margin-top: var(--space-3xl);
+    }
+
+    .hero__desc {
+      max-width: 340px;
+      opacity: 0;
+      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1100ms forwards;
+    }
+
+    .hero__cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-lg);
+      opacity: 0;
+      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1200ms forwards;
+    }
+
+    .hero__scroll-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .hero__scroll-hint span {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+      writing-mode: vertical-rl;
+    }
+
+    .hero__scroll-line {
+      width: 1px;
+      height: 56px;
+      background: linear-gradient(to bottom, var(--color-gold), transparent);
+      animation: float 2.5s ease-in-out infinite;
+    }
+
+    .hero__meta {
+      text-align: right;
+      opacity: 0;
+      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1300ms forwards;
+    }
+
+    .hero__meta-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+
+    .hero__meta-item::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: var(--color-gold-muted);
+    }
+
+    @media (max-width: 768px) {
+      .hero__bottom {
+        grid-template-columns: 1fr;
+      }
+      .hero__meta { display: none; }
+      .hero__cta-group { align-items: flex-start; }
+    }
+
+    /* =====================
+       BRAND STATEMENT
+       ===================== */
+    .brand-statement {
+      padding-block: clamp(5rem, 10vw, 9rem);
+      border-bottom: var(--border-thin);
+    }
+
+    .brand-statement__text {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--color-warm-white-dim);
+      max-width: 920px;
+    }
+
+    .brand-statement__text em {
+      color: var(--color-warm-white);
+      font-style: italic;
+    }
+
+    .brand-statement__text strong {
+      color: var(--color-gold);
+      font-weight: 400;
+    }
+
+    .brand-statement__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: var(--space-3xl);
+      flex-wrap: wrap;
+      gap: var(--space-xl);
+    }
+
+    /* =====================
+       STATS BAR
+       ===================== */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: var(--border-thin);
+      border-bottom: var(--border-thin);
+    }
+
+    .stat-item {
+      padding: var(--space-2xl) var(--space-xl);
+      border-right: var(--border-thin);
+      position: relative;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-item__number {
+      font-family: var(--font-numeral);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--color-warm-white);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-item__label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+    }
+
+    @media (max-width: 600px) {
+      .stats-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+      .stat-item:nth-child(2) {
+        border-right: none;
+      }
+      .stat-item:nth-child(3),
+      .stat-item:nth-child(4) {
+        border-top: var(--border-thin);
+      }
+    }
+
+    /* =====================
+       SERVICES PREVIEW
+       ===================== */
+    .services-preview {
+      padding-block: var(--space-5xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .services-bento {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--color-border);
+      margin-top: var(--space-3xl);
+    }
+
+    .service-card {
+      background: var(--color-void);
+      padding: var(--space-2xl);
+      position: relative;
+      overflow: hidden;
+      transition: background var(--duration-med) var(--ease-luxury);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 260px;
+    }
+
+    .service-card:hover {
+      background: var(--color-surface);
+    }
+
+    .service-card--featured {
+      grid-row: span 2;
+      min-height: 520px;
+      padding: var(--space-3xl) var(--space-2xl);
+    }
+
+    .service-card__number {
+      font-family: var(--font-numeral);
+      font-size: 0.6875rem;
+      color: var(--color-gold-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-xl);
+    }
+
+    .service-card__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 400;
+      color: var(--color-warm-white);
+      line-height: 1.15;
+      margin-bottom: var(--space-md);
+    }
+
+    .service-card--featured .service-card__title {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+    }
+
+    .service-card__desc {
+      font-size: 0.875rem;
+      color: var(--color-text-dim);
+      line-height: 1.65;
+      flex-grow: 1;
+      margin-top: var(--space-sm);
+    }
+
+    .service-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-top: var(--space-xl);
+      transition: gap var(--duration-fast) var(--ease-luxury);
+    }
+
+    .service-card:hover .service-card__link {
+      gap: var(--space-md);
+    }
+
+    .service-card__accent {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 80px;
+      height: 80px;
+      border-top: 1px solid var(--color-border-light);
+      border-left: 1px solid var(--color-border-light);
+      opacity: 0;
+      transition: opacity var(--duration-med) var(--ease-luxury);
+    }
+
+    .service-card:hover .service-card__accent {
+      opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+      .services-bento {
+        grid-template-columns: 1fr 1fr;
+      }
+      .service-card--featured {
+        grid-column: span 2;
+        grid-row: span 1;
+        min-height: 280px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .services-bento {
+        grid-template-columns: 1fr;
+      }
+      .service-card--featured {
+        grid-column: span 1;
+      }
+    }
+
+    /* =====================
+       TEAM PREVIEW
+       ===================== */
+    .team-preview {
+      padding-block: var(--space-5xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .team-preview__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-3xl);
+    }
+
+    .team-card {
+      position: relative;
+    }
+
+    .team-card__img {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: var(--space-lg);
+    }
+
+    .team-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--duration-slow) var(--ease-luxury);
+      filter: grayscale(30%);
+    }
+
+    .team-card:hover .team-card__img img {
+      transform: scale(1.05);
+      filter: grayscale(0%);
+    }
+
+    .team-card__img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,7,0.8) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    .team-card__badge {
+      position: absolute;
+      bottom: var(--space-md);
+      left: var(--space-md);
+      z-index: 2;
+    }
+
+    .team-card__name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--color-warm-white);
+      margin-bottom: var(--space-xs);
+    }
+
+    .team-card__role {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+    }
+
+    @media (max-width: 900px) {
+      .team-preview__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .team-preview__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+      }
+    }
+
+    /* =====================
+       GALLERY STRIP
+       ===================== */
+    .gallery-strip {
+      padding-block: var(--space-5xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .gallery-strip__grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr 1.3fr;
+      gap: var(--space-sm);
+      margin-top: var(--space-3xl);
+      height: 480px;
+    }
+
+    .gallery-strip__item {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-strip__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--duration-slow) var(--ease-luxury),
+                  filter var(--duration-med) var(--ease-luxury);
+      filter: grayscale(20%);
+    }
+
+    .gallery-strip__item:hover img {
+      transform: scale(1.06);
+      filter: grayscale(0%);
+    }
+
+    @media (max-width: 900px) {
+      .gallery-strip__grid {
+        grid-template-columns: repeat(3, 1fr);
+        height: 320px;
+      }
+      .gallery-strip__item:nth-child(4),
+      .gallery-strip__item:nth-child(5) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-strip__grid {
+        grid-template-columns: repeat(2, 1fr);
+        height: 240px;
+      }
+      .gallery-strip__item:nth-child(3) { display: none; }
+    }
+
+    /* =====================
+       HOME CTA SECTION
+       ===================== */
+    .home-cta {
+      padding-block: var(--space-5xl);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .home-cta__bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse 60% 60% at 50% 50%,
+        rgba(200, 169, 110, 0.05) 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .home-cta__eyebrow {
+      margin-bottom: var(--space-xl);
+    }
+
+    .home-cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 6rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .home-cta__title em {
+      font-style: italic;
+      color: var(--color-gold);
+    }
+
+    .home-cta__sub {
+      max-width: 480px;
+      margin-inline: auto;
+      margin-bottom: var(--space-3xl);
+    }
+
+    .home-cta__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <noire-nav page="home"></noire-nav>
+
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" aria-label="Hero">
+      <div class="hero__bg">
+        <img
+          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1800&auto=format&fit=crop&q=80"
+          alt="Premium salon interior"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+
+      <div class="container hero__content">
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-line"></div>
+          <span class="label">Mumbai, India</span>
+          <span class="label-dim">Est. 2019</span>
+        </div>
+
+        <h1 class="hero__title">
+          <span class="hero__title-line">
+            <span class="hero__title-word hero__title-word--1">Where</span>
+            &nbsp;
+            <span class="hero__title-word hero__title-word--2">craft</span>
+          </span>
+          <span class="hero__title-line">
+            <span class="hero__title-word hero__title-word--3">meets ritual.</span>
+          </span>
+        </h1>
+
+        <div class="hero__bottom">
+          <div class="hero__desc">
+            <p class="body-lg">
+              A premium unisex salon where every visit is a carefully considered experience. Hair, skin, and soul — in one space.
+            </p>
+          </div>
+
+          <div class="hero__cta-group">
+            <div class="hero__scroll-hint">
+              <div class="hero__scroll-line"></div>
+              <span>Scroll</span>
+            </div>
+          </div>
+
+          <div class="hero__meta">
+            <div class="hero__meta-item">
+              <span class="body-sm">Bandra West, Mumbai</span>
+            </div>
+            <div class="hero__meta-item">
+              <span class="body-sm">Tue – Sun, 10am – 8pm</span>
+            </div>
+            <div style="margin-top: var(--space-lg);">
+              <a href="contact.html" class="btn btn--primary">
+                Book Appointment
+                <span class="btn__arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <!-- Items duplicated for seamless loop -->
+        <span class="marquee__item">Hair &amp; Colour<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Skincare Rituals<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Nail Artistry<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Bridal Packages<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Men's Grooming<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Wellness &amp; Spa<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Keratin Treatments<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Scalp Therapy<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Hair &amp; Colour<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Skincare Rituals<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Nail Artistry<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Bridal Packages<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Men's Grooming<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Wellness &amp; Spa<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Keratin Treatments<span class="marquee__dot"></span></span>
+        <span class="marquee__item">Scalp Therapy<span class="marquee__dot"></span></span>
+      </div>
+    </div>
+
+    <!-- ===================== BRAND STATEMENT ===================== -->
+    <section class="brand-statement section--sm" aria-label="Brand statement">
+      <div class="container">
+        <p class="brand-statement__text reveal">
+          We believe grooming is not maintenance — it is <em>ritual</em>. Every service at NOIRE is designed with <strong>intention</strong>, delivered by artists who understand that the way you feel when you leave matters as much as the way you look.
+        </p>
+        <div class="brand-statement__footer reveal delay-2">
+          <a href="about.html" class="btn btn--ghost">
+            Our Story <span class="btn__arrow">→</span>
+          </a>
+          <div class="stats-bar reveal delay-3" style="flex:1; margin-left: var(--space-4xl); max-width: 600px;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== STATS ===================== -->
+    <div class="stats-bar reveal">
+      <div class="stat-item">
+        <div class="stat-item__number">
+          <span data-counter="7" data-suffix="+">0+</span>
+        </div>
+        <div class="stat-item__label">Years of Craft</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-item__number">
+          <span data-counter="12000" data-suffix="+">0+</span>
+        </div>
+        <div class="stat-item__label">Happy Clients</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-item__number">
+          <span data-counter="18" data-suffix="">0</span>
+        </div>
+        <div class="stat-item__label">Expert Artists</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-item__number">
+          <span data-counter="30" data-suffix="+">0+</span>
+        </div>
+        <div class="stat-item__label">Services Offered</div>
+      </div>
+    </div>
+
+    <!-- ===================== SERVICES PREVIEW ===================== -->
+    <section class="services-preview" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header section-header--split">
+          <div>
+            <div class="section-label reveal">
+              <span class="label">What We Offer</span>
+            </div>
+            <h2 id="services-heading" class="display-md reveal delay-1">
+              Services Designed<br/>
+              <em style="font-style:italic; color: var(--color-warm-white-dim);">for every story.</em>
+            </h2>
+          </div>
+          <a href="services.html" class="btn btn--ghost reveal delay-2">
+            View All Services <span class="btn__arrow">→</span>
+          </a>
+        </div>
+
+        <div class="services-bento">
+          <!-- Featured Card -->
+          <article class="service-card service-card--featured reveal-scale">
+            <div>
+              <div class="service-card__number">01</div>
+              <h3 class="service-card__title">Hair &amp;<br/>Colour</h3>
+              <p class="service-card__desc">
+                Precision cuts, balayage, Olaplex treatments, keratin smoothing, and bespoke colour consultations. Every strand is considered.
+              </p>
+            </div>
+            <a href="services.html" class="service-card__link">
+              Explore Services <span>→</span>
+            </a>
+            <div class="service-card__accent"></div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="service-card reveal-scale delay-1">
+            <div>
+              <div class="service-card__number">02</div>
+              <h3 class="service-card__title">Skin &amp;<br/>Wellness</h3>
+              <p class="service-card__desc">Curated facials, anti-aging treatments, and wellness rituals.</p>
+            </div>
+            <a href="services.html" class="service-card__link">Explore →</a>
+            <div class="service-card__accent"></div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="service-card reveal-scale delay-2">
+            <div>
+              <div class="service-card__number">03</div>
+              <h3 class="service-card__title">Nail<br/>Artistry</h3>
+              <p class="service-card__desc">Gel, extensions, nail art, and spa manicure-pedicure rituals.</p>
+            </div>
+            <a href="services.html" class="service-card__link">Explore →</a>
+            <div class="service-card__accent"></div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="service-card reveal-scale delay-3">
+            <div>
+              <div class="service-card__number">04</div>
+              <h3 class="service-card__title">Men's<br/>Grooming</h3>
+              <p class="service-card__desc">Precision cuts, beard sculpting, classic shaves, and skin-focused treatments.</p>
+            </div>
+            <a href="services.html" class="service-card__link">Explore →</a>
+            <div class="service-card__accent"></div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="service-card reveal-scale delay-4">
+            <div>
+              <div class="service-card__number">05</div>
+              <h3 class="service-card__title">Bridal &amp;<br/>Events</h3>
+              <p class="service-card__desc">Full bridal packages, pre-wedding trials, and group booking for special occasions.</p>
+            </div>
+            <a href="services.html" class="service-card__link">Explore →</a>
+            <div class="service-card__accent"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TEAM PREVIEW ===================== -->
+    <section class="team-preview" aria-labelledby="team-heading">
+      <div class="container">
+        <div class="section-header section-header--split">
+          <div>
+            <div class="section-label reveal">
+              <span class="label">The Artists</span>
+            </div>
+            <h2 id="team-heading" class="display-md reveal delay-1">
+              Craft in<br/>
+              <em style="font-style:italic; color: var(--color-warm-white-dim);">skilled hands.</em>
+            </h2>
+          </div>
+          <a href="team.html" class="btn btn--ghost reveal delay-2">
+            Meet the Team <span class="btn__arrow">→</span>
+          </a>
+        </div>
+
+        <div class="team-preview__grid reveal-group">
+          <div class="team-card">
+            <div class="team-card__img">
+              <img
+                src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&auto=format&fit=crop&q=80"
+                alt="Priya Menon — Senior Stylist"
+                loading="lazy"
+              />
+              <div class="team-card__img-overlay"></div>
+              <div class="team-card__badge">
+                <span class="label" style="font-size:0.6rem;">Senior Stylist</span>
+              </div>
+            </div>
+            <div class="team-card__name">Priya Menon</div>
+            <div class="team-card__role">Hair &amp; Colour Specialist</div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-card__img">
+              <img
+                src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80"
+                alt="Arjun Kaur — Colour Director"
+                loading="lazy"
+              />
+              <div class="team-card__img-overlay"></div>
+              <div class="team-card__badge">
+                <span class="label" style="font-size:0.6rem;">Colour Director</span>
+              </div>
+            </div>
+            <div class="team-card__name">Arjun Kaur</div>
+            <div class="team-card__role">Balayage &amp; Colour</div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-card__img">
+              <img
+                src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&auto=format&fit=crop&q=80"
+                alt="Sneha Rao — Skin Expert"
+                loading="lazy"
+              />
+              <div class="team-card__img-overlay"></div>
+              <div class="team-card__badge">
+                <span class="label" style="font-size:0.6rem;">Skin Expert</span>
+              </div>
+            </div>
+            <div class="team-card__name">Sneha Rao</div>
+            <div class="team-card__role">Skincare &amp; Wellness</div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-card__img">
+              <img
+                src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&auto=format&fit=crop&q=80"
+                alt="Rohan Das — Men's Grooming"
+                loading="lazy"
+              />
+              <div class="team-card__img-overlay"></div>
+              <div class="team-card__badge">
+                <span class="label" style="font-size:0.6rem;">Grooming Specialist</span>
+              </div>
+            </div>
+            <div class="team-card__name">Rohan Das</div>
+            <div class="team-card__role">Men's Grooming</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GALLERY STRIP ===================== -->
+    <section class="gallery-strip" aria-labelledby="gallery-heading">
+      <div class="container">
+        <div class="section-header section-header--split">
+          <div>
+            <div class="section-label reveal">
+              <span class="label">Gallery</span>
+            </div>
+            <h2 id="gallery-heading" class="display-md reveal delay-1">
+              Work that<br/>
+              <em style="font-style:italic; color: var(--color-warm-white-dim);">speaks.</em>
+            </h2>
+          </div>
+          <a href="gallery.html" class="btn btn--ghost reveal delay-2">
+            View Full Gallery <span class="btn__arrow">→</span>
+          </a>
+        </div>
+
+        <div class="gallery-strip__grid">
+          <div class="gallery-strip__item reveal-scale">
+            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&auto=format&fit=crop&q=80" alt="Hair work" loading="lazy" />
+          </div>
+          <div class="gallery-strip__item reveal-scale delay-1">
+            <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&auto=format&fit=crop&q=80" alt="Colouring" loading="lazy" />
+          </div>
+          <div class="gallery-strip__item reveal-scale delay-2">
+            <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&auto=format&fit=crop&q=80" alt="Styling" loading="lazy" />
+          </div>
+          <div class="gallery-strip__item reveal-scale delay-3">
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&auto=format&fit=crop&q=80" alt="Skincare" loading="lazy" />
+          </div>
+          <div class="gallery-strip__item reveal-scale delay-4">
+            <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=700&auto=format&fit=crop&q=80" alt="Nail art" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOME CTA ===================== -->
+    <section class="home-cta" aria-label="Book appointment">
+      <div class="home-cta__bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="home-cta__eyebrow reveal">
+          <span class="label">Ready?</span>
+        </div>
+        <h2 class="home-cta__title reveal delay-1">
+          Your next visit<br/>
+          <em>begins here.</em>
+        </h2>
+        <p class="body-lg home-cta__sub reveal delay-2">
+          Book your appointment online. Walk in to a space that knows your time matters.
+        </p>
+        <div class="home-cta__buttons reveal delay-3">
+          <a href="contact.html" class="btn btn--primary">
+            Book an Appointment
+            <span class="btn__arrow">→</span>
+          </a>
+          <a href="services.html" class="btn btn--outline">
+            View Services
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <noire-footer></noire-footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/animations.js" defer></script>
+  <script src="assets/js/cursor.js" defer></script>
+
+</body>
+</html>

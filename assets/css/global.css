@@ -1,0 +1,307 @@
+/* ============================================================
+   NOIRE — Global Design System
+   TwinWaves Digital
+   ============================================================ */
+
+/* --- Google Fonts Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Playfair+Display+SC:wght@400;700&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  /* Colors */
+  --color-void:         #080807;
+  --color-surface:      #111110;
+  --color-surface-2:    #171715;
+  --color-warm-white:   #F2EAD8;
+  --color-warm-white-dim: #C8BFA8;
+  --color-gold:         #C8A96E;
+  --color-gold-muted:   #8C7040;
+  --color-gold-glow:    rgba(200, 169, 110, 0.08);
+  --color-text-dim:     #7A7468;
+  --color-border:       #242320;
+  --color-border-light: #2E2C28;
+
+  /* Typography */
+  --font-display:  'Cormorant Garamond', Georgia, serif;
+  --font-ui:       'DM Sans', sans-serif;
+  --font-numeral:  'Playfair Display SC', serif;
+
+  /* Spacing */
+  --space-xs:   0.25rem;   /* 4px  */
+  --space-sm:   0.5rem;    /* 8px  */
+  --space-md:   1rem;      /* 16px */
+  --space-lg:   1.5rem;    /* 24px */
+  --space-xl:   2rem;      /* 32px */
+  --space-2xl:  3rem;      /* 48px */
+  --space-3xl:  4.5rem;    /* 72px */
+  --space-4xl:  6rem;      /* 96px */
+  --space-5xl:  9rem;      /* 144px */
+
+  /* Layout */
+  --container-max:  1280px;
+  --container-pad:  clamp(1.25rem, 5vw, 4rem);
+  --nav-height:     72px;
+
+  /* Motion */
+  --ease-luxury:   cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo:  cubic-bezier(0.7, 0, 0.84, 0);
+  --duration-fast: 280ms;
+  --duration-med:  520ms;
+  --duration-slow: 900ms;
+  --duration-xslow: 1400ms;
+
+  /* Borders */
+  --border-thin: 1px solid var(--color-border);
+  --border-gold: 1px solid var(--color-gold-muted);
+
+  /* Z-index stack */
+  --z-base:     0;
+  --z-above:    10;
+  --z-nav:      100;
+  --z-overlay:  200;
+  --z-cursor:   9999;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-warm-white);
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none; /* custom cursor on desktop */
+}
+
+/* Restore cursor on mobile */
+@media (pointer: coarse) {
+  body { cursor: auto; }
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* --- Base Typography Scale --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 12vw, 11rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.heading-lg {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.heading-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.label {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.label-dim {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+.body-lg {
+  font-family: var(--font-ui);
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--color-warm-white-dim);
+}
+
+.body-sm {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--color-text-dim);
+}
+
+.numeral {
+  font-family: var(--font-numeral);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+/* --- Layout Utilities --- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.container--narrow {
+  max-width: 860px;
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.section {
+  padding-block: var(--space-5xl);
+}
+
+.section--sm {
+  padding-block: var(--space-3xl);
+}
+
+/* --- Gold Rule Divider --- */
+.gold-rule {
+  width: 40px;
+  height: 1px;
+  background: var(--color-gold);
+  display: block;
+}
+
+.gold-rule--full {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-gold-muted), transparent);
+  display: block;
+}
+
+/* --- Page Header (inner pages) --- */
+.page-hero {
+  padding-top: calc(var(--nav-height) + var(--space-4xl));
+  padding-bottom: var(--space-4xl);
+  border-bottom: var(--border-thin);
+}
+
+.page-hero__label {
+  margin-bottom: var(--space-lg);
+}
+
+.page-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-xl);
+}
+
+.page-hero__sub {
+  max-width: 520px;
+}
+
+/* --- Grain texture overlay --- */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+}
+
+/* --- Selection Style --- */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-void);
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-muted);
+  border-radius: 2px;
+}
+
+/* --- Focus style (accessibility) --- */
+:focus-visible {
+  outline: 1px solid var(--color-gold);
+  outline-offset: 3px;
+}

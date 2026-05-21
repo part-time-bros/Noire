@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NOIRE Services — Hair &amp; Colour, Skincare, Nail Care, Men's Grooming, Bridal packages and more. View our full service menu and pricing." />
+  <title>Services — NOIRE Salon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+
+  <style>
+    /* =====================
+       SERVICES CATEGORIES
+       ===================== */
+    .services-nav {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-top: var(--space-2xl);
+    }
+
+    /* =====================
+       SERVICE CATEGORY SECTION
+       ===================== */
+    .service-category {
+      padding-block: var(--space-4xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .service-category__header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-3xl);
+    }
+
+    .service-category__number {
+      font-family: var(--font-numeral);
+      font-size: 5rem;
+      color: var(--color-border-light);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      user-select: none;
+    }
+
+    .service-category__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.05;
+    }
+
+    .service-category__desc {
+      max-width: 420px;
+      color: var(--color-text-dim);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-top: var(--space-md);
+    }
+
+    /* =====================
+       SERVICE ITEMS LIST
+       ===================== */
+    .service-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--color-border);
+    }
+
+    .service-item {
+      background: var(--color-void);
+      padding: var(--space-xl) var(--space-2xl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xl);
+      transition: background var(--duration-fast) var(--ease-luxury);
+      position: relative;
+    }
+
+    .service-item:hover {
+      background: var(--color-surface);
+    }
+
+    .service-item__left {
+      flex: 1;
+    }
+
+    .service-item__name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--color-warm-white);
+      margin-bottom: var(--space-xs);
+    }
+
+    .service-item__detail {
+      font-size: 0.8125rem;
+      color: var(--color-text-dim);
+    }
+
+    .service-item__duration {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-size: 0.75rem;
+      color: var(--color-text-dim);
+      margin-top: var(--space-xs);
+      letter-spacing: 0.05em;
+    }
+
+    .service-item__price {
+      font-family: var(--font-numeral);
+      font-size: 1rem;
+      color: var(--color-gold);
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .service-item__price span {
+      font-size: 0.7rem;
+      color: var(--color-text-dim);
+      font-family: var(--font-ui);
+      display: block;
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 700px) {
+      .service-list {
+        grid-template-columns: 1fr;
+      }
+      .service-category__header {
+        grid-template-columns: 1fr;
+      }
+      .service-category__number {
+        font-size: 3rem;
+      }
+    }
+
+    /* =====================
+       FAQ SECTION
+       ===================== */
+    .faq {
+      padding-block: var(--space-5xl);
+    }
+
+    .faq__list {
+      margin-top: var(--space-3xl);
+      border-top: var(--border-thin);
+    }
+
+    .faq__item {
+      border-bottom: var(--border-thin);
+    }
+
+    .faq__question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-xl) 0;
+      cursor: pointer;
+      gap: var(--space-xl);
+      text-align: left;
+      transition: color var(--duration-fast) var(--ease-luxury);
+    }
+
+    .faq__question:hover {
+      color: var(--color-gold);
+    }
+
+    .faq__question-text {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2vw, 1.375rem);
+      font-weight: 400;
+      color: inherit;
+    }
+
+    .faq__icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--color-border);
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color var(--duration-fast) var(--ease-luxury),
+                  transform var(--duration-med) var(--ease-luxury);
+    }
+
+    .faq__icon::before,
+    .faq__icon::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      background: var(--color-warm-white-dim);
+    }
+
+    .faq__icon::before {
+      width: 10px;
+      height: 1px;
+    }
+
+    .faq__icon::after {
+      width: 1px;
+      height: 10px;
+      transition: transform var(--duration-med) var(--ease-luxury),
+                  opacity var(--duration-fast) var(--ease-luxury);
+    }
+
+    .faq__item.open .faq__icon {
+      border-color: var(--color-gold);
+      transform: rotate(45deg);
+    }
+
+    .faq__answer {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height var(--duration-slow) var(--ease-luxury),
+                  padding var(--duration-med) var(--ease-luxury);
+    }
+
+    .faq__item.open .faq__answer {
+      max-height: 400px;
+    }
+
+    .faq__answer-inner {
+      padding-bottom: var(--space-xl);
+      font-size: 0.9375rem;
+      color: var(--color-text-dim);
+      line-height: 1.8;
+      max-width: 680px;
+    }
+
+    /* =====================
+       BOOKING CTA STRIP
+       ===================== */
+    .book-strip {
+      background: var(--color-surface);
+      border-top: var(--border-thin);
+      border-bottom: var(--border-thin);
+      padding: var(--space-2xl) 0;
+    }
+
+    .book-strip__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xl);
+      flex-wrap: wrap;
+    }
+
+    .book-strip__text {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      font-style: italic;
+      color: var(--color-warm-white-dim);
+    }
+  </style>
+</head>
+
+<body>
+
+  <noire-nav page="services"></noire-nav>
+
+  <main>
+
+    <!-- Page Hero -->
+    <header class="page-hero" style="padding-top: calc(var(--nav-height) + var(--space-4xl));">
+      <div class="container">
+        <div class="page-hero__label">
+          <span class="label">Services</span>
+        </div>
+        <h1 class="page-hero__title reveal">
+          Every service,<br/>
+          <span style="font-style:italic; color: var(--color-warm-white-dim);">a ritual.</span>
+        </h1>
+        <p class="body-lg page-hero__sub reveal delay-1">
+          From a precise cut to a full bridal transformation — we design each service to be an experience, not a transaction.
+        </p>
+
+        <!-- Category filter tags -->
+        <div class="services-nav reveal delay-2" role="navigation" aria-label="Service categories">
+          <a href="#hair" class="tag active">Hair &amp; Colour</a>
+          <a href="#skin" class="tag">Skin &amp; Wellness</a>
+          <a href="#nails" class="tag">Nail Care</a>
+          <a href="#mens" class="tag">Men's Grooming</a>
+          <a href="#bridal" class="tag">Bridal</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================== HAIR & COLOUR ===================== -->
+    <section class="service-category" id="hair" aria-labelledby="hair-title">
+      <div class="container">
+        <div class="service-category__header">
+          <div class="reveal">
+            <div class="section-label" style="margin-bottom: var(--space-md);">
+              <span class="label">01</span>
+            </div>
+            <h2 id="hair-title" class="service-category__title">Hair &amp;<br/>Colour</h2>
+            <p class="service-category__desc">
+              Precision cuts, bespoke colour, Olaplex treatments, and keratin smoothing. Every strand treated with intention.
+            </p>
+          </div>
+          <div class="service-category__number reveal delay-2" aria-hidden="true">01</div>
+        </div>
+
+        <div class="service-list reveal-group">
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Haircut &amp; Style</div>
+              <div class="service-item__detail">Wash, cut, blowdry, finish</div>
+              <div class="service-item__duration">⏱ 60 min</div>
+            </div>
+            <div class="service-item__price">₹1,200<span>onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Balayage &amp; Highlights</div>
+              <div class="service-item__detail">Hand-painted, natural dimension</div>
+              <div class="service-item__duration">⏱ 2.5–3 hrs</div>
+            </div>
+            <div class="service-item__price">₹4,500<span>onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Global Colour</div>
+              <div class="service-item__detail">Full colour, root-to-tip</div>
+              <div class="service-item__duration">⏱ 1.5–2 hrs</div>
+            </div>
+            <div class="service-item__price">₹2,800<span>onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Olaplex Treatment</div>
+              <div class="service-item__detail">Bond-repair, deep restoration</div>
+              <div class="service-item__duration">⏱ 45 min</div>
+            </div>
+            <div class="service-item__price">₹3,200<span>per session</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Keratin Smoothing</div>
+              <div class="service-item__detail">Formaldehyde-free, 3-month result</div>
+              <div class="service-item__duration">⏱ 2.5–3 hrs</div>
+            </div>
+            <div class="service-item__price">₹5,500<span>onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Scalp Treatment &amp; Spa</div>
+              <div class="service-item__detail">Detox, nourish, scalp massage</div>
+              <div class="service-item__duration">⏱ 60 min</div>
+            </div>
+            <div class="service-item__price">₹1,800<span>per session</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SKIN & WELLNESS ===================== -->
+    <section class="service-category" id="skin" aria-labelledby="skin-title">
+      <div class="container">
+        <div class="service-category__header">
+          <div class="reveal">
+            <div class="section-label" style="margin-bottom: var(--space-md);">
+              <span class="label">02</span>
+            </div>
+            <h2 id="skin-title" class="service-category__title">Skin &amp;<br/>Wellness</h2>
+            <p class="service-category__desc">
+              Curated facials, anti-aging rituals, and wellness treatments tailored to Indian skin tones and climate.
+            </p>
+          </div>
+          <div class="service-category__number reveal delay-2" aria-hidden="true">02</div>
+        </div>
+
+        <div class="service-list reveal-group">
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Signature NOIRE Facial</div>
+              <div class="service-item__detail">Deep cleanse, mask, serum, massage</div>
+              <div class="service-item__duration">⏱ 75 min</div>
+            </div>
+            <div class="service-item__price">₹3,500<span>per session</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Anti-Aging Ritual</div>
+              <div class="service-item__detail">Collagen boost, peptide infusion</div>
+              <div class="service-item__duration">⏱ 90 min</div>
+            </div>
+            <div class="service-item__price">₹5,200<span>per session</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">De-Tan Treatment</div>
+              <div class="service-item__detail">Face + neck, brightening</div>
+              <div class="service-item__duration">⏱ 45 min</div>
+            </div>
+            <div class="service-item__price">₹1,600<span>per session</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Body Polishing</div>
+              <div class="service-item__detail">Full body scrub and moisture wrap</div>
+              <div class="service-item__duration">⏱ 90 min</div>
+            </div>
+            <div class="service-item__price">₹4,200<span>per session</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== NAILS ===================== -->
+    <section class="service-category" id="nails" aria-labelledby="nails-title">
+      <div class="container">
+        <div class="service-category__header">
+          <div class="reveal">
+            <div class="section-label" style="margin-bottom: var(--space-md);">
+              <span class="label">03</span>
+            </div>
+            <h2 id="nails-title" class="service-category__title">Nail<br/>Artistry</h2>
+            <p class="service-category__desc">
+              Gel, extensions, nail art, and luxe spa manicure-pedicure rituals for hands and feet.
+            </p>
+          </div>
+          <div class="service-category__number reveal delay-2" aria-hidden="true">03</div>
+        </div>
+
+        <div class="service-list reveal-group">
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Gel Manicure</div>
+              <div class="service-item__detail">Long-lasting gel, classic finish</div>
+              <div class="service-item__duration">⏱ 45 min</div>
+            </div>
+            <div class="service-item__price">₹900<span>per session</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Nail Extensions</div>
+              <div class="service-item__detail">Acrylic or gel, custom shape</div>
+              <div class="service-item__duration">⏱ 90 min</div>
+            </div>
+            <div class="service-item__price">₹2,400<span>onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Nail Art</div>
+              <div class="service-item__detail">Custom designs, per nail</div>
+              <div class="service-item__duration">⏱ varies</div>
+            </div>
+            <div class="service-item__price">₹200<span>per nail onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Spa Pedicure</div>
+              <div class="service-item__detail">Soak, scrub, massage, gel colour</div>
+              <div class="service-item__duration">⏱ 60 min</div>
+            </div>
+            <div class="service-item__price">₹1,400<span>per session</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MEN'S ===================== -->
+    <section class="service-category" id="mens" aria-labelledby="mens-title">
+      <div class="container">
+        <div class="service-category__header">
+          <div class="reveal">
+            <div class="section-label" style="margin-bottom: var(--space-md);">
+              <span class="label">04</span>
+            </div>
+            <h2 id="mens-title" class="service-category__title">Men's<br/>Grooming</h2>
+            <p class="service-category__desc">
+              Precision cuts, classic shaves, beard sculpting, and skin-focused grooming rituals for the modern man.
+            </p>
+          </div>
+          <div class="service-category__number reveal delay-2" aria-hidden="true">04</div>
+        </div>
+
+        <div class="service-list reveal-group">
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Precision Haircut</div>
+              <div class="service-item__detail">Cut, wash, blowdry</div>
+              <div class="service-item__duration">⏱ 45 min</div>
+            </div>
+            <div class="service-item__price">₹800<span>onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Beard Sculpting</div>
+              <div class="service-item__detail">Shape, line, finish</div>
+              <div class="service-item__duration">⏱ 30 min</div>
+            </div>
+            <div class="service-item__price">₹500<span>per session</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Classic Hot Towel Shave</div>
+              <div class="service-item__detail">Traditional straight razor, hot towel</div>
+              <div class="service-item__duration">⏱ 45 min</div>
+            </div>
+            <div class="service-item__price">₹1,200<span>per session</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Men's Facial</div>
+              <div class="service-item__detail">Deep cleanse, anti-pollution mask</div>
+              <div class="service-item__duration">⏱ 60 min</div>
+            </div>
+            <div class="service-item__price">₹2,200<span>per session</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BRIDAL ===================== -->
+    <section class="service-category" id="bridal" aria-labelledby="bridal-title">
+      <div class="container">
+        <div class="service-category__header">
+          <div class="reveal">
+            <div class="section-label" style="margin-bottom: var(--space-md);">
+              <span class="label">05</span>
+            </div>
+            <h2 id="bridal-title" class="service-category__title">Bridal &amp;<br/>Events</h2>
+            <p class="service-category__desc">
+              Complete bridal packages, pre-wedding trials, saree draping, and group bookings for your most important occasions.
+            </p>
+          </div>
+          <div class="service-category__number reveal delay-2" aria-hidden="true">05</div>
+        </div>
+
+        <div class="service-list reveal-group">
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Bridal Makeup Package</div>
+              <div class="service-item__detail">Hair + makeup + saree draping</div>
+              <div class="service-item__duration">⏱ 3–4 hrs</div>
+            </div>
+            <div class="service-item__price">₹18,000<span>onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Pre-Wedding Trial</div>
+              <div class="service-item__detail">Full trial run of bridal look</div>
+              <div class="service-item__duration">⏱ 2.5 hrs</div>
+            </div>
+            <div class="service-item__price">₹5,500<span>per session</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Mehendi Day Package</div>
+              <div class="service-item__detail">Hair styling + light makeup</div>
+              <div class="service-item__duration">⏱ 2 hrs</div>
+            </div>
+            <div class="service-item__price">₹6,500<span>onwards</span></div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-item__left">
+              <div class="service-item__name">Group Booking (4+ guests)</div>
+              <div class="service-item__detail">Hair + makeup for party members</div>
+              <div class="service-item__duration">⏱ varies</div>
+            </div>
+            <div class="service-item__price">Custom<span>on enquiry</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BOOKING STRIP ===================== -->
+    <div class="book-strip">
+      <div class="container">
+        <div class="book-strip__inner">
+          <p class="book-strip__text">
+            "Every detail considered, every visit remembered."
+          </p>
+          <a href="contact.html" class="btn btn--primary">
+            Book an Appointment <span class="btn__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="faq" aria-labelledby="faq-heading">
+      <div class="container container--narrow">
+        <div class="section-label reveal">
+          <span class="label">Questions</span>
+        </div>
+        <h2 id="faq-heading" class="display-md reveal delay-1" style="margin-bottom: 0;">
+          Frequently asked.
+        </h2>
+
+        <div class="faq__list" role="list">
+
+          <div class="faq__item reveal" role="listitem">
+            <button class="faq__question" aria-expanded="false">
+              <span class="faq__question-text">Do I need an appointment or can I walk in?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__answer">
+              <div class="faq__answer-inner">
+                We strongly recommend booking in advance, especially for colour services and weekends. Walk-ins are welcome for cuts and basic grooming if the artist is available, but we cannot guarantee a slot without a booking.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item reveal delay-1" role="listitem">
+            <button class="faq__question" aria-expanded="false">
+              <span class="faq__question-text">How early should I book for bridal services?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__answer">
+              <div class="faq__answer-inner">
+                We recommend booking bridal packages at least 8–12 weeks in advance to secure your preferred date and allow time for a pre-wedding trial. For high-season months (October–February), booking 4–6 months ahead is advised.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item reveal delay-2" role="listitem">
+            <button class="faq__question" aria-expanded="false">
+              <span class="faq__question-text">What hair and colour brands do you use?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__answer">
+              <div class="faq__answer-inner">
+                We use L'Oréal Professionnel, Olaplex, Kérastase, and Wella Professionals across our services. All products are salon-grade and chosen for their suitability with Indian hair textures and climate conditions.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item reveal delay-3" role="listitem">
+            <button class="faq__question" aria-expanded="false">
+              <span class="faq__question-text">Are your services suitable for all hair types?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__answer">
+              <div class="faq__answer-inner">
+                Absolutely. Our artists are trained to work across all hair types — straight, wavy, curly, and coily — as well as different densities and textures common in South Asian hair. We customise every service to your hair profile.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item reveal delay-4" role="listitem">
+            <button class="faq__question" aria-expanded="false">
+              <span class="faq__question-text">What is your cancellation policy?</span>
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__answer">
+              <div class="faq__answer-inner">
+                We ask for at least 24 hours notice for cancellations or rescheduling. For bridal and group bookings, a 48-hour notice period applies. You can reschedule or cancel via the contact page or by calling us directly.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <noire-footer></noire-footer>
+
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/animations.js" defer></script>
+
+  <script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq__question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.closest('.faq__item');
+        var isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq__item').forEach(function(el) {
+          el.classList.remove('open');
+          el.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
+        });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Smooth scroll for service nav tags
+    document.querySelectorAll('.services-nav a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          var offset = 88;
+          var top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+
+        // Update active tag
+        document.querySelectorAll('.services-nav .tag').forEach(function(t) {
+          t.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

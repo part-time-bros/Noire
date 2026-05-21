@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NOIRE Gallery — browse our work. Hair colour, cuts, skincare, nail art, bridal transformations and more." />
+  <title>Gallery — NOIRE Salon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+
+  <style>
+    /* =====================
+       FILTER BAR
+       ===================== */
+    .gallery-filter {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-top: var(--space-2xl);
+    }
+
+    /* =====================
+       GALLERY GRID
+       ===================== */
+    .gallery-section {
+      padding-block: var(--space-4xl);
+    }
+
+    .gallery-grid {
+      columns: 3;
+      column-gap: var(--space-sm);
+      margin-top: var(--space-3xl);
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: var(--space-sm);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      display: block;
+    }
+
+    /* Hide items not matching active filter */
+    .gallery-item.hidden {
+      display: none;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      filter: grayscale(15%);
+      transition: transform var(--duration-slow) var(--ease-luxury),
+                  filter var(--duration-med) var(--ease-luxury);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+      filter: grayscale(0%);
+    }
+
+    .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8,8,7,0.65);
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: opacity var(--duration-med) var(--ease-luxury);
+    }
+
+    .gallery-item:hover .gallery-item__overlay {
+      opacity: 1;
+    }
+
+    .gallery-item__label {
+      font-family: var(--font-ui);
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+    }
+
+    .gallery-item__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--color-warm-white);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid {
+        columns: 2;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .gallery-grid {
+        columns: 2;
+        column-gap: var(--space-xs);
+      }
+      .gallery-item {
+        margin-bottom: var(--space-xs);
+      }
+    }
+
+    /* =====================
+       LIGHTBOX
+       ===================== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(8,8,7,0.95);
+      z-index: var(--z-overlay);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--duration-med) var(--ease-luxury);
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox__inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox__img {
+      max-width: 100%;
+      max-height: 88vh;
+      object-fit: contain;
+      transform: scale(0.95);
+      transition: transform var(--duration-med) var(--ease-out-expo);
+    }
+
+    .lightbox.open .lightbox__img {
+      transform: scale(1);
+    }
+
+    .lightbox__close {
+      position: fixed;
+      top: var(--space-xl);
+      right: var(--space-xl);
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color var(--duration-fast) var(--ease-luxury);
+      background: var(--color-void);
+    }
+
+    .lightbox__close:hover {
+      border-color: var(--color-gold);
+    }
+
+    .lightbox__close::before,
+    .lightbox__close::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 1px;
+      background: var(--color-warm-white);
+    }
+
+    .lightbox__close::before { transform: rotate(45deg); }
+    .lightbox__close::after  { transform: rotate(-45deg); }
+
+    .lightbox__nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color var(--duration-fast) var(--ease-luxury);
+      background: var(--color-void);
+      font-size: 1.25rem;
+      color: var(--color-warm-white-dim);
+    }
+
+    .lightbox__nav:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+    }
+
+    .lightbox__nav--prev { left: var(--space-xl); }
+    .lightbox__nav--next { right: var(--space-xl); }
+
+    .lightbox__caption {
+      position: fixed;
+      bottom: var(--space-xl);
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .lightbox__caption-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-warm-white-dim);
+    }
+
+    .lightbox__caption-tag {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-top: var(--space-xs);
+    }
+
+    /* =====================
+       CTA
+       ===================== */
+    .gallery-cta {
+      padding: var(--space-4xl) 0;
+      border-top: var(--border-thin);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-xl);
+    }
+
+    .gallery-cta__text {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--color-warm-white-dim);
+    }
+  </style>
+</head>
+
+<body>
+
+  <noire-nav page="gallery"></noire-nav>
+
+  <main>
+
+    <!-- Page Hero -->
+    <header class="page-hero" style="padding-top: calc(var(--nav-height) + var(--space-4xl));">
+      <div class="container">
+        <div class="page-hero__label">
+          <span class="label">Gallery</span>
+        </div>
+        <h1 class="page-hero__title reveal">
+          Work that<br/>
+          <span style="font-style:italic; color: var(--color-warm-white-dim);">speaks.</span>
+        </h1>
+        <p class="body-lg page-hero__sub reveal delay-1">
+          Every image here is a real result from our studio. Browse by category, click to explore.
+        </p>
+
+        <!-- Filter -->
+        <div class="gallery-filter reveal delay-2" role="navigation" aria-label="Gallery filter">
+          <button class="tag active" data-filter="all">All Work</button>
+          <button class="tag" data-filter="hair">Hair &amp; Colour</button>
+          <button class="tag" data-filter="skin">Skincare</button>
+          <button class="tag" data-filter="nails">Nails</button>
+          <button class="tag" data-filter="bridal">Bridal</button>
+          <button class="tag" data-filter="mens">Men's</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================== GALLERY ===================== -->
+    <section class="gallery-section">
+      <div class="container">
+        <div class="gallery-grid" id="galleryGrid">
+
+          <div class="gallery-item reveal" data-category="hair" data-title="Balayage &amp; Colour" role="button" tabindex="0" aria-label="View: Balayage colour work">
+            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=700&auto=format&fit=crop&q=80" alt="Balayage hair colour" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Hair</span>
+              <span class="gallery-item__title">Balayage &amp; Colour</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-1" data-category="bridal" data-title="Bridal Transformation" role="button" tabindex="0" aria-label="View: Bridal transformation">
+            <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&auto=format&fit=crop&q=80" alt="Bridal hair and makeup" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Bridal</span>
+              <span class="gallery-item__title">Bridal Transformation</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-2" data-category="hair" data-title="Precision Cut" role="button" tabindex="0" aria-label="View: Precision cut">
+            <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&auto=format&fit=crop&q=80" alt="Precision haircut" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Hair</span>
+              <span class="gallery-item__title">Precision Cut</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-1" data-category="skin" data-title="Skincare Ritual" role="button" tabindex="0" aria-label="View: Skincare ritual">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&auto=format&fit=crop&q=80" alt="Skincare treatment" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Skin</span>
+              <span class="gallery-item__title">Skincare Ritual</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-2" data-category="nails" data-title="Nail Artistry" role="button" tabindex="0" aria-label="View: Nail artistry">
+            <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=600&auto=format&fit=crop&q=80" alt="Nail art" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Nails</span>
+              <span class="gallery-item__title">Nail Artistry</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-3" data-category="mens" data-title="Classic Shave" role="button" tabindex="0" aria-label="View: Classic shave">
+            <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&auto=format&fit=crop&q=80" alt="Men's grooming" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Men's</span>
+              <span class="gallery-item__title">Classic Shave</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-2" data-category="hair" data-title="Global Colour" role="button" tabindex="0" aria-label="View: Global colour">
+            <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&auto=format&fit=crop&q=80" alt="Hair colour" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Colour</span>
+              <span class="gallery-item__title">Global Colour</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-1" data-category="skin" data-title="Face Treatment" role="button" tabindex="0" aria-label="View: Face treatment">
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&auto=format&fit=crop&q=80" alt="Face treatment" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Skin</span>
+              <span class="gallery-item__title">Face Treatment</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-3" data-category="bridal" data-title="Bridal Hair" role="button" tabindex="0" aria-label="View: Bridal hair styling">
+            <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=600&auto=format&fit=crop&q=80" alt="Bridal styling" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Bridal</span>
+              <span class="gallery-item__title">Bridal Hair</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-2" data-category="nails" data-title="Gel Extensions" role="button" tabindex="0" aria-label="View: Gel nail extensions">
+            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&auto=format&fit=crop&q=80" alt="Gel nail extensions" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Nails</span>
+              <span class="gallery-item__title">Gel Extensions</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-1" data-category="mens" data-title="Beard Sculpt" role="button" tabindex="0" aria-label="View: Beard sculpting">
+            <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&auto=format&fit=crop&q=80" alt="Beard sculpting" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Men's</span>
+              <span class="gallery-item__title">Beard Sculpt</span>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal delay-3" data-category="hair" data-title="Keratin Treatment" role="button" tabindex="0" aria-label="View: Keratin treatment">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&auto=format&fit=crop&q=80" alt="Keratin treatment" loading="lazy" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label">Hair</span>
+              <span class="gallery-item__title">Keratin Treatment</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery CTA -->
+    <div class="container">
+      <div class="gallery-cta">
+        <p class="gallery-cta__text reveal">"Every look begins with a conversation."</p>
+        <a href="contact.html" class="btn btn--primary reveal delay-2">
+          Book an Appointment <span class="btn__arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close image viewer"></button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous image">←</button>
+    <div class="lightbox__inner">
+      <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+    </div>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next image">→</button>
+    <div class="lightbox__caption">
+      <div class="lightbox__caption-title" id="lightboxTitle"></div>
+      <div class="lightbox__caption-tag" id="lightboxTag"></div>
+    </div>
+  </div>
+
+  <noire-footer></noire-footer>
+
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/animations.js" defer></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* --- Filter Logic --- */
+      var filterBtns = document.querySelectorAll('.gallery-filter .tag');
+      var galleryItems = document.querySelectorAll('.gallery-item');
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var filter = this.getAttribute('data-filter');
+
+          // Update active button
+          filterBtns.forEach(function (b) { b.classList.remove('active'); });
+          this.classList.add('active');
+
+          // Show/hide items
+          galleryItems.forEach(function (item) {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      /* --- Lightbox Logic --- */
+      var lightbox   = document.getElementById('lightbox');
+      var lbImg      = document.getElementById('lightboxImg');
+      var lbTitle    = document.getElementById('lightboxTitle');
+      var lbTag      = document.getElementById('lightboxTag');
+      var lbClose    = document.getElementById('lightboxClose');
+      var lbPrev     = document.getElementById('lightboxPrev');
+      var lbNext     = document.getElementById('lightboxNext');
+      var currentIdx = 0;
+      var visibleItems = [];
+
+      function getVisibleItems() {
+        return Array.from(galleryItems).filter(function (item) {
+          return !item.classList.contains('hidden');
+        });
+      }
+
+      function openLightbox(idx) {
+        visibleItems = getVisibleItems();
+        if (!visibleItems.length) return;
+        currentIdx = Math.max(0, Math.min(idx, visibleItems.length - 1));
+        var item = visibleItems[currentIdx];
+        var img  = item.querySelector('img');
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        lbTitle.textContent = item.getAttribute('data-title') || '';
+        lbTag.textContent   = item.getAttribute('data-category') || '';
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function showNext() {
+        visibleItems = getVisibleItems();
+        currentIdx = (currentIdx + 1) % visibleItems.length;
+        openLightbox(currentIdx);
+      }
+
+      function showPrev() {
+        visibleItems = getVisibleItems();
+        currentIdx = (currentIdx - 1 + visibleItems.length) % visibleItems.length;
+        openLightbox(currentIdx);
+      }
+
+      // Attach open to each item
+      galleryItems.forEach(function (item, idx) {
+        item.addEventListener('click', function () {
+          visibleItems = getVisibleItems();
+          var visibleIdx = visibleItems.indexOf(item);
+          if (visibleIdx !== -1) openLightbox(visibleIdx);
+        });
+        item.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            visibleItems = getVisibleItems();
+            var visibleIdx = visibleItems.indexOf(item);
+            if (visibleIdx !== -1) openLightbox(visibleIdx);
+          }
+        });
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+      lbNext.addEventListener('click', showNext);
+      lbPrev.addEventListener('click', showPrev);
+
+      // Close on backdrop click
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      // Keyboard nav
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape')      closeLightbox();
+        if (e.key === 'ArrowRight')  showNext();
+        if (e.key === 'ArrowLeft')   showPrev();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

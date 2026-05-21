@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The story of NOIRE — a premium unisex salon in Mumbai founded on the belief that every person deserves a world-class grooming experience." />
+  <title>About — NOIRE Salon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+
+  <style>
+    /* =====================
+       ORIGIN STORY
+       ===================== */
+    .story {
+      padding-block: var(--space-5xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .story__grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-5xl);
+      align-items: start;
+    }
+
+    .story__sticky {
+      position: sticky;
+      top: calc(var(--nav-height) + var(--space-2xl));
+    }
+
+    .story__eyebrow {
+      margin-bottom: var(--space-xl);
+    }
+
+    .story__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-xl);
+    }
+
+    .story__title em {
+      font-style: italic;
+      color: var(--color-warm-white-dim);
+    }
+
+    .story__img {
+      margin-top: var(--space-2xl);
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+
+    .story__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter var(--duration-slow) var(--ease-luxury);
+    }
+
+    .story__img:hover img {
+      filter: grayscale(0%);
+    }
+
+    .story__content {
+      padding-top: var(--space-xl);
+    }
+
+    .story__paragraph {
+      font-size: 1rem;
+      color: var(--color-warm-white-dim);
+      line-height: 1.9;
+      margin-bottom: var(--space-xl);
+    }
+
+    .story__paragraph:first-child {
+      font-family: var(--font-display);
+      font-size: clamp(1.125rem, 2vw, 1.5rem);
+      color: var(--color-warm-white);
+      line-height: 1.55;
+    }
+
+    .story__pull {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-style: italic;
+      color: var(--color-warm-white-dim);
+      border-left: 2px solid var(--color-gold);
+      padding-left: var(--space-xl);
+      margin-block: var(--space-3xl);
+      line-height: 1.35;
+    }
+
+    @media (max-width: 860px) {
+      .story__grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3xl);
+      }
+      .story__sticky {
+        position: static;
+      }
+    }
+
+    /* =====================
+       VALUES SECTION
+       ===================== */
+    .values {
+      padding-block: var(--space-5xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .values__intro {
+      max-width: 640px;
+      margin-bottom: var(--space-5xl);
+    }
+
+    .values__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--color-border);
+    }
+
+    .value-card {
+      background: var(--color-void);
+      padding: var(--space-2xl);
+      transition: background var(--duration-med) var(--ease-luxury);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card:hover {
+      background: var(--color-surface);
+    }
+
+    .value-card__num {
+      font-family: var(--font-numeral);
+      font-size: 0.6875rem;
+      color: var(--color-gold-muted);
+      letter-spacing: 0.12em;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .value-card__title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--color-warm-white);
+      line-height: 1.2;
+      margin-bottom: var(--space-lg);
+    }
+
+    .value-card__text {
+      font-size: 0.875rem;
+      color: var(--color-text-dim);
+      line-height: 1.75;
+    }
+
+    .value-card__corner {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 48px;
+      height: 48px;
+      border-top: 1px solid var(--color-border-light);
+      border-left: 1px solid var(--color-border-light);
+      opacity: 0;
+      transition: opacity var(--duration-med) var(--ease-luxury);
+    }
+
+    .value-card:hover .value-card__corner {
+      opacity: 1;
+    }
+
+    @media (max-width: 800px) {
+      .values__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .values__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =====================
+       TIMELINE
+       ===================== */
+    .timeline {
+      padding-block: var(--space-5xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .timeline__list {
+      margin-top: var(--space-3xl);
+      position: relative;
+    }
+
+    .timeline__list::before {
+      content: '';
+      position: absolute;
+      left: 80px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--color-border);
+    }
+
+    .timeline__item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+      position: relative;
+    }
+
+    .timeline__item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline__year {
+      font-family: var(--font-numeral);
+      font-size: 0.8125rem;
+      color: var(--color-gold);
+      letter-spacing: 0.08em;
+      padding-top: 4px;
+      text-align: right;
+      padding-right: var(--space-2xl);
+    }
+
+    .timeline__dot {
+      position: absolute;
+      left: 76px;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+      background: var(--color-gold);
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline__content {
+      padding-bottom: var(--space-xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .timeline__item:last-child .timeline__content {
+      border-bottom: none;
+    }
+
+    .timeline__event {
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 400;
+      color: var(--color-warm-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .timeline__desc {
+      font-size: 0.875rem;
+      color: var(--color-text-dim);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    @media (max-width: 640px) {
+      .timeline__list::before {
+        left: 52px;
+      }
+      .timeline__item {
+        grid-template-columns: 52px 1fr;
+        gap: var(--space-xl);
+      }
+      .timeline__dot {
+        left: 48px;
+      }
+      .timeline__year {
+        font-size: 0.6875rem;
+        padding-right: var(--space-md);
+      }
+    }
+
+    /* =====================
+       STUDIO SECTION
+       ===================== */
+    .studio {
+      padding-block: var(--space-5xl);
+      border-bottom: var(--border-thin);
+    }
+
+    .studio__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4xl);
+      align-items: center;
+    }
+
+    .studio__images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: var(--space-sm);
+    }
+
+    .studio__img {
+      overflow: hidden;
+    }
+
+    .studio__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--duration-slow) var(--ease-luxury);
+    }
+
+    .studio__img:hover img {
+      transform: scale(1.04);
+    }
+
+    .studio__img--tall {
+      grid-row: span 2;
+      aspect-ratio: 3/4;
+    }
+
+    .studio__img--short {
+      aspect-ratio: 4/3;
+    }
+
+    .studio__content {
+      padding: var(--space-xl) 0;
+    }
+
+    .studio__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-xl);
+    }
+
+    .studio__title em {
+      font-style: italic;
+      color: var(--color-warm-white-dim);
+    }
+
+    .studio__text {
+      font-size: 0.9375rem;
+      color: var(--color-text-dim);
+      line-height: 1.8;
+      margin-bottom: var(--space-xl);
+    }
+
+    .studio__details {
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-xl);
+      border-top: var(--border-thin);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xl) var(--space-3xl);
+    }
+
+    .studio__detail-item {}
+
+    .studio__detail-label {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-xs);
+    }
+
+    .studio__detail-value {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      color: var(--color-warm-white);
+    }
+
+    @media (max-width: 860px) {
+      .studio__grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3xl);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <noire-nav page="about"></noire-nav>
+
+  <main>
+
+    <!-- Page Hero -->
+    <header class="page-hero" style="padding-top: calc(var(--nav-height) + var(--space-4xl));">
+      <div class="container">
+        <div class="page-hero__label">
+          <span class="label">About NOIRE</span>
+        </div>
+        <h1 class="page-hero__title reveal">
+          A studio built<br/>
+          <span style="font-style:italic; color: var(--color-warm-white-dim);">on belief.</span>
+        </h1>
+        <p class="body-lg page-hero__sub reveal delay-1">
+          The belief that premium salon experiences in India should feel world-class, personal, and honest.
+        </p>
+      </div>
+    </header>
+
+    <!-- ===================== STORY ===================== -->
+    <section class="story" aria-labelledby="story-heading">
+      <div class="container">
+        <div class="story__grid">
+
+          <!-- Sticky left -->
+          <div class="story__sticky">
+            <div class="story__eyebrow reveal">
+              <span class="label">Our Story</span>
+            </div>
+            <h2 id="story-heading" class="story__title reveal delay-1">
+              From a single<br/>
+              chair to a<br/>
+              <em>movement.</em>
+            </h2>
+            <div class="story__img reveal-scale delay-2">
+              <img
+                src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&auto=format&fit=crop&q=80"
+                alt="NOIRE salon interior"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Scrolling right -->
+          <div class="story__content">
+            <p class="story__paragraph reveal">
+              NOIRE began in 2019 in a modest 600-square-foot space in Bandra West, Mumbai. Founder and Creative Director Priya Menon had one conviction: that the quality of grooming services available in India's premium urban market didn't match the quality of the people seeking them.
+            </p>
+            <p class="story__paragraph reveal delay-1">
+              Indian salon-goers were well-travelled. They'd experienced Neville Daniel in London, Frédéric Fekkai in New York. They came back to Mumbai and found the gap jarring — not in the skill of Indian artists, who were exceptional, but in the experience itself. The consultation was rushed. The environment felt clinical or, at the other extreme, garish. The craft wasn't communicated.
+            </p>
+            <blockquote class="story__pull reveal delay-2">
+              "Indian clients didn't need to fly abroad for world-class hair. They needed someone to build it here."
+            </blockquote>
+            <p class="story__paragraph reveal delay-1">
+              In the first year, NOIRE operated with three stylists and a waiting list. By 2021, the studio expanded into its current 2,400-square-foot home — a space designed not to look like a salon, but to feel like a private atelier. No neon. No clutter. Deliberate light. Considered materials.
+            </p>
+            <p class="story__paragraph reveal delay-2">
+              Today, a team of 18 artists serves a client base that spans Bollywood stylists, architects, entrepreneurs, and university students. The price point is premium. The welcome is the same for everyone.
+            </p>
+            <p class="story__paragraph reveal delay-3">
+              NOIRE is not a chain. It has no ambitions to become one. We believe the moment you scale a luxury experience past its breaking point, you've lost the thing people came for.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VALUES ===================== -->
+    <section class="values" aria-labelledby="values-heading">
+      <div class="container">
+        <div class="values__intro">
+          <div class="section-label reveal">
+            <span class="label">What We Stand For</span>
+          </div>
+          <h2 id="values-heading" class="display-md reveal delay-1">
+            Six things we<br/>
+            <em style="font-style:italic; color: var(--color-warm-white-dim);">refuse to compromise.</em>
+          </h2>
+        </div>
+
+        <div class="values__grid reveal-group">
+
+          <div class="value-card">
+            <div class="value-card__num">01</div>
+            <div class="value-card__title">Honesty in Consultation</div>
+            <p class="value-card__text">We will tell you what will and won't work for your hair, skin, and lifestyle. A good result matters more to us than a large bill.</p>
+            <div class="value-card__corner" aria-hidden="true"></div>
+          </div>
+
+          <div class="value-card">
+            <div class="value-card__num">02</div>
+            <div class="value-card__title">Excellence in Craft</div>
+            <p class="value-card__text">Every artist at NOIRE has a minimum of 5 years experience and participates in quarterly training. Skill is never allowed to stagnate.</p>
+            <div class="value-card__corner" aria-hidden="true"></div>
+          </div>
+
+          <div class="value-card">
+            <div class="value-card__num">03</div>
+            <div class="value-card__title">Premium Products Only</div>
+            <p class="value-card__text">We use L'Oréal Professionnel, Olaplex, Kérastase, and Wella exclusively. No substitute products regardless of margin.</p>
+            <div class="value-card__corner" aria-hidden="true"></div>
+          </div>
+
+          <div class="value-card">
+            <div class="value-card__num">04</div>
+            <div class="value-card__title">Environment Matters</div>
+            <p class="value-card__text">The space you sit in changes how you feel about the experience. We invest in our environment with the same care we invest in training.</p>
+            <div class="value-card__corner" aria-hidden="true"></div>
+          </div>
+
+          <div class="value-card">
+            <div class="value-card__num">05</div>
+            <div class="value-card__title">Time Respect</div>
+            <p class="value-card__text">Your appointment starts on time. Your artist is prepared before you arrive. Your time is treated as the resource it is.</p>
+            <div class="value-card__corner" aria-hidden="true"></div>
+          </div>
+
+          <div class="value-card">
+            <div class="value-card__num">06</div>
+            <div class="value-card__title">Inclusive Premium</div>
+            <p class="value-card__text">NOIRE is unisex by conviction. Premium grooming is not a gendered aspiration. Every person who walks in receives the same standard of care.</p>
+            <div class="value-card__corner" aria-hidden="true"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TIMELINE ===================== -->
+    <section class="timeline" aria-labelledby="timeline-heading">
+      <div class="container container--narrow">
+        <div class="section-label reveal">
+          <span class="label">Our Journey</span>
+        </div>
+        <h2 id="timeline-heading" class="display-md reveal delay-1">
+          Seven years<br/>
+          <em style="font-style:italic; color: var(--color-warm-white-dim);">in the making.</em>
+        </h2>
+
+        <div class="timeline__list">
+
+          <div class="timeline__item reveal">
+            <div class="timeline__year">2019</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <div class="timeline__event">NOIRE Opens</div>
+              <p class="timeline__desc">Priya Menon opens the first NOIRE studio in a 600 sq ft space in Bandra West. Three stylists. A waiting list in the first month.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal delay-1">
+            <div class="timeline__year">2020</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <div class="timeline__event">Skincare Wing Added</div>
+              <p class="timeline__desc">Sneha Rao joins as Skin Lead, expanding NOIRE into facials and wellness treatments. The skincare programme becomes the studio's fastest-growing service.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal delay-2">
+            <div class="timeline__year">2021</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <div class="timeline__event">Studio Expansion</div>
+              <p class="timeline__desc">NOIRE moves into its current 2,400 sq ft home — a purpose-designed atelier with dedicated colouring stations, a wellness room, and a nail studio.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal delay-1">
+            <div class="timeline__year">2022</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <div class="timeline__event">Bridal Programme Launch</div>
+              <p class="timeline__desc">The NOIRE bridal programme launches with Kavya Sharma leading. Within six months, the bridal calendar is booked out three seasons in advance.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal delay-2">
+            <div class="timeline__year">2023</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <div class="timeline__event">Men's Grooming Studio</div>
+              <p class="timeline__desc">A dedicated men's grooming suite opens within the studio — a first in Bandra West. Rohan Das joins as Grooming Specialist.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal delay-3">
+            <div class="timeline__year">2025</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <div class="timeline__event">12,000 Clients Served</div>
+              <p class="timeline__desc">A quiet milestone. No press release. Just a number that means 12,000 people left the studio feeling like themselves — or a better version of it.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE STUDIO ===================== -->
+    <section class="studio" aria-labelledby="studio-heading">
+      <div class="container">
+        <div class="studio__grid">
+
+          <div class="studio__images">
+            <div class="studio__img studio__img--tall reveal-scale">
+              <img
+                src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=700&auto=format&fit=crop&q=80"
+                alt="NOIRE studio interior"
+                loading="lazy"
+              />
+            </div>
+            <div class="studio__img studio__img--short reveal-scale delay-1">
+              <img
+                src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&auto=format&fit=crop&q=80"
+                alt="NOIRE skincare room"
+                loading="lazy"
+              />
+            </div>
+            <div class="studio__img studio__img--short reveal-scale delay-2">
+              <img
+                src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&auto=format&fit=crop&q=80"
+                alt="NOIRE styling station"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div class="studio__content">
+            <div class="section-label reveal">
+              <span class="label">The Space</span>
+            </div>
+            <h2 id="studio-heading" class="studio__title reveal delay-1">
+              A space designed<br/>
+              for <em>attention.</em>
+            </h2>
+            <p class="studio__text reveal delay-2">
+              The NOIRE studio was designed by Mumbai-based architecture firm Studio Anagram with a single brief: remove everything that isn't necessary, and make the rest feel considered.
+            </p>
+            <p class="studio__text reveal delay-3">
+              Warm concrete, aged brass fixtures, and matte black tools. Lighting calibrated for accurate colour assessment. Each station designed for the artist's ergonomics, not just client comfort. The environment is itself a signal that what happens here is taken seriously.
+            </p>
+            <div class="studio__details reveal delay-4">
+              <div class="studio__detail-item">
+                <div class="studio__detail-label">Location</div>
+                <div class="studio__detail-value">Bandra West, Mumbai</div>
+              </div>
+              <div class="studio__detail-item">
+                <div class="studio__detail-label">Studio Size</div>
+                <div class="studio__detail-value">2,400 sq ft</div>
+              </div>
+              <div class="studio__detail-item">
+                <div class="studio__detail-label">Stations</div>
+                <div class="studio__detail-value">12 styling, 4 colour</div>
+              </div>
+              <div class="studio__detail-item">
+                <div class="studio__detail-label">Opened</div>
+                <div class="studio__detail-value">2019</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <div style="padding-block: var(--space-4xl); border-top: var(--border-thin);">
+      <div class="container">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap: var(--space-xl);">
+          <p class="reveal" style="font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight:300; font-style:italic; color: var(--color-warm-white-dim);">
+            "Come in as a visitor. Leave as a regular."
+          </p>
+          <a href="contact.html" class="btn btn--primary reveal delay-2">
+            Book an Appointment <span class="btn__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <noire-footer></noire-footer>
+
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/animations.js" defer></script>
+
+</body>
+</html>

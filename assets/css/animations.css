@@ -1,0 +1,329 @@
+/* ============================================================
+   NOIRE — Animation System
+   All keyframes + scroll-triggered reveal classes
+   TwinWaves Digital
+   ============================================================ */
+
+/* =====================
+   KEYFRAMES
+   ===================== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Clip-path reveal: right to left wipe */
+@keyframes revealWipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+/* Clip-path reveal: bottom up curtain */
+@keyframes revealUp {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Gold underline draw */
+@keyframes drawLine {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+
+/* Slow float */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* Spin slow */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Marquee scroll */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Number count in */
+@keyframes countIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero word stagger */
+@keyframes heroWord {
+  from {
+    opacity: 0;
+    transform: translateY(60px) rotate(2deg);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+    filter: blur(0);
+  }
+}
+
+/* =====================
+   SCROLL REVEAL CLASSES
+   Applied by IntersectionObserver in animations.js
+   ===================== */
+
+/* Base hidden state — elements start in this state */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--duration-slow) var(--ease-out-expo),
+              transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for children */
+.reveal-group > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-group > *:nth-child(2) { transition-delay: 80ms; }
+.reveal-group > *:nth-child(3) { transition-delay: 160ms; }
+.reveal-group > *:nth-child(4) { transition-delay: 240ms; }
+.reveal-group > *:nth-child(5) { transition-delay: 320ms; }
+.reveal-group > *:nth-child(6) { transition-delay: 400ms; }
+
+/* Clip-path wipe reveal */
+.reveal-wipe {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--duration-xslow) var(--ease-luxury);
+}
+
+.reveal-wipe.visible {
+  clip-path: inset(0 0% 0 0);
+}
+
+/* Scale reveal */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity var(--duration-slow) var(--ease-out-expo),
+              transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Slide from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity var(--duration-slow) var(--ease-out-expo),
+              transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity var(--duration-slow) var(--ease-out-expo),
+              transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Delay modifiers (combine with any reveal class) */
+.delay-1 { transition-delay: 100ms !important; }
+.delay-2 { transition-delay: 200ms !important; }
+.delay-3 { transition-delay: 300ms !important; }
+.delay-4 { transition-delay: 400ms !important; }
+.delay-5 { transition-delay: 500ms !important; }
+.delay-6 { transition-delay: 600ms !important; }
+
+/* =====================
+   MARQUEE TICKER
+   ===================== */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  border-top: var(--border-thin);
+  border-bottom: var(--border-thin);
+  padding-block: var(--space-md);
+}
+
+.marquee__track {
+  display: inline-flex;
+  gap: 0;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xl);
+  padding-right: var(--space-2xl);
+  font-family: var(--font-display);
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  font-style: italic;
+  color: var(--color-text-dim);
+  white-space: nowrap;
+}
+
+.marquee__dot {
+  width: 4px;
+  height: 4px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* =====================
+   PAGE TRANSITION
+   ===================== */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--color-void);
+  z-index: calc(var(--z-overlay) + 10);
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+/* =====================
+   LOADING STATE
+   ===================== */
+.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-gold);
+  z-index: calc(var(--z-overlay) + 20);
+  width: 0%;
+  transition: width var(--duration-med) var(--ease-out-expo);
+}
+
+/* =====================
+   HOVER LINE — for interactive elements
+   ===================== */
+.hover-line {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-line::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-med) var(--ease-luxury);
+}
+
+.hover-line:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* =====================
+   REDUCE MOTION
+   ===================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal-wipe,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
