@@ -568,6 +568,8 @@
       }
     }
   </style>
+  <!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -1153,15 +1155,26 @@
         step3Submit.textContent = 'Confirming...';
 
         // Simulate EmailJS / API call delay
-        setTimeout(function () {
-          // Update success message
-          document.getElementById('successMessage').textContent =
-            'We\'ll send a confirmation to ' + email + '. See you ' +
-            displayDate(state.date) + ' at ' + state.slot + '.';
-
-          setStep(4);
-        }, 1200);
-      });
+        emailjs.send('service_jfn9do8', 'template_o8acvm6', {
+  guest_name: name,
+  to_email:   email,
+  phone:      phone,
+  service:    state.service,
+  date:       displayDate(state.date),
+  time:       state.slot,
+  note:       document.getElementById('guestNote').value.trim()
+}, { publicKey: 'QI9DY0kf0UbwSYK14' })
+.then(function () {
+  document.getElementById('successMessage').textContent =
+    'We\'ll send a confirmation to ' + email + '. See you on ' +
+    displayDate(state.date) + ' at ' + state.slot + '.';
+  setStep(4);
+}, function (error) {
+  step3Submit.disabled = false;
+  step3Submit.textContent = 'Confirm Booking →';
+  window.NoireUtils.showToast('Something went wrong', 'Please try again or call us directly.');
+  console.error('EmailJS error:', error);
+});
 
       /* =====================
          INIT
