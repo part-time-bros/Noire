@@ -189,7 +189,7 @@ class NoireFooter extends HTMLElement {
               © ${year} <span>NOIRE</span>. All rights reserved.
             </p>
             <p class="footer__made-by">
-              Crafted by <a href="https://twinwaves.in" target="_blank" rel="noopener">TwinWaves Digital</a>
+              Crafted by <a href="https://twinwaves-digital.vercel.app" target="_blank" rel="noopener">TwinWaves Digital</a>
             </p>
           </div>
         </div>
