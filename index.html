@@ -230,52 +230,217 @@
     }
 
     /* =====================
-       STATS BAR
+       SERVICES BAND (replaces marquee)
        ===================== */
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
+    .services-band {
       border-top: var(--border-thin);
       border-bottom: var(--border-thin);
+      padding-block: var(--space-2xl);
+      overflow: hidden;
     }
 
-    .stat-item {
-      padding: var(--space-2xl) var(--space-xl);
+    .services-band__inner {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0;
+      row-gap: var(--space-sm);
+    }
+
+    .services-band__item {
+      display: inline-flex;
+      align-items: baseline;
+      gap: var(--space-lg);
+      padding-inline: var(--space-xl);
       border-right: var(--border-thin);
-      position: relative;
+      white-space: nowrap;
     }
 
-    .stat-item:last-child {
+    .services-band__item:first-child {
+      padding-left: 0;
+    }
+
+    .services-band__item:last-child {
       border-right: none;
     }
 
-    .stat-item__number {
-      font-family: var(--font-numeral);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      color: var(--color-warm-white);
+    .services-band__name {
+      font-family: var(--font-display);
+      font-weight: 300;
+      color: var(--color-warm-white-dim);
       line-height: 1;
+      transition: color var(--duration-fast) var(--ease-luxury);
+    }
+
+    .services-band__item:hover .services-band__name {
+      color: var(--color-warm-white);
+    }
+
+    /* Alternating sizes — breaks the template feel */
+    .services-band__item:nth-child(1) .services-band__name { font-size: clamp(1.5rem, 3vw, 2.5rem); font-style: italic; }
+    .services-band__item:nth-child(2) .services-band__name { font-size: clamp(0.875rem, 1.5vw, 1.125rem); letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--font-ui); font-weight: 300; }
+    .services-band__item:nth-child(3) .services-band__name { font-size: clamp(1.75rem, 3.5vw, 3rem); }
+    .services-band__item:nth-child(4) .services-band__name { font-size: clamp(0.875rem, 1.5vw, 1.125rem); letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--font-ui); font-weight: 300; }
+    .services-band__item:nth-child(5) .services-band__name { font-size: clamp(1.25rem, 2.5vw, 2rem); font-style: italic; }
+    .services-band__item:nth-child(6) .services-band__name { font-size: clamp(0.875rem, 1.5vw, 1.125rem); letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--font-ui); font-weight: 300; }
+
+    .services-band__num {
+      font-family: var(--font-numeral);
+      font-size: 0.6rem;
+      color: var(--color-gold-muted);
+      letter-spacing: 0.1em;
+      align-self: flex-start;
+      padding-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .services-band__inner {
+        gap: var(--space-sm);
+        row-gap: var(--space-md);
+      }
+      .services-band__item {
+        padding-inline: var(--space-md);
+      }
+      .services-band__item:nth-child(1) .services-band__name { font-size: 1.5rem; }
+      .services-band__item:nth-child(3) .services-band__name { font-size: 1.625rem; }
+      .services-band__item:nth-child(5) .services-band__name { font-size: 1.25rem; }
+    }
+
+    /* =====================
+       EDITORIAL NUMBERS (replaces stats bar)
+       ===================== */
+    .editorial-numbers {
+      border-top: var(--border-thin);
+      border-bottom: var(--border-thin);
+      padding-block: var(--space-4xl);
+    }
+
+    .editorial-numbers__inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 0;
+    }
+
+    .en-cell {
+      padding: var(--space-xl) var(--space-2xl);
+      border-right: var(--border-thin);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+    }
+
+    .en-cell:first-child {
+      padding-left: 0;
+    }
+
+    .en-cell:last-child {
+      border-right: none;
+    }
+
+    /* Featured cell — spans 2 rows on right */
+    .en-cell--featured {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      min-height: auto;
+      padding-bottom: var(--space-2xl);
+      border-bottom: none;
+    }
+
+    .en-cell--sm {
+      min-height: 120px;
+    }
+
+    .en-cell--sm:nth-child(3) {
+      border-bottom: var(--border-thin);
+    }
+
+    .en-cell__index {
+      font-family: var(--font-numeral);
+      font-size: 0.6rem;
+      color: var(--color-gold-muted);
+      letter-spacing: 0.15em;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .en-cell__number {
+      font-family: var(--font-display);
+      font-weight: 300;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--color-warm-white);
+    }
+
+    .en-cell--featured .en-cell__number {
+      font-size: clamp(5rem, 11vw, 10rem);
+      margin-bottom: var(--space-lg);
+    }
+
+    .en-cell--sm .en-cell__number {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+    }
+
+    .en-cell__context {
+      margin-top: auto;
+    }
+
+    .en-cell__label {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.8vw, 1.375rem);
+      font-weight: 400;
+      color: var(--color-warm-white-dim);
+      line-height: 1.3;
       margin-bottom: var(--space-sm);
-      letter-spacing: -0.02em;
     }
 
-    .stat-item__label {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .en-cell__sub {
+      font-size: 0.8125rem;
       color: var(--color-text-dim);
+      line-height: 1.6;
+      max-width: 240px;
     }
 
-    @media (max-width: 600px) {
-      .stats-bar {
+    @media (max-width: 768px) {
+      .editorial-numbers__inner {
         grid-template-columns: 1fr 1fr;
       }
-      .stat-item:nth-child(2) {
+      .en-cell--featured {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+        min-height: auto;
+        border-right: none;
+        border-bottom: var(--border-thin);
+        padding-bottom: var(--space-2xl);
+        padding-left: 0;
+      }
+      .en-cell--sm {
+        min-height: 140px;
+      }
+      .en-cell--sm:nth-child(3) {
+        border-right: var(--border-thin);
+      }
+      .en-cell--sm:last-child {
         border-right: none;
       }
-      .stat-item:nth-child(3),
-      .stat-item:nth-child(4) {
-        border-top: var(--border-thin);
+    }
+
+    @media (max-width: 480px) {
+      .editorial-numbers__inner {
+        grid-template-columns: 1fr;
+      }
+      .en-cell {
+        border-right: none;
+        border-bottom: var(--border-thin);
+        padding-left: 0;
+      }
+      .en-cell--featured {
+        grid-column: 1;
+      }
+      .en-cell--sm:nth-child(3) {
+        border-right: none;
+      }
+      .en-cell:last-child {
+        border-bottom: none;
       }
     }
 
@@ -657,26 +822,42 @@
       </div>
     </section>
 
-    <!-- ===================== MARQUEE ===================== -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <!-- Items duplicated for seamless loop -->
-        <span class="marquee__item">Hair &amp; Colour<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Skincare Rituals<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Nail Artistry<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Bridal Packages<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Men's Grooming<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Wellness &amp; Spa<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Keratin Treatments<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Scalp Therapy<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Hair &amp; Colour<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Skincare Rituals<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Nail Artistry<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Bridal Packages<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Men's Grooming<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Wellness &amp; Spa<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Keratin Treatments<span class="marquee__dot"></span></span>
-        <span class="marquee__item">Scalp Therapy<span class="marquee__dot"></span></span>
+    <!-- ===================== SERVICES BAND ===================== -->
+    <div class="services-band" aria-label="Our services">
+      <div class="container">
+        <div class="services-band__inner">
+
+          <a href="services.html#hair" class="services-band__item reveal">
+            <span class="services-band__num">01</span>
+            <span class="services-band__name">Hair &amp; Colour</span>
+          </a>
+
+          <a href="services.html#skin" class="services-band__item reveal delay-1">
+            <span class="services-band__num">02</span>
+            <span class="services-band__name">Skincare</span>
+          </a>
+
+          <a href="services.html#nails" class="services-band__item reveal delay-2">
+            <span class="services-band__num">03</span>
+            <span class="services-band__name">Nail Artistry</span>
+          </a>
+
+          <a href="services.html#mens" class="services-band__item reveal delay-3">
+            <span class="services-band__num">04</span>
+            <span class="services-band__name">Men's Grooming</span>
+          </a>
+
+          <a href="services.html#bridal" class="services-band__item reveal delay-4">
+            <span class="services-band__num">05</span>
+            <span class="services-band__name">Bridal &amp; Events</span>
+          </a>
+
+          <a href="services.html" class="services-band__item reveal delay-5">
+            <span class="services-band__num">06</span>
+            <span class="services-band__name">Wellness</span>
+          </a>
+
+        </div>
       </div>
     </div>
 
@@ -690,37 +871,80 @@
           <a href="about.html" class="btn btn--ghost">
             Our Story <span class="btn__arrow">→</span>
           </a>
-          <div class="stats-bar reveal delay-3" style="flex:1; margin-left: var(--space-4xl); max-width: 600px;">
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== STATS ===================== -->
-    <div class="stats-bar reveal">
-      <div class="stat-item">
-        <div class="stat-item__number">
-          <span data-counter="7" data-suffix="+">0+</span>
+    <!-- ===================== EDITORIAL NUMBERS ===================== -->
+    <div class="editorial-numbers" aria-label="Studio in numbers">
+      <div class="container">
+        <div class="editorial-numbers__inner">
+
+          <!-- Featured: Years -->
+          <div class="en-cell en-cell--featured reveal">
+            <div class="en-cell__index">01 — Est. 2019</div>
+            <div>
+              <div class="en-cell__number">
+                <span data-counter="7" data-suffix="+">0+</span>
+              </div>
+              <div class="en-cell__context">
+                <div class="en-cell__label">Years of<br/>uncompromising craft.</div>
+                <p class="en-cell__sub">Since 2019, NOIRE has operated on one rule: never let standards slip to meet demand.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clients -->
+          <div class="en-cell en-cell--sm reveal delay-1">
+            <div class="en-cell__index">02</div>
+            <div>
+              <div class="en-cell__number">
+                <span data-counter="12000" data-suffix="+">0+</span>
+              </div>
+              <div class="en-cell__context">
+                <div class="en-cell__label">Clients who trusted us.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services -->
+          <div class="en-cell en-cell--sm reveal delay-2">
+            <div class="en-cell__index">03</div>
+            <div>
+              <div class="en-cell__number">
+                <span data-counter="30" data-suffix="+">0+</span>
+              </div>
+              <div class="en-cell__context">
+                <div class="en-cell__label">Services. One address.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Artists -->
+          <div class="en-cell en-cell--sm reveal delay-3">
+            <div class="en-cell__index">04</div>
+            <div>
+              <div class="en-cell__number">
+                <span data-counter="18" data-suffix="">0</span>
+              </div>
+              <div class="en-cell__context">
+                <div class="en-cell__label">Resident artists.</div>
+                <p class="en-cell__sub">Each selected for mastery and care, not just availability.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Philosophy cell -->
+          <div class="en-cell en-cell--sm reveal delay-4" style="border-right:none;">
+            <div class="en-cell__index">—</div>
+            <div>
+              <div class="en-cell__label" style="font-style:italic; font-size: clamp(1rem, 2vw, 1.5rem); color: var(--color-text-dim); line-height:1.4;">
+                "A number that only means something<br/>if the person behind it felt it."
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="stat-item__label">Years of Craft</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-item__number">
-          <span data-counter="12000" data-suffix="+">0+</span>
-        </div>
-        <div class="stat-item__label">Happy Clients</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-item__number">
-          <span data-counter="18" data-suffix="">0</span>
-        </div>
-        <div class="stat-item__label">Expert Artists</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-item__number">
-          <span data-counter="30" data-suffix="+">0+</span>
-        </div>
-        <div class="stat-item__label">Services Offered</div>
       </div>
     </div>
 

@@ -719,6 +719,7 @@
                   autocomplete="name"
                   required
                 />
+                <span class="form-error" id="guestName-error" aria-live="polite"></span>
               </div>
               <div class="form-group">
                 <label class="form-label" for="guestPhone">Mobile Number</label>
@@ -731,6 +732,7 @@
                   autocomplete="tel"
                   required
                 />
+                <span class="form-error" id="guestPhone-error" aria-live="polite"></span>
               </div>
               <div class="form-group">
                 <label class="form-label" for="guestEmail">Email Address</label>
@@ -743,9 +745,13 @@
                   autocomplete="email"
                   required
                 />
+                <span class="form-error" id="guestEmail-error" aria-live="polite"></span>
               </div>
               <div class="form-group">
-                <label class="form-label" for="guestNote">Special Request (optional)</label>
+                <label class="form-label" for="guestNote">
+                  Special Request
+                  <span style="color: var(--color-text-dim); font-weight:300; margin-left: 0.4em;">(optional)</span>
+                </label>
                 <textarea
                   class="form-input"
                   id="guestNote"
@@ -1124,57 +1130,97 @@
         var phone = document.getElementById('guestPhone').value.trim();
         var email = document.getElementById('guestEmail').value.trim();
 
-        // Basic validation
+        /* --- Inline error helpers --- */
+        function setError(id, msg) {
+          var input = document.getElementById(id);
+          var errEl = document.getElementById(id + '-error');
+          input.classList.add('form-input--error');
+          if (errEl) errEl.textContent = msg;
+        }
+
+        function clearError(id) {
+          var input = document.getElementById(id);
+          var errEl = document.getElementById(id + '-error');
+          input.classList.remove('form-input--error');
+          if (errEl) errEl.textContent = '';
+        }
+
+        /* --- Clear errors on input change --- */
+        ['guestName', 'guestPhone', 'guestEmail'].forEach(function (id) {
+          document.getElementById(id).addEventListener('input', function () {
+            clearError(id);
+          }, { once: true });
+        });
+
+        /* --- Validate --- */
         var valid = true;
 
         if (!name) {
-          document.getElementById('guestName').classList.add('form-input--error');
+          setError('guestName', 'Please enter your full name.');
           valid = false;
         } else {
-          document.getElementById('guestName').classList.remove('form-input--error');
+          clearError('guestName');
         }
 
-        if (!window.NoireUtils || !window.NoireUtils.isValidPhone(phone)) {
-          document.getElementById('guestPhone').classList.add('form-input--error');
+        if (!phone || !window.NoireUtils.isValidPhone(phone)) {
+          setError('guestPhone', !phone
+            ? 'Please enter your mobile number.'
+            : 'Enter a valid Indian mobile number (e.g. +91 98765 43210).'
+          );
           valid = false;
         } else {
-          document.getElementById('guestPhone').classList.remove('form-input--error');
+          clearError('guestPhone');
         }
 
-        if (!window.NoireUtils || !window.NoireUtils.isValidEmail(email)) {
-          document.getElementById('guestEmail').classList.add('form-input--error');
+        if (!email || !window.NoireUtils.isValidEmail(email)) {
+          setError('guestEmail', !email
+            ? 'Please enter your email address.'
+            : 'Enter a valid email address (e.g. you@email.com).'
+          );
           valid = false;
         } else {
-          document.getElementById('guestEmail').classList.remove('form-input--error');
+          clearError('guestEmail');
         }
 
-        if (!valid) return;
+        if (!valid) {
+          // Scroll to first error
+          var firstError = document.querySelector('.form-input--error');
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError.focus();
+          }
+          return;
+        }
 
         // Disable button and show loading
         step3Submit.disabled = true;
         step3Submit.textContent = 'Confirming...';
 
-        // Simulate EmailJS / API call delay
-        emailjs.send('service_jfn9do8', 'template_o8acvm6', {
-  guest_name: name,
-  to_email:   email,
-  phone:      phone,
-  service:    state.service,
-  date:       displayDate(state.date),
-  time:       state.slot,
-  note:       document.getElementById('guestNote').value.trim()
-}, { publicKey: 'QI9DY0kf0UbwSYK14' })
-.then(function () {
-  document.getElementById('successMessage').textContent =
-    'We\'ll send a confirmation to ' + email + '. See you on ' +
-    displayDate(state.date) + ' at ' + state.slot + '.';
-  setStep(4);
-}, function (error) {
-  step3Submit.disabled = false;
-  step3Submit.textContent = 'Confirm Booking →';
-  window.NoireUtils.showToast('Something went wrong', 'Please try again or call us directly.');
-  console.error('EmailJS error:', error);
-});
+        // Send booking via EmailJS
+        emailjs.send(
+          'service_jfn9do8',
+          'template_o8acvm6',
+          {
+            guest_name: name,
+            to_email:   email,
+            phone:      phone,
+            service:    state.service,
+            date:       displayDate(state.date),
+            time:       state.slot,
+            note:       document.getElementById('guestNote').value.trim()
+          },
+          { publicKey: 'QI9DY0kf0UbwSYK14' }
+        ).then(function () {
+          document.getElementById('successMessage').textContent =
+            'We\'ll send a confirmation to ' + email + '. See you on ' +
+            displayDate(state.date) + ' at ' + state.slot + '.';
+          setStep(4);
+        }, function (error) {
+          step3Submit.disabled = false;
+          step3Submit.textContent = 'Confirm Booking →';
+          window.NoireUtils.showToast('Something went wrong', 'Please try again or call us directly.');
+          console.error('EmailJS error:', error);
+        });
 
     });
       /* =====================
