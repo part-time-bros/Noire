@@ -189,7 +189,7 @@ class NoireFooter extends HTMLElement {
               © ${year} <span>NOIRE</span>. All rights reserved.
             </p>
             <p class="footer__made-by">
-              Crafted by <a href="https://twinwaves-digital.vercel.app" target="_blank" rel="noopener">TwinWaves Digital</a>
+              Crafted by <a href="https://twinwaves.in" target="_blank" rel="noopener">TwinWaves Digital</a>
             </p>
           </div>
         </div>
@@ -203,3 +203,156 @@ class NoireFooter extends HTMLElement {
    ===================== */
 customElements.define('noire-nav', NoireNav);
 customElements.define('noire-footer', NoireFooter);
+
+/* =====================
+   WHATSAPP BUTTON
+   Injected on every page automatically
+   ===================== */
+function initWhatsApp() {
+  // Don't add if already exists
+  if (document.querySelector('.wa-btn')) return;
+
+  var btn = document.createElement('a');
+  btn.className = 'wa-btn';
+  btn.href = 'https://wa.me/912234567890?text=Hi%20NOIRE!%20I%27d%20like%20to%20book%20an%20appointment.';
+  btn.target = '_blank';
+  btn.rel = 'noopener noreferrer';
+  btn.setAttribute('aria-label', 'Chat with us on WhatsApp');
+  btn.innerHTML = `
+    <span class="wa-btn__label">Chat with us</span>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  `;
+
+  document.body.appendChild(btn);
+}
+
+/* =====================
+   PRELOADER
+   Shows NOIRE wordmark on first session visit only
+   ===================== */
+function initPreloader() {
+  // Only show once per session
+  if (sessionStorage.getItem('noire_visited')) return;
+  sessionStorage.setItem('noire_visited', '1');
+
+  // Don't show if user prefers reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var preloader = document.createElement('div');
+  preloader.className = 'preloader';
+  preloader.setAttribute('aria-hidden', 'true');
+  preloader.innerHTML = `
+    <div class="preloader__wordmark">NOIRE</div>
+    <div class="preloader__line"></div>
+  `;
+
+  document.body.appendChild(preloader);
+  document.body.style.overflow = 'hidden';
+
+  // Trigger entry animation
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      preloader.classList.add('ready');
+    });
+  });
+
+  // Exit after 1.6s
+  setTimeout(function () {
+    preloader.classList.add('exit');
+
+    // Wait for exit animation, then apply final clip-path
+    setTimeout(function () {
+      preloader.classList.add('exit-done');
+    }, 200);
+
+    // Remove from DOM after animation completes
+    setTimeout(function () {
+      if (preloader.parentNode) {
+        preloader.parentNode.removeChild(preloader);
+      }
+      document.body.style.overflow = '';
+    }, 900);
+  }, 1600);
+}
+
+/* =====================
+   PAGE TRANSITIONS
+   Black curtain wipes in on link click, page loads, curtain exits
+   ===================== */
+function initPageTransitions() {
+  // Don't run if reduced motion preferred
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Create curtain element
+  var curtain = document.createElement('div');
+  curtain.className = 'page-curtain';
+  curtain.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(curtain);
+
+  // On page load — if arriving via transition, exit the curtain
+  var arriving = sessionStorage.getItem('noire_transitioning');
+  if (arriving) {
+    sessionStorage.removeItem('noire_transitioning');
+    curtain.classList.add('in');
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        curtain.style.transition = 'transform 480ms var(--ease-out-expo)';
+        curtain.style.transform = 'translateY(-100%)';
+      });
+    });
+    setTimeout(function () {
+      curtain.style.transform = '';
+      curtain.style.transition = '';
+      curtain.classList.remove('in');
+    }, 520);
+  }
+
+  // Intercept internal link clicks
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href]');
+    if (!link) return;
+
+    var href = link.getAttribute('href');
+    if (!href) return;
+
+    // Only internal .html links
+    var isInternal = !href.startsWith('http') &&
+                     !href.startsWith('//') &&
+                     !href.startsWith('mailto') &&
+                     !href.startsWith('tel') &&
+                     !href.startsWith('#') &&
+                     !href.startsWith('wa.me') &&
+                     (href.endsWith('.html') || href === '/');
+
+    if (!isInternal) return;
+    if (link.target === '_blank') return;
+
+    e.preventDefault();
+
+    // Curtain sweeps in from bottom
+    curtain.classList.add('in');
+    sessionStorage.setItem('noire_transitioning', '1');
+
+    setTimeout(function () {
+      window.location.href = href;
+    }, 420);
+  });
+}
+
+/* =====================
+   GLOBAL INIT
+   Runs on every page after DOM is ready
+   ===================== */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function () {
+    initWhatsApp();
+    initPreloader();
+    initPageTransitions();
+  });
+} else {
+  initWhatsApp();
+  initPreloader();
+  initPageTransitions();
+}
