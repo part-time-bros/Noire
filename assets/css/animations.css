@@ -253,16 +253,8 @@
 }
 
 /* =====================
-   PAGE TRANSITION
+   PAGE TRANSITION — see components.css .page-curtain
    ===================== */
-.page-transition {
-  position: fixed;
-  inset: 0;
-  background: var(--color-void);
-  z-index: calc(var(--z-overlay) + 10);
-  transform: translateY(100%);
-  pointer-events: none;
-}
 
 /* =====================
    LOADING STATE
