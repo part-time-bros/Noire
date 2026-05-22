@@ -279,21 +279,44 @@ function initPreloader() {
 
 /* =====================
    PAGE TRANSITIONS
-   Black curtain wipes in on link click, page loads, curtain exits
+   Black curtain wipes in on link click, page loads, curtain exits.
+
+   BFCACHE FIX: Browser back/forward gestures restore pages from memory
+   (bfcache) without firing DOMContentLoaded. The pageshow event with
+   event.persisted=true is the only reliable hook for this case.
    ===================== */
 function initPageTransitions() {
-  // Don't run if reduced motion preferred
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // Create curtain element
   var curtain = document.createElement('div');
   curtain.className = 'page-curtain';
   curtain.setAttribute('aria-hidden', 'true');
   document.body.appendChild(curtain);
 
-  // On page load — if arriving via transition, exit the curtain
-  var arriving = sessionStorage.getItem('noire_transitioning');
-  if (arriving) {
+  /* ── BFCACHE RESTORE (back/forward gesture) ──────────────────────────
+     When the user swipes back, the browser restores the page from memory.
+     DOMContentLoaded does NOT fire. The curtain may be stuck in `.in`
+     state from when the user last left this page. Reset it instantly.
+  ─────────────────────────────────────────────────────────────────────── */
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+      // Kill transition so reset is instant — no animation
+      curtain.style.transition = 'none';
+      curtain.classList.remove('in');
+      curtain.style.transform = '';
+      document.body.style.overflow = '';
+      sessionStorage.removeItem('noire_transitioning');
+      // Force reflow, then restore transition property for future use
+      void curtain.offsetHeight;
+      curtain.style.transition = '';
+    }
+  });
+
+  /* ── ARRIVING via forward link transition ────────────────────────────
+     Standard page load after a link click. Curtain comes in from bottom
+     on previous page, then exits upward on new page.
+  ─────────────────────────────────────────────────────────────────────── */
+  if (sessionStorage.getItem('noire_transitioning')) {
     sessionStorage.removeItem('noire_transitioning');
     curtain.classList.add('in');
     requestAnimationFrame(function () {
@@ -306,10 +329,13 @@ function initPageTransitions() {
       curtain.style.transform = '';
       curtain.style.transition = '';
       curtain.classList.remove('in');
+      document.body.style.overflow = '';
     }, 520);
   }
 
-  // Intercept internal link clicks
+  /* ── LEAVING via link click ──────────────────────────────────────────
+     Intercept internal anchor clicks, animate curtain in, then navigate.
+  ─────────────────────────────────────────────────────────────────────── */
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a[href]');
     if (!link) return;
@@ -317,7 +343,6 @@ function initPageTransitions() {
     var href = link.getAttribute('href');
     if (!href) return;
 
-    // Only internal .html links
     var isInternal = !href.startsWith('http') &&
                      !href.startsWith('//') &&
                      !href.startsWith('mailto') &&
@@ -330,14 +355,24 @@ function initPageTransitions() {
     if (link.target === '_blank') return;
 
     e.preventDefault();
-
-    // Curtain sweeps in from bottom
     curtain.classList.add('in');
     sessionStorage.setItem('noire_transitioning', '1');
 
     setTimeout(function () {
       window.location.href = href;
     }, 420);
+  });
+
+  /* ── CLEANUP on pagehide ─────────────────────────────────────────────
+     Clear the transitioning flag if the user navigates away by any means
+     other than our link intercept (e.g. address bar). Prevents orphaned
+     flags causing curtain to show on unrelated page loads.
+  ─────────────────────────────────────────────────────────────────────── */
+  window.addEventListener('pagehide', function (event) {
+    // Only clear if NOT entering bfcache (i.e. a real unload)
+    if (!event.persisted) {
+      sessionStorage.removeItem('noire_transitioning');
+    }
   });
 }
 
