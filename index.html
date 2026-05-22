@@ -261,95 +261,118 @@
     }
 
     /* =====================
-       SERVICES BAND (replaces marquee)
+       SERVICES GRID (3-col editorial)
        ===================== */
-    .services-band {
+    .services-grid-band {
       background: var(--color-surface);
       padding-block: var(--space-2xl);
     }
 
-    .services-band__inner {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
+    .services-grid-band__inner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 0;
-      row-gap: var(--space-sm);
     }
 
-    .services-band__item {
-      display: inline-flex;
-      align-items: baseline;
-      gap: var(--space-lg);
-      padding-inline: var(--space-xl);
+    .services-grid-col {
       border-right: var(--border-thin);
-      white-space: nowrap;
+      display: flex;
+      flex-direction: column;
     }
 
-    .services-band__item:first-child {
-      padding-left: 0;
-    }
-
-    .services-band__item:last-child {
+    .services-grid-col:last-child {
       border-right: none;
     }
 
-    .services-band__name {
+    .services-grid-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-lg) var(--space-xl);
+      border-bottom: var(--border-thin);
+      text-decoration: none;
+      transition: background var(--duration-fast) var(--ease-luxury);
+      position: relative;
+    }
+
+    .services-grid-item:last-child {
+      border-bottom: none;
+    }
+
+    .services-grid-item:hover {
+      background: rgba(200, 169, 110, 0.04);
+    }
+
+    .services-grid-item__num {
+      font-family: var(--font-numeral);
+      font-size: 0.5625rem;
+      color: var(--color-gold-muted);
+      letter-spacing: 0.12em;
+      flex-shrink: 0;
+      width: 16px;
+    }
+
+    .services-grid-item__name {
       font-family: var(--font-display);
-      font-weight: 300;
+      font-size: clamp(1rem, 1.6vw, 1.375rem);
+      font-weight: 400;
       color: var(--color-warm-white-dim);
-      line-height: 1;
+      line-height: 1.2;
       transition: color var(--duration-fast) var(--ease-luxury);
     }
 
-    .services-band__item:hover .services-band__name {
+    /* Odd items roman, even items italic — subtle variation without chaos */
+    .services-grid-item:nth-child(odd) .services-grid-item__name {
+      font-style: italic;
+    }
+
+    .services-grid-item:hover .services-grid-item__name {
       color: var(--color-warm-white);
     }
 
-    /* Alternating sizes — breaks the template feel */
-    .services-band__item:nth-child(1) .services-band__name { font-size: clamp(1.5rem, 3vw, 2.5rem); font-style: italic; }
-    .services-band__item:nth-child(2) .services-band__name { font-size: clamp(0.875rem, 1.5vw, 1.125rem); letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--font-ui); font-weight: 300; }
-    .services-band__item:nth-child(3) .services-band__name { font-size: clamp(1.75rem, 3.5vw, 3rem); }
-    .services-band__item:nth-child(4) .services-band__name { font-size: clamp(0.875rem, 1.5vw, 1.125rem); letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--font-ui); font-weight: 300; }
-    .services-band__item:nth-child(5) .services-band__name { font-size: clamp(1.25rem, 2.5vw, 2rem); font-style: italic; }
-    .services-band__item:nth-child(6) .services-band__name { font-size: clamp(0.875rem, 1.5vw, 1.125rem); letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--font-ui); font-weight: 300; }
-
-    .services-band__num {
-      font-family: var(--font-numeral);
-      font-size: 0.6rem;
-      color: var(--color-gold-muted);
-      letter-spacing: 0.1em;
-      align-self: flex-start;
-      padding-top: 4px;
+    /* Arrow — appears on hover */
+    .services-grid-item::after {
+      content: '→';
+      position: absolute;
+      right: var(--space-xl);
+      font-size: 0.75rem;
+      color: var(--color-gold);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity var(--duration-fast) var(--ease-luxury),
+                  transform var(--duration-fast) var(--ease-luxury);
     }
 
-    /* Mobile: horizontal scroll — no wrapping */
-    @media (max-width: 768px) {
-      .services-band {
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding-block: var(--space-xl);
-      }
+    .services-grid-item:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
 
-      .services-band::-webkit-scrollbar {
-        display: none;
+    /* Tablet 640–900px: stays 3-col, font scales */
+    @media (max-width: 900px) {
+      .services-grid-item {
+        padding: var(--space-md) var(--space-lg);
       }
+    }
 
-      .services-band .container {
-        padding-inline: var(--container-pad);
-        max-width: none;
-        width: auto;
+    /* Mobile ≤640px: 1-col list, all items flat */
+    @media (max-width: 640px) {
+      .services-grid-band__inner {
+        grid-template-columns: 1fr;
       }
-
-      .services-band__inner {
-        flex-wrap: nowrap;
-        width: max-content;
-        padding-right: var(--container-pad);
+      .services-grid-col {
+        border-right: none;
+        border-bottom: var(--border-thin);
       }
-
-      .services-band__item {
-        padding-inline: var(--space-lg);
+      .services-grid-col:last-child {
+        border-bottom: none;
+      }
+      .services-grid-item {
+        border-bottom: none;
+        padding: var(--space-md) 0;
+      }
+      .services-grid-item__name {
+        font-size: 1.125rem;
       }
     }
 
@@ -871,40 +894,46 @@
       </div>
     </section>
 
-    <!-- ===================== SERVICES BAND ===================== -->
-    <div class="services-band" aria-label="Our services">
+    <!-- ===================== SERVICES GRID BAND ===================== -->
+    <div class="services-grid-band" aria-label="Our services">
       <div class="container">
-        <div class="services-band__inner">
+        <div class="services-grid-band__inner">
 
-          <a href="services.html#hair" class="services-band__item reveal">
-            <span class="services-band__num">01</span>
-            <span class="services-band__name">Hair &amp; Colour</span>
-          </a>
+          <!-- Column 1 -->
+          <div class="services-grid-col">
+            <a href="services.html#hair" class="services-grid-item reveal">
+              <span class="services-grid-item__num">01</span>
+              <span class="services-grid-item__name">Hair &amp; Colour</span>
+            </a>
+            <a href="services.html#skin" class="services-grid-item reveal delay-1">
+              <span class="services-grid-item__num">02</span>
+              <span class="services-grid-item__name">Skincare</span>
+            </a>
+          </div>
 
-          <a href="services.html#skin" class="services-band__item reveal delay-1">
-            <span class="services-band__num">02</span>
-            <span class="services-band__name">Skincare</span>
-          </a>
+          <!-- Column 2 -->
+          <div class="services-grid-col">
+            <a href="services.html#nails" class="services-grid-item reveal delay-1">
+              <span class="services-grid-item__num">03</span>
+              <span class="services-grid-item__name">Nail Artistry</span>
+            </a>
+            <a href="services.html#mens" class="services-grid-item reveal delay-2">
+              <span class="services-grid-item__num">04</span>
+              <span class="services-grid-item__name">Men's Grooming</span>
+            </a>
+          </div>
 
-          <a href="services.html#nails" class="services-band__item reveal delay-2">
-            <span class="services-band__num">03</span>
-            <span class="services-band__name">Nail Artistry</span>
-          </a>
-
-          <a href="services.html#mens" class="services-band__item reveal delay-3">
-            <span class="services-band__num">04</span>
-            <span class="services-band__name">Men's Grooming</span>
-          </a>
-
-          <a href="services.html#bridal" class="services-band__item reveal delay-4">
-            <span class="services-band__num">05</span>
-            <span class="services-band__name">Bridal &amp; Events</span>
-          </a>
-
-          <a href="services.html" class="services-band__item reveal delay-5">
-            <span class="services-band__num">06</span>
-            <span class="services-band__name">Wellness</span>
-          </a>
+          <!-- Column 3 -->
+          <div class="services-grid-col">
+            <a href="services.html#bridal" class="services-grid-item reveal delay-2">
+              <span class="services-grid-item__num">05</span>
+              <span class="services-grid-item__name">Bridal &amp; Events</span>
+            </a>
+            <a href="services.html" class="services-grid-item reveal delay-3">
+              <span class="services-grid-item__num">06</span>
+              <span class="services-grid-item__name">Wellness</span>
+            </a>
+          </div>
 
         </div>
       </div>
