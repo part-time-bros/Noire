@@ -287,6 +287,103 @@
       </div>
     </header>
 
+    <!-- ===================== BEFORE / AFTER ===================== -->
+    <section class="ba-section" aria-labelledby="ba-heading">
+      <div class="container">
+        <div class="section-header section-header--split">
+          <div>
+            <div class="section-label reveal">
+              <span class="label">The Transformation</span>
+            </div>
+            <h2 id="ba-heading" class="display-md reveal delay-1">
+              Before &amp;<br/>
+              <em style="font-style:italic; color:var(--color-warm-white-dim);">After.</em>
+            </h2>
+          </div>
+          <p class="body-lg reveal delay-2" style="max-width:320px;">
+            Drag the handle to reveal the transformation. Real clients, real results.
+          </p>
+        </div>
+
+        <div class="ba-grid">
+
+          <!-- Comparison 1 -->
+          <div>
+            <div class="ba-item reveal-scale" id="ba1" role="img" aria-label="Hair colour transformation — drag to compare before and after">
+              <!-- After (left side, clipped) -->
+              <div class="ba-item__after" id="ba1-after">
+                <img
+                  src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=700&auto=format&fit=crop&q=80"
+                  alt="After — balayage colour"
+                  draggable="false"
+                  loading="lazy"
+                />
+                <span class="ba-label ba-label--after">After</span>
+              </div>
+              <!-- Before (full width, behind) -->
+              <div class="ba-item__before">
+                <img
+                  src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&auto=format&fit=crop&q=80"
+                  alt="Before — natural hair"
+                  draggable="false"
+                  loading="lazy"
+                />
+                <span class="ba-label ba-label--before">Before</span>
+              </div>
+              <!-- Drag handle -->
+              <div class="ba-handle" id="ba1-handle" aria-hidden="true">
+                <div class="ba-handle__btn">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 5l-7 7 7 7M16 5l7 7-7 7" stroke="#080807" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="ba-item__caption">
+              <div class="ba-item__caption-title">Balayage Transformation</div>
+              <p class="ba-item__caption-sub">Arjun Kaur · 3 hours · Wella Professionals</p>
+            </div>
+          </div>
+
+          <!-- Comparison 2 -->
+          <div>
+            <div class="ba-item reveal-scale delay-1" id="ba2" role="img" aria-label="Skincare treatment transformation — drag to compare before and after">
+              <div class="ba-item__after" id="ba2-after">
+                <img
+                  src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&auto=format&fit=crop&q=80"
+                  alt="After — skincare treatment"
+                  draggable="false"
+                  loading="lazy"
+                />
+                <span class="ba-label ba-label--after">After</span>
+              </div>
+              <div class="ba-item__before">
+                <img
+                  src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=700&auto=format&fit=crop&q=80"
+                  alt="Before — skin condition"
+                  draggable="false"
+                  loading="lazy"
+                />
+                <span class="ba-label ba-label--before">Before</span>
+              </div>
+              <div class="ba-handle" id="ba2-handle" aria-hidden="true">
+                <div class="ba-handle__btn">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 5l-7 7 7 7M16 5l7 7-7 7" stroke="#080807" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="ba-item__caption">
+              <div class="ba-item__caption-title">Signature Facial Series</div>
+              <p class="ba-item__caption-sub">Sneha Rao · 4 sessions · Kérastase</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== GALLERY ===================== -->
     <section class="gallery-section">
       <div class="container">
@@ -423,6 +520,110 @@
   <script src="assets/js/utils.js" defer></script>
   <script src="assets/js/components.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
+
+  <script>
+    /* =====================
+       BEFORE / AFTER SLIDER
+       Vanilla JS, touch + mouse, no library
+       ===================== */
+    (function () {
+      'use strict';
+
+      function initSlider(wrapperId, afterId, handleId) {
+        var wrapper = document.getElementById(wrapperId);
+        var after   = document.getElementById(afterId);
+        var handle  = document.getElementById(handleId);
+
+        if (!wrapper || !after || !handle) return;
+
+        var dragging = false;
+
+        function setPosition(clientX) {
+          var rect   = wrapper.getBoundingClientRect();
+          var x      = clientX - rect.left;
+          var pct    = Math.min(Math.max(x / rect.width, 0.04), 0.96);
+          var pctStr = (pct * 100).toFixed(2) + '%';
+
+          after.style.width   = pctStr;
+          handle.style.left   = pctStr;
+        }
+
+        /* --- Mouse events --- */
+        handle.addEventListener('mousedown', function (e) {
+          e.preventDefault();
+          dragging = true;
+          wrapper.style.cursor = 'ew-resize';
+        });
+
+        document.addEventListener('mousemove', function (e) {
+          if (!dragging) return;
+          setPosition(e.clientX);
+        });
+
+        document.addEventListener('mouseup', function () {
+          if (!dragging) return;
+          dragging = false;
+          wrapper.style.cursor = '';
+        });
+
+        /* --- Touch events --- */
+        handle.addEventListener('touchstart', function (e) {
+          e.preventDefault();
+          dragging = true;
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function (e) {
+          if (!dragging) return;
+          setPosition(e.touches[0].clientX);
+        }, { passive: true });
+
+        document.addEventListener('touchend', function () {
+          dragging = false;
+        });
+
+        /* --- Click anywhere on wrapper to jump --- */
+        wrapper.addEventListener('click', function (e) {
+          setPosition(e.clientX);
+        });
+
+        /* --- Keyboard accessibility --- */
+        handle.setAttribute('tabindex', '0');
+        handle.setAttribute('role', 'slider');
+        handle.setAttribute('aria-valuenow', '50');
+        handle.setAttribute('aria-valuemin', '0');
+        handle.setAttribute('aria-valuemax', '100');
+
+        handle.addEventListener('keydown', function (e) {
+          var rect   = wrapper.getBoundingClientRect();
+          var curPct = parseFloat(after.style.width || '50') / 100;
+
+          if (e.key === 'ArrowLeft')  curPct = Math.max(curPct - 0.05, 0.04);
+          if (e.key === 'ArrowRight') curPct = Math.min(curPct + 0.05, 0.96);
+
+          var pctStr = (curPct * 100).toFixed(2) + '%';
+          after.style.width = pctStr;
+          handle.style.left = pctStr;
+          handle.setAttribute('aria-valuenow', Math.round(curPct * 100));
+        });
+
+        /* --- Init position at 50% --- */
+        after.style.width = '50%';
+        handle.style.left = '50%';
+      }
+
+      // Init both sliders
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          initSlider('ba1', 'ba1-after', 'ba1-handle');
+          initSlider('ba2', 'ba2-after', 'ba2-handle');
+        });
+      } else {
+        initSlider('ba1', 'ba1-after', 'ba1-handle');
+        initSlider('ba2', 'ba2-after', 'ba2-handle');
+      }
+
+    })();
+  </script>
 
   <script>
     (function () {

@@ -233,10 +233,8 @@
        SERVICES BAND (replaces marquee)
        ===================== */
     .services-band {
-      border-top: var(--border-thin);
-      border-bottom: var(--border-thin);
+      background: var(--color-surface);
       padding-block: var(--space-2xl);
-      overflow: hidden;
     }
 
     .services-band__inner {
@@ -293,17 +291,35 @@
       padding-top: 4px;
     }
 
+    /* Mobile: horizontal scroll — no wrapping */
     @media (max-width: 768px) {
+      .services-band {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-block: var(--space-xl);
+      }
+
+      .services-band::-webkit-scrollbar {
+        display: none;
+      }
+
+      .services-band .container {
+        padding-inline: var(--container-pad);
+        max-width: none;
+        width: auto;
+      }
+
       .services-band__inner {
-        gap: var(--space-sm);
-        row-gap: var(--space-md);
+        flex-wrap: nowrap;
+        width: max-content;
+        padding-right: var(--container-pad);
       }
+
       .services-band__item {
-        padding-inline: var(--space-md);
+        padding-inline: var(--space-lg);
       }
-      .services-band__item:nth-child(1) .services-band__name { font-size: 1.5rem; }
-      .services-band__item:nth-child(3) .services-band__name { font-size: 1.625rem; }
-      .services-band__item:nth-child(5) .services-band__name { font-size: 1.25rem; }
     }
 
     /* =====================
@@ -948,6 +964,78 @@
       </div>
     </div>
 
+    <!-- ===================== TESTIMONIALS ===================== -->
+    <section class="testimonials" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-header section-header--split" style="margin-bottom: var(--space-3xl);">
+          <div>
+            <div class="section-label reveal">
+              <span class="label">Client Stories</span>
+            </div>
+            <h2 id="testimonials-heading" class="display-md reveal delay-1">
+              In their<br/>
+              <em style="font-style:italic; color: var(--color-warm-white-dim);">own words.</em>
+            </h2>
+          </div>
+        </div>
+
+        <div class="testimonials__track" id="testimonialsTrack">
+
+          <div class="testimonial-slide active">
+            <p class="testimonial-slide__quote">
+              I've been to salons in London and Singapore. NOIRE is the only place in India where the consultation felt like the stylist actually listened — not just nodded.
+            </p>
+            <div class="testimonial-slide__meta">
+              <div class="testimonial-slide__line" aria-hidden="true"></div>
+              <span class="testimonial-slide__name">Riya S.</span>
+              <span class="testimonial-slide__service">Balayage &amp; Cut</span>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <p class="testimonial-slide__quote">
+              My skin has never responded better to any treatment. Sneha took one look at my skin and knew exactly what it needed. Three sessions in — people are asking what changed.
+            </p>
+            <div class="testimonial-slide__meta">
+              <div class="testimonial-slide__line" aria-hidden="true"></div>
+              <span class="testimonial-slide__name">Aryan M.</span>
+              <span class="testimonial-slide__service">Signature Facial</span>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <p class="testimonial-slide__quote">
+              I was nervous about a new salon for my wedding. Kavya did a trial, took notes on everything I liked and didn't, and on the day itself — I cried getting ready, but in the best way.
+            </p>
+            <div class="testimonial-slide__meta">
+              <div class="testimonial-slide__line" aria-hidden="true"></div>
+              <span class="testimonial-slide__name">Preethi N.</span>
+              <span class="testimonial-slide__service">Bridal Package</span>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <p class="testimonial-slide__quote">
+              I've had the same haircut for fifteen years because no one got it right. Rohan nailed it on the first try. I've been back every five weeks since.
+            </p>
+            <div class="testimonial-slide__meta">
+              <div class="testimonial-slide__line" aria-hidden="true"></div>
+              <span class="testimonial-slide__name">Karthik R.</span>
+              <span class="testimonial-slide__service">Precision Cut</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="testimonials__controls" id="testimonialsControls" role="tablist" aria-label="Testimonial navigation">
+          <button class="testimonials__dot active" data-index="0" role="tab" aria-selected="true" aria-label="Testimonial 1"></button>
+          <button class="testimonials__dot" data-index="1" role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
+          <button class="testimonials__dot" data-index="2" role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+          <button class="testimonials__dot" data-index="3" role="tab" aria-selected="false" aria-label="Testimonial 4"></button>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== SERVICES PREVIEW ===================== -->
     <section class="services-preview" aria-labelledby="services-heading">
       <div class="container">
@@ -1189,6 +1277,68 @@
   <script src="assets/js/components.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
   <script src="assets/js/cursor.js" defer></script>
+
+  <script>
+    /* =====================
+       TESTIMONIALS ROTATOR
+       ===================== */
+    (function () {
+      'use strict';
+
+      var slides    = document.querySelectorAll('.testimonial-slide');
+      var dots      = document.querySelectorAll('.testimonials__dot');
+      var current   = 0;
+      var autoTimer = null;
+
+      if (!slides.length) return;
+
+      function goTo(idx) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        dots[current].setAttribute('aria-selected', 'false');
+
+        current = (idx + slides.length) % slides.length;
+
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        dots[current].setAttribute('aria-selected', 'true');
+      }
+
+      function startAuto() {
+        autoTimer = setInterval(function () {
+          goTo(current + 1);
+        }, 5000);
+      }
+
+      function stopAuto() {
+        clearInterval(autoTimer);
+      }
+
+      // Dot click
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          stopAuto();
+          goTo(parseInt(this.getAttribute('data-index'), 10));
+          startAuto();
+        });
+      });
+
+      // Keyboard nav on track
+      document.getElementById('testimonialsTrack').addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft')  { stopAuto(); goTo(current - 1); startAuto(); }
+        if (e.key === 'ArrowRight') { stopAuto(); goTo(current + 1); startAuto(); }
+      });
+
+      // Pause on hover
+      var section = document.querySelector('.testimonials');
+      if (section) {
+        section.addEventListener('mouseenter', stopAuto);
+        section.addEventListener('mouseleave', startAuto);
+      }
+
+      startAuto();
+    })();
+  </script>
 
 </body>
 </html>
