@@ -516,43 +516,79 @@
       color: var(--color-border-light);
     }
 
-    /* Map placeholder */
-    .map-placeholder {
+    /* Map */
+    .map-container {
+      position: relative;
       aspect-ratio: 4/3;
-      background: var(--color-surface);
+      margin-top: var(--space-xl);
+      overflow: hidden;
       border: var(--border-thin);
+    }
+
+    .map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      /* Dark-theme the map to match site aesthetic */
+      filter: invert(92%) hue-rotate(180deg) saturate(0.7) brightness(0.85);
+    }
+
+    /* Overlay: pin + label + link sits on top of iframe */
+    .map-overlay {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: var(--space-sm);
-      margin-top: var(--space-xl);
+      background: rgba(8, 8, 7, 0.45);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--duration-med) var(--ease-luxury);
     }
 
-    .map-placeholder__label {
+    /* Show overlay on hover/touch */
+    .map-container:hover .map-overlay,
+    .map-container:focus-within .map-overlay {
+      opacity: 1;
+    }
+
+    .map-overlay__pin {
+      animation: float 2.5s ease-in-out infinite;
+    }
+
+    .map-overlay__label {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      color: var(--color-warm-white);
+      letter-spacing: 0.08em;
+    }
+
+    .map-overlay__link {
+      pointer-events: all;
+      font-family: var(--font-ui);
       font-size: 0.6875rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--color-text-dim);
-    }
-
-    .map-placeholder__addr {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      color: var(--color-warm-white-dim);
-      text-align: center;
-    }
-
-    .map-placeholder__link {
-      font-size: 0.75rem;
       color: var(--color-gold);
       border-bottom: 1px solid var(--color-gold-muted);
-      margin-top: var(--space-sm);
+      padding-bottom: 2px;
+      margin-top: var(--space-xs);
       transition: border-color var(--duration-fast) var(--ease-luxury);
     }
 
-    .map-placeholder__link:hover {
+    .map-overlay__link:hover {
       border-color: var(--color-gold);
+    }
+
+    /* Always show overlay on mobile (no hover) */
+    @media (hover: none) {
+      .map-overlay {
+        opacity: 1;
+        background: rgba(8, 8, 7, 0.35);
+      }
     }
 
     @media (max-width: 960px) {
@@ -821,12 +857,26 @@
                 Mumbai 400 050<br/>
                 Maharashtra, India
               </p>
-              <div class="map-placeholder" role="img" aria-label="Studio location map placeholder">
-                <div class="map-placeholder__label">Find Us</div>
-                <div class="map-placeholder__addr">42 Pali Hill, Bandra West<br/>Mumbai</div>
-                <a href="https://maps.google.com" target="_blank" rel="noopener" class="map-placeholder__link">
-                  Open in Google Maps →
-                </a>
+              <!-- OpenStreetMap embed — dark-styled via CSS filter -->
+              <div class="map-container">
+                <iframe
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=72.8265%2C19.0591%2C72.8325%2C19.0631&layer=mapnik&marker=19.0611%2C72.8295"
+                  class="map-iframe"
+                  loading="lazy"
+                  title="NOIRE Studio — 42 Pali Hill, Bandra West, Mumbai"
+                  aria-label="Map showing NOIRE studio location in Bandra West, Mumbai"
+                ></iframe>
+                <div class="map-overlay" aria-hidden="true">
+                  <div class="map-overlay__pin">
+                    <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 0C3.58 0 0 3.58 0 8c0 5.25 8 12 8 12s8-6.75 8-12c0-4.42-3.58-8-8-8zm0 10.5A2.5 2.5 0 1 1 8 5.5a2.5 2.5 0 0 1 0 5z" fill="#C8A96E"/>
+                    </svg>
+                  </div>
+                  <div class="map-overlay__label">NOIRE Studio</div>
+                  <a href="https://maps.google.com/?q=Pali+Hill+Bandra+West+Mumbai" target="_blank" rel="noopener" class="map-overlay__link">
+                    Open in Google Maps →
+                  </a>
+                </div>
               </div>
             </div>
 
