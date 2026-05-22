@@ -57,13 +57,20 @@
       margin-bottom: var(--space-3xl);
       border-bottom: var(--border-thin);
       padding-bottom: var(--space-xl);
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+
+    .booking-steps::-webkit-scrollbar { display: none; }
 
     .booking-step {
       display: flex;
       align-items: center;
       gap: var(--space-sm);
       flex: 1;
+      min-width: 0;
+      white-space: nowrap;
     }
 
     .booking-step__num {
@@ -554,9 +561,19 @@
       }
     }
 
-    @media (max-width: 480px) {
+    /* Landscape mobile: booking form takes full height comfortably */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .booking__grid {
+        grid-template-columns: 1fr;
+      }
       .booking-card {
         padding: var(--space-xl);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .booking-card {
+        padding: var(--space-xl) var(--space-md);
       }
 
       .service-options {
@@ -565,6 +582,14 @@
 
       .slots-grid {
         grid-template-columns: repeat(3, 1fr);
+      }
+
+      .booking-step__label {
+        display: none; /* show number only on very small screens */
+      }
+
+      .booking-step__line {
+        max-width: 20px;
       }
     }
   </style>

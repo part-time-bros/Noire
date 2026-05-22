@@ -101,51 +101,35 @@
     }
 
     .hero__title-word--1 {
-      font-size: clamp(5rem, 14vw, 13rem);
+      font-size: clamp(4rem, 14vw, 13rem);
       animation-delay: 600ms;
     }
 
     .hero__title-word--2 {
-      font-size: clamp(5rem, 14vw, 13rem);
+      font-size: clamp(4rem, 14vw, 13rem);
       color: var(--color-gold);
       font-style: italic;
       animation-delay: 750ms;
     }
 
     .hero__title-word--3 {
-      font-size: clamp(2.5rem, 7vw, 6.5rem);
+      font-size: clamp(2rem, 7vw, 6.5rem);
       color: var(--color-warm-white-dim);
       animation-delay: 900ms;
     }
 
-    .hero__bottom {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: end;
-      gap: var(--space-xl);
-      margin-top: var(--space-3xl);
-    }
-
-    .hero__desc {
-      max-width: 340px;
-      opacity: 0;
-      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1100ms forwards;
-    }
-
-    .hero__cta-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-lg);
-      opacity: 0;
-      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1200ms forwards;
-    }
-
+    /* Scroll hint — absolutely positioned, decoupled from grid */
     .hero__scroll-hint {
+      position: absolute;
+      left: var(--container-pad);
+      bottom: calc(var(--space-4xl) + var(--space-xl));
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: var(--space-sm);
+      opacity: 0;
+      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1300ms forwards;
+      z-index: var(--z-above);
     }
 
     .hero__scroll-hint span {
@@ -158,16 +142,37 @@
 
     .hero__scroll-line {
       width: 1px;
-      height: 56px;
+      height: 48px;
       background: linear-gradient(to bottom, var(--color-gold), transparent);
       animation: float 2.5s ease-in-out infinite;
     }
 
-    .hero__meta {
-      text-align: right;
-      opacity: 0;
-      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1300ms forwards;
+    /* Two-column layout: desc left, meta+book right */
+    .hero__bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: var(--space-xl);
+      margin-top: var(--space-3xl);
     }
+
+    .hero__desc {
+      max-width: 380px;
+      opacity: 0;
+      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1100ms forwards;
+    }
+
+    /* Right: meta info + always-visible book button */
+    .hero__right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--space-lg);
+      opacity: 0;
+      animation: fadeUp var(--duration-slow) var(--ease-out-expo) 1200ms forwards;
+    }
+
+    .hero__meta-info { text-align: right; }
 
     .hero__meta-item {
       display: flex;
@@ -184,12 +189,38 @@
       background: var(--color-gold-muted);
     }
 
-    @media (max-width: 768px) {
+    /* Tablet 769–1024px: 2-col still works, tune font sizes */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .hero__title-word--1,
+      .hero__title-word--2 { font-size: clamp(3.5rem, 11vw, 8rem); }
+      .hero__title-word--3  { font-size: clamp(1.75rem, 5.5vw, 4rem); }
+    }
+
+    /* Mobile ≤640px: stack, hide location/hours, keep Book button */
+    @media (max-width: 640px) {
+      .hero { padding-bottom: var(--space-3xl); }
+      .hero__content { padding-top: calc(var(--nav-height) + var(--space-3xl)); }
       .hero__bottom {
         grid-template-columns: 1fr;
+        gap: var(--space-lg);
+        margin-top: var(--space-xl);
       }
-      .hero__meta { display: none; }
-      .hero__cta-group { align-items: flex-start; }
+      .hero__right    { align-items: flex-start; }
+      .hero__meta-info { display: none; }
+      .hero__scroll-hint { display: none; }
+    }
+
+    /* Landscape mobile: very short viewport, compress everything */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .hero { padding-bottom: var(--space-xl); }
+      .hero__content { padding-top: calc(var(--nav-height) + var(--space-md)); }
+      .hero__title-word--1,
+      .hero__title-word--2 { font-size: clamp(2.5rem, 7vw, 5rem); }
+      .hero__title-word--3  { font-size: clamp(1.25rem, 3.5vw, 2.5rem); }
+      .hero__bottom { margin-top: var(--space-md); }
+      .hero__meta-info  { display: none; }
+      .hero__scroll-hint { display: none; }
+      .hero__eyebrow { margin-bottom: var(--space-sm); }
     }
 
     /* =====================
@@ -343,7 +374,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 180px;
+      min-height: clamp(140px, 15vw, 180px);
     }
 
     .en-cell:first-child {
@@ -364,7 +395,7 @@
     }
 
     .en-cell--sm {
-      min-height: 120px;
+      min-height: clamp(100px, 12vw, 120px);
     }
 
     .en-cell--sm:nth-child(3) {
@@ -430,7 +461,7 @@
         padding-left: 0;
       }
       .en-cell--sm {
-        min-height: 140px;
+        min-height: clamp(110px, 14vw, 140px);
       }
       .en-cell--sm:nth-child(3) {
         border-right: var(--border-thin);
@@ -486,7 +517,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 260px;
+      min-height: clamp(200px, 20vw, 260px);
     }
 
     .service-card:hover {
@@ -495,7 +526,7 @@
 
     .service-card--featured {
       grid-row: span 2;
-      min-height: 520px;
+      min-height: clamp(320px, 42vw, 520px);
       padding: var(--space-3xl) var(--space-2xl);
     }
 
@@ -567,7 +598,7 @@
       .service-card--featured {
         grid-column: span 2;
         grid-row: span 1;
-        min-height: 280px;
+        min-height: clamp(200px, 28vw, 280px);
       }
     }
 
@@ -674,12 +705,13 @@
       grid-template-columns: 1.6fr 1fr 1fr 1fr 1.3fr;
       gap: var(--space-sm);
       margin-top: var(--space-3xl);
-      height: 480px;
+      /* No fixed height — aspect-ratio scales with viewport at any zoom */
     }
 
     .gallery-strip__item {
       overflow: hidden;
       position: relative;
+      aspect-ratio: 3/4;
     }
 
     .gallery-strip__item img {
@@ -699,19 +731,19 @@
     @media (max-width: 900px) {
       .gallery-strip__grid {
         grid-template-columns: repeat(3, 1fr);
-        height: 320px;
       }
+      .gallery-strip__item { aspect-ratio: 4/3; }
       .gallery-strip__item:nth-child(4),
       .gallery-strip__item:nth-child(5) {
         display: none;
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       .gallery-strip__grid {
         grid-template-columns: repeat(2, 1fr);
-        height: 240px;
       }
+      .gallery-strip__item { aspect-ratio: 1/1; }
       .gallery-strip__item:nth-child(3) { display: none; }
     }
 
@@ -806,6 +838,12 @@
           </span>
         </h1>
 
+        <!-- Scroll hint: absolutely positioned, visible at all breakpoints -->
+        <div class="hero__scroll-hint" aria-hidden="true">
+          <div class="hero__scroll-line"></div>
+          <span>Scroll</span>
+        </div>
+
         <div class="hero__bottom">
           <div class="hero__desc">
             <p class="body-lg">
@@ -813,26 +851,21 @@
             </p>
           </div>
 
-          <div class="hero__cta-group">
-            <div class="hero__scroll-hint">
-              <div class="hero__scroll-line"></div>
-              <span>Scroll</span>
+          <div class="hero__right">
+            <!-- Location + hours: hidden on mobile, always shown on tablet/desktop -->
+            <div class="hero__meta-info">
+              <div class="hero__meta-item">
+                <span class="body-sm">Bandra West, Mumbai</span>
+              </div>
+              <div class="hero__meta-item">
+                <span class="body-sm">Tue – Sun, 10am – 8pm</span>
+              </div>
             </div>
-          </div>
-
-          <div class="hero__meta">
-            <div class="hero__meta-item">
-              <span class="body-sm">Bandra West, Mumbai</span>
-            </div>
-            <div class="hero__meta-item">
-              <span class="body-sm">Tue – Sun, 10am – 8pm</span>
-            </div>
-            <div style="margin-top: var(--space-lg);">
-              <a href="contact.html" class="btn btn--primary">
-                Book Appointment
-                <span class="btn__arrow">→</span>
-              </a>
-            </div>
+            <!-- Book button: ALWAYS visible at every zoom level and screen size -->
+            <a href="contact.html" class="btn btn--primary">
+              Book Appointment
+              <span class="btn__arrow">→</span>
+            </a>
           </div>
         </div>
       </div>

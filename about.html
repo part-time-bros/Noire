@@ -272,13 +272,20 @@
       max-width: 560px;
     }
 
+    /* Timeline mid-range 640-860px: tighten but keep 2-col */
+    @media (max-width: 860px) {
+      .timeline__list::before { left: 64px; }
+      .timeline__item { grid-template-columns: 64px 1fr; gap: var(--space-xl); }
+      .timeline__dot { left: 60px; }
+    }
+
     @media (max-width: 640px) {
       .timeline__list::before {
         left: 52px;
       }
       .timeline__item {
         grid-template-columns: 52px 1fr;
-        gap: var(--space-xl);
+        gap: var(--space-lg);
       }
       .timeline__dot {
         left: 48px;
@@ -287,6 +294,11 @@
         font-size: 0.6875rem;
         padding-right: var(--space-md);
       }
+    }
+
+    /* Landscape mobile: reduce timeline padding */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .timeline__item { padding-bottom: var(--space-xl); }
     }
 
     /* =====================
@@ -385,10 +397,13 @@
       color: var(--color-warm-white);
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 900px) {
       .studio__grid {
         grid-template-columns: 1fr;
         gap: var(--space-3xl);
+      }
+      .studio__images {
+        max-width: 600px;
       }
     }
   </style>

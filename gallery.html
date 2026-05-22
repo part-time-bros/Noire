@@ -210,6 +210,32 @@
     .lightbox__nav--prev { left: var(--space-xl); }
     .lightbox__nav--next { right: var(--space-xl); }
 
+    /* Mobile: shrink nav buttons, keep them accessible */
+    @media (max-width: 640px) {
+      .lightbox__nav {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        top: auto;
+        bottom: calc(var(--space-xl) + var(--space-lg));
+        transform: none;
+      }
+      .lightbox__nav--prev { left: var(--space-md); }
+      .lightbox__nav--next { right: var(--space-md); }
+    }
+
+    /* Landscape mobile: keep buttons accessible */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .lightbox__nav {
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: auto;
+      }
+      .lightbox__nav--prev { left: var(--space-sm); }
+      .lightbox__nav--next { right: var(--space-sm); }
+      .lightbox__img { max-height: 80vh; }
+    }
+
     .lightbox__caption {
       position: fixed;
       bottom: var(--space-xl);

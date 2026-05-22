@@ -226,7 +226,17 @@
       }
     }
 
-    @media (max-width: 520px) {
+    /* Mid-range 640-900px: 2-col is fine, ensure no awkward overflow */
+    @media (max-width: 640px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .artist-card__bio {
+        font-size: 0.8125rem;
+      }
+    }
+
+    @media (max-width: 480px) {
       .team-grid {
         grid-template-columns: 1fr;
       }
