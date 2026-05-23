@@ -574,6 +574,12 @@
             'polygon(0 0, ' + pct + '% 0, ' + pct + '% 100%, 0 100%)';
           handle.style.left = pct + '%';
           wrapper.setAttribute('aria-valuenow', Math.round(pct));
+
+          /* Fade labels when handle is close — prevents overlap */
+          var labelBefore = wrapper.querySelector('.ba-label--before');
+          var labelAfter  = wrapper.querySelector('.ba-label--after');
+          if (labelBefore) labelBefore.style.opacity = pct < 20 ? (pct / 20).toFixed(2) : '1';
+          if (labelAfter)  labelAfter.style.opacity  = pct > 80 ? ((100 - pct) / 20).toFixed(2) : '1';
         }
 
         function getPct(clientX) {
