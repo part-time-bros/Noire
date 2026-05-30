@@ -1,0 +1,109 @@
+rules_version = '2';
+// ============================================================
+// NOIRE — Firestore Security Rules
+// Deploy: firebase deploy --only firestore:rules
+// TwinWaves Digital
+// ============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── HELPERS ─────────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isActive() {
+      return isSignedIn() && userDoc().isActive == true;
+    }
+
+    function role() {
+      return isActive() ? userDoc().role : null;
+    }
+
+    function isSuperAdmin() {
+      return role() == 'super_admin';
+    }
+
+    function isAdmin() {
+      return role() == 'super_admin' || role() == 'admin';
+    }
+
+    function hasPerm(perm) {
+      return isAdmin() &&
+        (isSuperAdmin() || userDoc().permissions[perm] == true);
+    }
+
+    // ── USERS ────────────────────────────────────────────────
+    // Users can read their own doc.
+    // Super Admin can read and write all user docs.
+    // Admin can read all (to populate team lists) but only
+    // Super Admin can create/modify roles.
+    match /users/{uid} {
+      allow read:   if isActive() && (request.auth.uid == uid || isAdmin());
+      allow create: if isSuperAdmin();
+      allow update: if isSuperAdmin() ||
+                      (isActive() && request.auth.uid == uid &&
+                       !request.resource.data.diff(resource.data).affectedKeys()
+                         .hasAny(['role', 'permissions']));
+      allow delete: if isSuperAdmin();
+    }
+
+    // ── BOOKINGS ─────────────────────────────────────────────
+    // Public (unauthenticated) can CREATE only — website booking form.
+    // Admin with bookings permission can read, update, delete.
+    match /bookings/{bookingId} {
+      allow create: if true;  // Website booking form — no auth required
+      allow read:   if hasPerm('bookings');
+      allow update: if hasPerm('bookings');
+      allow delete: if isSuperAdmin();
+    }
+
+    // ── CLIENTS ──────────────────────────────────────────────
+    match /clients/{clientId} {
+      allow read:   if hasPerm('clients');
+      allow create: if hasPerm('bookings');  // Created when booking added
+      allow update: if hasPerm('clients');
+      allow delete: if isSuperAdmin();
+    }
+
+    // ── SERVICES ─────────────────────────────────────────────
+    // Public can READ (website needs service list for booking form).
+    match /services/{serviceId} {
+      allow read:   if true;
+      allow write:  if hasPerm('services');
+    }
+
+    // ── AVAILABILITY ─────────────────────────────────────────
+    // Public can READ (website booking form checks availability).
+    // Admin with availability permission can write.
+    match /availability/{dateId} {
+      allow read:   if true;
+      allow write:  if hasPerm('availability');
+    }
+
+    // ── SETTINGS ─────────────────────────────────────────────
+    // config — working hours, capacity, emailjs, artists list.
+    // site_content — public site text content.
+    // Public can READ config (slot generation on website).
+    match /settings/{docId} {
+      allow read:   if true;
+      allow write:  if docId == 'config'       ? hasPerm('settings') || hasPerm('availability') :
+                       docId == 'site_content' ? hasPerm('content') :
+                       isSuperAdmin();
+    }
+
+    // ── NOTIFICATIONS ────────────────────────────────────────
+    match /notifications/{notifId} {
+      allow read:   if isAdmin();
+      allow create: if true;   // Booking form creates notifications
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+  }
+}

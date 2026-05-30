@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login — NOIRE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="assets/css/admin-global.css"/>
+  <style>
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;}
+    body::before{content:'';position:fixed;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);}
+    .login-wrap{width:100%;max-width:420px;padding:var(--sp-lg);}
+    .login-brand{text-align:center;margin-bottom:var(--sp-2xl);}
+    .login-brand__name{font-family:var(--font-display);font-size:2.5rem;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--warm-white);}
+    .login-brand__dot{display:inline-block;width:5px;height:5px;background:var(--gold);border-radius:50%;vertical-align:middle;margin-left:4px;margin-bottom:6px;}
+    .login-brand__sub{font-size:.625rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-top:var(--sp-sm);}
+    .login-card{background:var(--surface);border:1px solid var(--border);padding:var(--sp-xl);}
+    .login-card__title{font-family:var(--font-display);font-size:1.25rem;font-weight:400;margin-bottom:var(--sp-xs);}
+    .login-card__sub{font-size:.8125rem;color:var(--text-dim);margin-bottom:var(--sp-xl);}
+    .login-group{margin-bottom:var(--sp-lg);}
+    .login-label{display:block;font-size:.625rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dim);margin-bottom:var(--sp-sm);}
+    .login-input{display:block;width:100%;background:var(--surface-2);border:1px solid var(--border);padding:.75rem 1rem;font-family:var(--font-ui);font-size:.9375rem;font-weight:300;color:var(--warm-white);transition:border-color 200ms;border-radius:0;-webkit-appearance:none;}
+    .login-input::placeholder{color:var(--border-light);}
+    .login-input:focus{outline:none;border-color:var(--gold);}
+    .login-error{background:rgba(239,83,80,.08);border:1px solid rgba(239,83,80,.25);border-left:2px solid var(--status-cancelled);padding:var(--sp-sm) var(--sp-md);font-size:.875rem;color:var(--status-cancelled);margin-bottom:var(--sp-lg);display:none;}
+    .login-error.show{display:block;}
+    .login-btn{display:flex;align-items:center;justify-content:center;gap:var(--sp-sm);width:100%;background:var(--gold);color:var(--void);border:none;padding:.875rem;font-family:var(--font-ui);font-size:.6875rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background 200ms;margin-top:var(--sp-xl);}
+    .login-btn:hover{background:var(--warm-white);}
+    .login-btn:disabled{opacity:.5;cursor:not-allowed;}
+    .login-footer{text-align:center;margin-top:var(--sp-xl);font-size:.75rem;color:var(--text-dim);}
+    .login-footer span{color:var(--gold-muted);}
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-brand">
+      <div class="login-brand__name">NOIRE<span class="login-brand__dot"></span></div>
+      <div class="login-brand__sub">Admin Panel</div>
+    </div>
+    <div class="login-card">
+      <div class="login-card__title">Sign In</div>
+      <p class="login-card__sub">Access restricted to authorised team members.</p>
+      <div class="login-error" id="loginError" role="alert"></div>
+      <div class="login-group">
+        <label class="login-label" for="email">Email Address</label>
+        <input class="login-input" type="email" id="email" placeholder="you@noire.in" autocomplete="email" required/>
+      </div>
+      <div class="login-group">
+        <label class="login-label" for="password">Password</label>
+        <input class="login-input" type="password" id="password" placeholder="••••••••" autocomplete="current-password" required/>
+      </div>
+      <button class="login-btn" id="loginBtn" type="button">Sign In →</button>
+      <div class="login-footer">Accounts created by <span>Super Admin</span> only.</div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth, signInWithEmailAndPassword, onAuthStateChanged } from './assets/js/admin-firebase.js';
+
+    const emailEl = document.getElementById('email');
+    const passEl  = document.getElementById('password');
+    const loginBtn= document.getElementById('loginBtn');
+    const errEl   = document.getElementById('loginError');
+    const params  = new URLSearchParams(window.location.search);
+
+    if (params.get('error')==='inactive') showErr('Your account has been deactivated.');
+    if (params.get('error')==='noperm')   showErr('You do not have permission to access that page.');
+
+    onAuthStateChanged(auth, user => { if (user) window.location.replace('admin/dashboard.html'); });
+
+    function showErr(msg) { errEl.textContent=msg; errEl.classList.add('show'); }
+    function clearErr()   { errEl.classList.remove('show'); }
+
+    const MSGS = {
+      'auth/user-not-found':'No account found with this email.',
+      'auth/wrong-password':'Incorrect password.',
+      'auth/invalid-email':'Please enter a valid email.',
+      'auth/user-disabled':'This account has been disabled.',
+      'auth/too-many-requests':'Too many attempts. Please wait.',
+      'auth/invalid-credential':'Incorrect email or password.',
+    };
+
+    async function doLogin() {
+      clearErr();
+      const email=emailEl.value.trim(), pass=passEl.value;
+      if (!email||!pass) { showErr('Please enter your email and password.'); return; }
+      loginBtn.disabled=true; loginBtn.textContent='Signing in...';
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+      } catch(e) {
+        showErr(MSGS[e.code]||'Sign in failed. Please try again.');
+        loginBtn.disabled=false; loginBtn.textContent='Sign In →';
+      }
+    }
+
+    loginBtn.addEventListener('click', doLogin);
+    passEl.addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+    emailEl.addEventListener('keydown', e => { if(e.key==='Enter') passEl.focus(); });
+    [emailEl,passEl].forEach(el => el.addEventListener('input', clearErr));
+  </script>
+</body>
+</html>

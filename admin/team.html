@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Team — NOIRE Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="assets/css/admin-global.css"/>
+  <link rel="stylesheet" href="assets/css/admin-components.css"/>
+</head>
+<body>
+<button class="sidebar-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+
+<div class="admin-shell">
+  <nav class="sidebar">
+    <div class="sidebar__brand"><div><div class="sidebar__brand-name">NOIRE<span class="sidebar__brand-dot"></span></div><div class="sidebar__brand-sub">Admin Panel</div></div></div>
+    <div class="sidebar__nav">
+      <div class="sidebar__section-label">Main</div>
+      <a href="dashboard.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/></svg>Dashboard<span class="sidebar__link-badge" data-pending style="display:none;">0</span></a>
+      <a href="bookings.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3a1 1 0 000 2h6a1 1 0 100-2H5zM3 7a1 1 0 011-1h8a1 1 0 110 2H4a1 1 0 01-1-1zm1 3a1 1 0 100 2h8a1 1 0 100-2H4z"/></svg>Bookings</a>
+      <a href="availability.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zm9.954 3H2.545A1 1 0 002 4v1h12V4a1 1 0 00-.546-.877zM2 7v7a1 1 0 001 1h10a1 1 0 001-1V7H2z"/></svg>Availability</a>
+      <a href="team.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zm2-3a2 2 0 11-4 0 2 2 0 014 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg>Team &amp; Artists</a>
+      <div class="sidebar__section-label" style="margin-top:var(--sp-md);">System</div>
+      <a href="settings.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4.754a3.246 3.246 0 100 6.492 3.246 3.246 0 000-6.492zM5.754 8a2.246 2.246 0 114.492 0 2.246 2.246 0 01-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 01-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 01-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 01.52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 011.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 011.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 01.52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 01-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 01-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 002.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 001.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 00-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 00-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 00-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 003.06 8.282l-.318-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 004.176 3.82l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 002.692-1.116l.094-.318z"/></svg>Settings</a>
+    </div>
+    <div class="sidebar__user">
+      <div class="sidebar__user-avatar" data-user-avatar>A</div>
+      <div class="sidebar__user-info"><div class="sidebar__user-name" data-user-name>Loading...</div><div class="sidebar__user-role" data-user-role>—</div></div>
+      <button class="sidebar__signout" data-signout aria-label="Sign out"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg></button>
+    </div>
+  </nav>
+
+  <div class="admin-content">
+    <header class="topbar">
+      <div class="topbar__left"><span class="topbar__breadcrumb">NOIRE &rsaquo; <span>Team &amp; Artists</span></span></div>
+      <div class="topbar__right"><div class="topbar__date"></div><div class="topbar__notif"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16a2 2 0 002-2H6a2 2 0 002 2zM8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z"/></svg><span class="topbar__notif-badge" style="display:none;"></span></div></div>
+    </header>
+
+    <div class="admin-page">
+      <div class="page-header">
+        <div>
+          <div class="t-label" style="margin-bottom:var(--sp-xs);">Staff</div>
+          <h1 class="page-header__title">Team &amp; Artists</h1>
+          <p class="page-header__sub">Artists are assigned to bookings. Admin accounts log in to manage the system.</p>
+        </div>
+      </div>
+
+      <!-- Artists Section -->
+      <div class="section-block">
+        <div class="section-block__header">
+          <span class="section-block__title">Salon Artists</span>
+          <button class="btn btn--primary" id="addArtistBtn">+ Add Artist</button>
+        </div>
+        <p style="font-size:.8125rem;color:var(--text-dim);margin-bottom:var(--sp-lg);">Artists are the names assigned to bookings — they do not need a login. Add everyone who takes appointments.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Role / Specialty</th><th>Working Days</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="artistsTbody"><tr><td colspan="5" style="text-align:center;padding:var(--sp-xl);"><span class="spinner"></span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admin Users Section (Super Admin only) -->
+      <div class="section-block" id="adminUsersSection" data-requires-super>
+        <div class="section-block__header">
+          <span class="section-block__title">Admin Accounts</span>
+          <button class="btn btn--outline" id="addAdminBtn">+ Create Account</button>
+        </div>
+        <p style="font-size:.8125rem;color:var(--text-dim);margin-bottom:var(--sp-lg);">These accounts can log in to the admin panel. Desk staff (like Pinky) get Admin role.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Permissions</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="usersTbody"><tr><td colspan="6" style="text-align:center;padding:var(--sp-xl);"><span class="spinner"></span></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARTIST MODAL -->
+<div class="modal-overlay" id="artistModal">
+  <div class="modal">
+    <div class="modal__header">
+      <div class="modal__title" id="artistModalTitle">Add Artist</div>
+      <button class="modal__close" aria-label="Close"></button>
+    </div>
+    <div class="modal__body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="aName">Full Name *</label>
+          <input class="form-input" type="text" id="aName" placeholder="e.g. Priya Menon"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="aRole">Role / Specialty</label>
+          <input class="form-input" type="text" id="aRole" placeholder="e.g. Senior Stylist"/>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:var(--sp-lg);">
+        <label class="form-label">Working Days</label>
+        <div style="display:flex;gap:var(--sp-sm);flex-wrap:wrap;margin-top:var(--sp-sm);">
+          <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="day-check" value="mon"/><span class="toggle__track"></span></span><span class="toggle__label">Mon</span></label>
+          <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="day-check" value="tue" checked/><span class="toggle__track"></span></span><span class="toggle__label">Tue</span></label>
+          <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="day-check" value="wed" checked/><span class="toggle__track"></span></span><span class="toggle__label">Wed</span></label>
+          <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="day-check" value="thu" checked/><span class="toggle__track"></span></span><span class="toggle__label">Thu</span></label>
+          <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="day-check" value="fri" checked/><span class="toggle__track"></span></span><span class="toggle__label">Fri</span></label>
+          <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="day-check" value="sat" checked/><span class="toggle__track"></span></span><span class="toggle__label">Sat</span></label>
+          <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="day-check" value="sun" checked/><span class="toggle__track"></span></span><span class="toggle__label">Sun</span></label>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:var(--sp-lg);">
+        <label class="toggle-wrap">
+          <span class="toggle"><input type="checkbox" id="aActive" checked/><span class="toggle__track"></span></span>
+          <span class="toggle__label">Active (appears in booking assignment)</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--outline" data-close-modal>Cancel</button>
+      <button class="btn btn--primary" id="saveArtistBtn">Save Artist</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN USER MODAL -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal modal--lg">
+    <div class="modal__header">
+      <div class="modal__title" id="adminModalTitle">Create Admin Account</div>
+      <button class="modal__close" aria-label="Close"></button>
+    </div>
+    <div class="modal__body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="uName">Full Name *</label>
+          <input class="form-input" type="text" id="uName" placeholder="e.g. Pinky Thomas"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="uEmail">Email Address *</label>
+          <input class="form-input" type="email" id="uEmail" placeholder="pinky@noire.in"/>
+        </div>
+        <div class="form-group" id="uPassWrap">
+          <label class="form-label" for="uPass">Temporary Password *</label>
+          <input class="form-input" type="text" id="uPass" placeholder="They can change after first login"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="uRole">Role</label>
+          <select class="form-input" id="uRole">
+            <option value="admin">Admin</option>
+            <option value="view_only">View Only</option>
+          </select>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="t-label" style="margin-bottom:var(--sp-md);">Permissions</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-md);">
+        <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="perm-check" data-perm="bookings" checked/><span class="toggle__track"></span></span><span class="toggle__label">Bookings</span></label>
+        <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="perm-check" data-perm="clients"/><span class="toggle__track"></span></span><span class="toggle__label">Clients</span></label>
+        <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="perm-check" data-perm="availability" checked/><span class="toggle__track"></span></span><span class="toggle__label">Availability</span></label>
+        <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="perm-check" data-perm="team"/><span class="toggle__track"></span></span><span class="toggle__label">Team Management</span></label>
+        <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="perm-check" data-perm="services"/><span class="toggle__track"></span></span><span class="toggle__label">Services</span></label>
+        <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="perm-check" data-perm="reports"/><span class="toggle__track"></span></span><span class="toggle__label">Reports</span></label>
+        <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="perm-check" data-perm="content"/><span class="toggle__track"></span></span><span class="toggle__label">Site Content</span></label>
+        <label class="toggle-wrap"><span class="toggle"><input type="checkbox" class="perm-check" data-perm="settings"/><span class="toggle__track"></span></span><span class="toggle__label">Settings</span></label>
+      </div>
+      <div style="margin-top:var(--sp-lg);">
+        <label class="toggle-wrap">
+          <span class="toggle"><input type="checkbox" id="uActive" checked/><span class="toggle__track"></span></span>
+          <span class="toggle__label">Account active</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--outline" data-close-modal>Cancel</button>
+      <button class="btn btn--primary" id="saveAdminBtn">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { init, doSignOut, getUID, isSuper } from './assets/js/admin-auth.js';
+import { getSettings, saveSettings, getAllUsers, createUserDoc, updateUserDoc,
+         auth } from './assets/js/admin-firebase.js';
+import { success, error, openModal, closeModal, confirm } from './assets/js/admin-ui.js';
+import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js';
+
+await init('team');
+document.querySelectorAll('[data-signout]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); doSignOut(); }));
+
+let _settings = {}, _artists = [], _editArtistIdx = null, _editUserId = null;
+
+/* ── LOAD ──────────────────────────────────────────────────── */
+async function loadAll() {
+  _settings = await getSettings();
+  _artists  = _settings.artists || [];
+  renderArtists();
+  if (isSuper()) loadUsers();
+}
+
+/* ── ARTISTS ──────────────────────────────────────────────── */
+const DAY_LABELS = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
+
+function renderArtists() {
+  const tbody = document.getElementById('artistsTbody');
+  if (!_artists.length) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:var(--sp-xl);color:var(--text-dim);">No artists added yet. Add your first artist to start assigning bookings.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = _artists.map((a, i) => `
+    <tr>
+      <td class="td-primary">${a.name}</td>
+      <td>${a.role||'<span style="color:var(--text-dim);">—</span>'}</td>
+      <td style="font-size:.8125rem;color:var(--text-dim);">${(a.workingDays||[]).map(d=>DAY_LABELS[d]||d).join(', ')||'—'}</td>
+      <td><span class="badge badge--${a.isActive!==false?'confirmed':'noshow'}">${a.isActive!==false?'Active':'Inactive'}</span></td>
+      <td>
+        <div class="td-actions">
+          <button class="btn btn--outline btn--sm" data-edit-artist="${i}">Edit</button>
+          <button class="btn btn--danger btn--sm" data-del-artist="${i}">Remove</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+
+  document.querySelectorAll('[data-edit-artist]').forEach(btn =>
+    btn.addEventListener('click', () => openArtistModal(parseInt(btn.getAttribute('data-edit-artist')))));
+  document.querySelectorAll('[data-del-artist]').forEach(btn =>
+    btn.addEventListener('click', () => {
+      const i = parseInt(btn.getAttribute('data-del-artist'));
+      confirm(`Remove ${_artists[i].name} from the team?`, async () => {
+        _artists.splice(i, 1);
+        await saveSettings({ artists: _artists });
+        success('Artist removed');
+        renderArtists();
+      }, { danger: true, confirmLabel: 'Remove' });
+    }));
+}
+
+function openArtistModal(idx = null) {
+  _editArtistIdx = idx;
+  const a = idx !== null ? _artists[idx] : null;
+  document.getElementById('artistModalTitle').textContent = a ? 'Edit Artist' : 'Add Artist';
+  document.getElementById('aName').value  = a?.name  || '';
+  document.getElementById('aRole').value  = a?.role  || '';
+  document.getElementById('aActive').checked = a?.isActive !== false;
+  document.querySelectorAll('.day-check').forEach(cb => {
+    cb.checked = a ? (a.workingDays||[]).includes(cb.value) : ['tue','wed','thu','fri','sat','sun'].includes(cb.value);
+  });
+  openModal('artistModal');
+}
+
+document.getElementById('addArtistBtn').addEventListener('click', () => openArtistModal());
+
+document.getElementById('saveArtistBtn').addEventListener('click', async () => {
+  const name = document.getElementById('aName').value.trim();
+  if (!name) { error('Name required'); return; }
+  const workingDays = [...document.querySelectorAll('.day-check:checked')].map(c => c.value);
+  const artist = {
+    id: _editArtistIdx !== null ? (_artists[_editArtistIdx].id || name.toLowerCase().replace(/\s+/g,'_')) : name.toLowerCase().replace(/\s+/g,'_'),
+    name,
+    role:        document.getElementById('aRole').value.trim(),
+    workingDays,
+    isActive:    document.getElementById('aActive').checked,
+  };
+  if (_editArtistIdx !== null) _artists[_editArtistIdx] = artist;
+  else _artists.push(artist);
+
+  const btn = document.getElementById('saveArtistBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  try {
+    await saveSettings({ artists: _artists });
+    closeModal('artistModal');
+    success(_editArtistIdx !== null ? 'Artist updated' : 'Artist added');
+    renderArtists();
+  } catch(e) { error('Error', 'Could not save.'); }
+  finally { btn.disabled = false; btn.textContent = 'Save Artist'; _editArtistIdx = null; }
+});
+
+/* ── ADMIN USERS ──────────────────────────────────────────── */
+async function loadUsers() {
+  const users = await getAllUsers();
+  const tbody = document.getElementById('usersTbody');
+  const PERMS = ['bookings','clients','availability','team','services','reports','content','settings'];
+  tbody.innerHTML = users.map(u => {
+    const perms = Object.entries(u.permissions||{}).filter(([,v])=>v).map(([k])=>k).join(', ') || '—';
+    return `
+      <tr>
+        <td class="td-primary">${u.displayName||'—'}</td>
+        <td style="font-size:.8125rem;">${u.email}</td>
+        <td><span class="badge badge--role-${u.role==='super_admin'?'super':u.role==='admin'?'admin':'view'}">${u.role==='super_admin'?'Super Admin':u.role==='admin'?'Admin':'View Only'}</span></td>
+        <td style="font-size:.75rem;color:var(--text-dim);max-width:200px;">${perms}</td>
+        <td><span class="badge badge--${u.isActive?'confirmed':'noshow'}">${u.isActive?'Active':'Inactive'}</span></td>
+        <td>
+          ${u.role!=='super_admin' ? `<div class="td-actions">
+            <button class="btn btn--outline btn--sm" data-edit-user="${u.id}">Edit</button>
+            <button class="btn btn--danger btn--sm" data-toggle-user="${u.id}" data-active="${u.isActive}">${u.isActive?'Deactivate':'Activate'}</button>
+          </div>` : '<span style="font-size:.75rem;color:var(--text-dim);">Protected</span>'}
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  document.querySelectorAll('[data-edit-user]').forEach(btn =>
+    btn.addEventListener('click', () => openAdminModal(btn.getAttribute('data-edit-user'), users)));
+  document.querySelectorAll('[data-toggle-user]').forEach(btn =>
+    btn.addEventListener('click', async () => {
+      const id = btn.getAttribute('data-toggle-user');
+      const active = btn.getAttribute('data-active') === 'true';
+      confirm(`${active?'Deactivate':'Activate'} this account?`, async () => {
+        await updateUserDoc(id, { isActive: !active });
+        success('Account updated');
+        loadUsers();
+      }, { danger: active });
+    }));
+}
+
+function openAdminModal(uid = null, users = []) {
+  _editUserId = uid;
+  const u = uid ? users.find(x => x.id === uid) : null;
+  document.getElementById('adminModalTitle').textContent = u ? 'Edit Account' : 'Create Admin Account';
+  document.getElementById('uName').value  = u?.displayName || '';
+  document.getElementById('uEmail').value = u?.email || '';
+  document.getElementById('uEmail').disabled = !!u;
+  document.getElementById('uRole').value  = u?.role || 'admin';
+  document.getElementById('uActive').checked = u?.isActive !== false;
+  document.getElementById('uPassWrap').style.display = u ? 'none' : 'block';
+  document.querySelectorAll('.perm-check').forEach(cb => {
+    cb.checked = u ? !!(u.permissions||{})[cb.getAttribute('data-perm')] : ['bookings','availability'].includes(cb.getAttribute('data-perm'));
+  });
+  openModal('adminModal');
+}
+
+document.getElementById('addAdminBtn').addEventListener('click', () => openAdminModal());
+
+document.getElementById('saveAdminBtn').addEventListener('click', async () => {
+  const name  = document.getElementById('uName').value.trim();
+  const email = document.getElementById('uEmail').value.trim();
+  const pass  = document.getElementById('uPass').value.trim();
+  const role  = document.getElementById('uRole').value;
+  const active= document.getElementById('uActive').checked;
+  const permissions = {};
+  document.querySelectorAll('.perm-check').forEach(cb => {
+    permissions[cb.getAttribute('data-perm')] = cb.checked;
+  });
+
+  if (!name || (!_editUserId && !email)) { error('Missing fields', 'Name and email are required.'); return; }
+  if (!_editUserId && !pass) { error('Password required', 'Set a temporary password for the new account.'); return; }
+
+  const btn = document.getElementById('saveAdminBtn');
+  btn.disabled=true; btn.textContent='Saving...';
+  try {
+    if (_editUserId) {
+      await updateUserDoc(_editUserId, { displayName:name, role, permissions, isActive:active });
+      success('Account updated');
+    } else {
+      // Create Firebase Auth user then write Firestore doc
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      await createUserDoc(cred.user.uid, { displayName:name, email, role, permissions });
+      success('Account created', `${name} can now log in with ${email}`);
+    }
+    closeModal('adminModal');
+    loadUsers();
+  } catch(e) {
+    const msgs = { 'auth/email-already-in-use':'That email already has an account.', 'auth/weak-password':'Password must be at least 6 characters.' };
+    error('Error', msgs[e.code]||e.message);
+  } finally { btn.disabled=false; btn.textContent=_editUserId?'Save Changes':'Create Account'; _editUserId=null; }
+});
+
+loadAll();
+</script>
+</body>
+</html>

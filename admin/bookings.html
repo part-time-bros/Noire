@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookings — NOIRE Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="assets/css/admin-global.css"/>
+  <link rel="stylesheet" href="assets/css/admin-components.css"/>
+</head>
+<body>
+<button class="sidebar-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+
+<div class="admin-shell">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar__brand">
+      <div>
+        <div class="sidebar__brand-name">NOIRE<span class="sidebar__brand-dot"></span></div>
+        <div class="sidebar__brand-sub">Admin Panel</div>
+      </div>
+    </div>
+    <div class="sidebar__nav">
+      <div class="sidebar__section-label">Main</div>
+      <a href="dashboard.html" class="sidebar__link">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/></svg>
+        Dashboard
+        <span class="sidebar__link-badge" data-pending style="display:none;">0</span>
+      </a>
+      <a href="bookings.html" class="sidebar__link">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3a1 1 0 000 2h6a1 1 0 100-2H5zM3 7a1 1 0 011-1h8a1 1 0 110 2H4a1 1 0 01-1-1zm1 3a1 1 0 100 2h8a1 1 0 100-2H4z"/></svg>
+        Bookings
+      </a>
+      <a href="availability.html" class="sidebar__link">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zm9.954 3H2.545A1 1 0 002 4v1h12V4a1 1 0 00-.546-.877zM2 7v7a1 1 0 001 1h10a1 1 0 001-1V7H2z"/></svg>
+        Availability
+      </a>
+      <a href="team.html" class="sidebar__link">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zm2-3a2 2 0 11-4 0 2 2 0 014 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg>
+        Team &amp; Artists
+      </a>
+      <div class="sidebar__section-label" style="margin-top:var(--sp-md);">System</div>
+      <a href="settings.html" class="sidebar__link">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4.754a3.246 3.246 0 100 6.492 3.246 3.246 0 000-6.492zM5.754 8a2.246 2.246 0 114.492 0 2.246 2.246 0 01-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 01-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 01-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 01.52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 011.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 011.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 01.52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 01-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 01-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 002.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 001.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 00-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 00-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 00-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 003.06 8.282l-.318-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 004.176 3.82l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 002.692-1.116l.094-.318z"/></svg>
+        Settings
+      </a>
+    </div>
+    <div class="sidebar__user">
+      <div class="sidebar__user-avatar" data-user-avatar>A</div>
+      <div class="sidebar__user-info">
+        <div class="sidebar__user-name" data-user-name>Loading...</div>
+        <div class="sidebar__user-role" data-user-role>—</div>
+      </div>
+      <button class="sidebar__signout" data-signout aria-label="Sign out" title="Sign out">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="admin-content">
+    <header class="topbar">
+      <div class="topbar__left">
+        <span class="topbar__breadcrumb">NOIRE &rsaquo; <span>Bookings</span></span>
+      </div>
+      <div class="topbar__right">
+        <div class="topbar__date"></div>
+        <div class="topbar__notif"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16a2 2 0 002-2H6a2 2 0 002 2zM8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z"/></svg><span class="topbar__notif-badge" style="display:none;"></span></div>
+      </div>
+    </header>
+
+    <div class="admin-page">
+      <div class="page-header">
+        <div>
+          <div class="t-label" style="margin-bottom:var(--sp-xs);">Management</div>
+          <h1 class="page-header__title">Bookings</h1>
+        </div>
+        <button class="btn btn--primary" id="addBookingBtn">+ Add Manual Booking</button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="pending">Pending</button>
+        <button class="filter-btn" data-filter="confirmed">Confirmed</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+        <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+        <button class="filter-btn" data-filter="no_show">No-show</button>
+        <div class="search-wrap">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="width:14px;height:14px;"><path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1.007 1.007 0 00-.115-.099zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/></svg>
+          <input class="search-input" id="searchInput" type="search" placeholder="Search client, service..." />
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table id="bookingsTable">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Service</th>
+              <th>Date &amp; Time</th>
+              <th>Artist</th>
+              <th>Source</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTbody">
+            <tr><td colspan="7" style="text-align:center;padding:var(--sp-2xl);"><span class="spinner"></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD BOOKING MODAL -->
+<div class="modal-overlay" id="addBookingModal">
+  <div class="modal modal--lg">
+    <div class="modal__header">
+      <div class="modal__title" id="bookingModalTitle">Add Manual Booking</div>
+      <button class="modal__close" aria-label="Close"></button>
+    </div>
+    <div class="modal__body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="bClientName">Client Name *</label>
+          <input class="form-input" type="text" id="bClientName" placeholder="Full name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bClientPhone">Mobile Number *</label>
+          <input class="form-input" type="tel" id="bClientPhone" placeholder="+91 98765 43210"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bClientEmail">Email</label>
+          <input class="form-input" type="email" id="bClientEmail" placeholder="client@email.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bService">Service *</label>
+          <select class="form-input" id="bService">
+            <option value="">Select service...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bDate">Date *</label>
+          <input class="form-input" type="date" id="bDate"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bSlot">Time Slot *</label>
+          <select class="form-input" id="bSlot">
+            <option value="">Select date first...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bArtist">Assign Artist</label>
+          <select class="form-input" id="bArtist">
+            <option value="">Unassigned</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bSource">Source</label>
+          <select class="form-input" id="bSource">
+            <option value="manual">Manual Entry</option>
+            <option value="phone">Phone Call</option>
+            <option value="walkin">Walk-in</option>
+            <option value="website">Website</option>
+          </select>
+        </div>
+        <div class="form-group form-span-2">
+          <label class="form-label" for="bNote">Client Note</label>
+          <input class="form-input" type="text" id="bNote" placeholder="Any requests or notes from client..."/>
+        </div>
+        <div class="form-group form-span-2">
+          <label class="form-label" for="bInternal">Internal Note</label>
+          <input class="form-input" type="text" id="bInternal" placeholder="Staff-only notes..."/>
+        </div>
+      </div>
+      <!-- Slot availability warning -->
+      <div id="slotWarning" style="display:none;margin-top:var(--sp-md);padding:var(--sp-sm) var(--sp-md);background:rgba(230,168,23,.08);border:1px solid rgba(230,168,23,.25);border-left:2px solid var(--status-pending);font-size:.875rem;color:var(--status-pending);"></div>
+      <!-- Force book (super admin only) -->
+      <div id="forceBookWrap" style="display:none;margin-top:var(--sp-sm);">
+        <label class="toggle-wrap" style="cursor:pointer;">
+          <span class="toggle"><input type="checkbox" id="forceBook"/><span class="toggle__track"></span></span>
+          <span class="toggle__label" style="color:var(--status-cancelled);">Force book anyway (Super Admin override)</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--outline" data-close-modal>Cancel</button>
+      <button class="btn btn--primary" id="saveBookingBtn">Save Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- CANCEL MODAL -->
+<div class="modal-overlay" id="cancelModal">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal__header">
+      <div class="modal__title">Cancel Booking</div>
+      <button class="modal__close" aria-label="Close"></button>
+    </div>
+    <div class="modal__body">
+      <p style="font-size:.875rem;color:var(--warm-dim);margin-bottom:var(--sp-lg);">A cancellation email will be sent to the client.</p>
+      <div class="form-group">
+        <label class="form-label" for="cancelReason">Reason (optional)</label>
+        <input class="form-input" type="text" id="cancelReason" placeholder="e.g. Artist unavailable"/>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--outline" data-close-modal>Keep</button>
+      <button class="btn btn--danger" id="doCancelBtn">Cancel Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTE MODAL -->
+<div class="modal-overlay" id="noteModal">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal__header">
+      <div class="modal__title">Internal Note</div>
+      <button class="modal__close" aria-label="Close"></button>
+    </div>
+    <div class="modal__body">
+      <div class="form-group">
+        <label class="form-label" for="internalNote">Note</label>
+        <textarea class="form-input" id="internalNote" rows="4" placeholder="Staff-only note..."></textarea>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--outline" data-close-modal>Cancel</button>
+      <button class="btn btn--primary" id="saveNoteBtn">Save Note</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { init, doSignOut, getUID, isSuper } from './assets/js/admin-auth.js';
+import {
+  getBookings, getBookingById, createBooking, updateBooking,
+  confirmBooking, cancelBooking, getSettings, getServices,
+  getBookedSlotsForDate, formatDisplayDate, getTodayString,
+  generateSlots, findOrCreateClient
+} from './assets/js/admin-firebase.js';
+import { success, error, openModal, closeModal } from './assets/js/admin-ui.js';
+import { sendConfirmation, sendCancellation } from './assets/js/admin-email.js';
+
+await init('bookings');
+
+document.querySelectorAll('[data-signout]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); doSignOut(); }));
+
+let _allBookings = [], _filter = 'all', _search = '', _cancelId = null, _cancelBooking = null, _noteId = null;
+let _settings = {}, _services = [], _artists = [];
+
+/* ── LOAD DATA ─────────────────────────────────────────────── */
+async function loadAll() {
+  [_settings, _services] = await Promise.all([getSettings(), getServices()]);
+  _artists = _settings.artists || [];
+  await loadBookings();
+  populateServiceSelect();
+  populateArtistSelect();
+}
+
+async function loadBookings() {
+  _allBookings = await getBookings({ limit: 100 });
+  renderTable();
+}
+
+/* ── RENDER TABLE ─────────────────────────────────────────── */
+function renderTable() {
+  const tbody = document.getElementById('bookingsTbody');
+  let rows = _allBookings;
+  if (_filter !== 'all') rows = rows.filter(b => b.status === _filter);
+  if (_search) {
+    const q = _search.toLowerCase();
+    rows = rows.filter(b =>
+      (b.client.name||'').toLowerCase().includes(q) ||
+      (b.client.phone||'').includes(q) ||
+      (b.service||'').toLowerCase().includes(q)
+    );
+  }
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:var(--sp-2xl);color:var(--text-dim);">No bookings found.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = rows.map(b => `
+    <tr data-id="${b.id}">
+      <td>
+        <div class="td-primary">${b.client.name}</div>
+        <div style="font-size:.75rem;color:var(--text-dim);">${b.client.phone}</div>
+        ${b.client.email ? `<div style="font-size:.75rem;color:var(--text-dim);">${b.client.email}</div>` : ''}
+      </td>
+      <td>${b.service}</td>
+      <td>
+        <div>${formatDisplayDate(b.date)}</div>
+        <div style="font-size:.8125rem;color:var(--text-dim);">${b.slot}</div>
+      </td>
+      <td>${b.staffName || '<span style="color:var(--text-dim);">Unassigned</span>'}</td>
+      <td><span style="font-size:.75rem;color:var(--text-dim);text-transform:capitalize;">${b.source||'website'}</span></td>
+      <td><span class="badge badge--${b.status==='no_show'?'noshow':b.status}">${b.status==='no_show'?'No-show':b.status}</span></td>
+      <td>
+        <div class="td-actions">
+          ${b.status==='pending'   ? `<button class="btn btn--success btn--sm" data-action="confirm" data-id="${b.id}">Confirm</button>` : ''}
+          ${b.status==='confirmed' ? `<button class="btn btn--outline btn--sm" data-action="complete" data-id="${b.id}">Complete</button>` : ''}
+          ${['pending','confirmed'].includes(b.status) ? `<button class="btn btn--danger btn--sm" data-action="cancel" data-id="${b.id}">Cancel</button>` : ''}
+          ${b.status==='confirmed' ? `<button class="btn btn--ghost btn--sm" data-action="noshow" data-id="${b.id}">No-show</button>` : ''}
+          <button class="btn btn--ghost btn--sm" data-action="note" data-id="${b.id}" title="Add note">✎</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+  bindTableActions();
+}
+
+function bindTableActions() {
+  document.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const booking = _allBookings.find(b => b.id === id);
+      const action = btn.getAttribute('data-action');
+      if (action === 'confirm')  handleConfirm(id, booking);
+      if (action === 'cancel')   openCancelModal(id, booking);
+      if (action === 'complete') handleStatus(id, 'completed');
+      if (action === 'noshow')   handleStatus(id, 'no_show');
+      if (action === 'note')     openNoteModal(id, booking);
+    });
+  });
+}
+
+/* ── ACTIONS ─────────────────────────────────────────────── */
+async function handleConfirm(id, booking) {
+  const btn = document.querySelector(`[data-action="confirm"][data-id="${id}"]`);
+  if (btn) { btn.disabled=true; btn.textContent='...'; }
+  try {
+    await confirmBooking(id, getUID());
+    await sendConfirmation(booking).catch(e => console.warn('Email:', e));
+    success('Confirmed', `${booking.client.name} — ${formatDisplayDate(booking.date)} at ${booking.slot}`);
+    await loadBookings();
+  } catch(e) { error('Error', 'Could not confirm.'); if(btn){btn.disabled=false;btn.textContent='Confirm';} }
+}
+
+async function handleStatus(id, status) {
+  try {
+    await updateBooking(id, { status });
+    success('Updated', `Booking marked as ${status.replace('_',' ')}.`);
+    await loadBookings();
+  } catch(e) { error('Error', 'Could not update status.'); }
+}
+
+function openCancelModal(id, booking) {
+  _cancelId = id; _cancelBooking = booking;
+  document.getElementById('cancelReason').value = '';
+  openModal('cancelModal');
+}
+document.getElementById('doCancelBtn').addEventListener('click', async () => {
+  if (!_cancelId) return;
+  const reason = document.getElementById('cancelReason').value.trim();
+  const btn = document.getElementById('doCancelBtn');
+  btn.disabled=true; btn.textContent='...';
+  try {
+    await cancelBooking(_cancelId, reason, getUID());
+    if (_cancelBooking) await sendCancellation(_cancelBooking, reason).catch(e => console.warn('Email:', e));
+    closeModal('cancelModal');
+    success('Cancelled', 'Client notified by email.');
+    _cancelId=null; _cancelBooking=null;
+    await loadBookings();
+  } catch(e) { error('Error', 'Could not cancel.'); }
+  finally { btn.disabled=false; btn.textContent='Cancel Booking'; }
+});
+
+function openNoteModal(id, booking) {
+  _noteId = id;
+  document.getElementById('internalNote').value = booking.internalNote || '';
+  openModal('noteModal');
+}
+document.getElementById('saveNoteBtn').addEventListener('click', async () => {
+  if (!_noteId) return;
+  const note = document.getElementById('internalNote').value.trim();
+  try {
+    await updateBooking(_noteId, { internalNote: note });
+    closeModal('noteModal');
+    success('Note saved');
+    await loadBookings();
+  } catch(e) { error('Error', 'Could not save note.'); }
+  finally { _noteId=null; }
+});
+
+/* ── FILTERS ─────────────────────────────────────────────── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    _filter = btn.getAttribute('data-filter');
+    renderTable();
+  });
+});
+document.getElementById('searchInput').addEventListener('input', function() {
+  _search = this.value.trim();
+  renderTable();
+});
+
+/* ── ADD BOOKING MODAL ───────────────────────────────────── */
+function populateServiceSelect() {
+  const sel = document.getElementById('bService');
+  sel.innerHTML = '<option value="">Select service...</option>';
+  (_services.length ? _services : [
+    {name:'Haircut & Style', duration:60}, {name:'Balayage & Colour', duration:150},
+    {name:'Skincare Facial', duration:75}, {name:'Nail Care', duration:60},
+    {name:"Men's Grooming", duration:45}, {name:'Bridal Package', duration:240},
+  ]).forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.name; opt.textContent = `${s.name} (${s.duration} min)`;
+    opt.dataset.duration = s.duration;
+    sel.appendChild(opt);
+  });
+}
+
+function populateArtistSelect() {
+  const sel = document.getElementById('bArtist');
+  sel.innerHTML = '<option value="">Unassigned</option>';
+  _artists.forEach(a => {
+    const opt = document.createElement('option');
+    opt.value = a.id||a.name; opt.textContent = a.name;
+    sel.appendChild(opt);
+  });
+}
+
+async function populateSlots() {
+  const dateVal = document.getElementById('bDate').value;
+  const sel = document.getElementById('bSlot');
+  if (!dateVal) { sel.innerHTML='<option value="">Select date first...</option>'; return; }
+  sel.innerHTML = '<option value="">Loading...</option>';
+
+  const dayNames = ['sun','mon','tue','wed','thu','fri','sat'];
+  const dayName  = dayNames[new Date(dateVal).getDay()];
+  const wh       = (_settings.workingHours||{})[dayName];
+  if (!wh||!wh.isOpen) {
+    sel.innerHTML = '<option value="">Closed on this day</option>';
+    document.getElementById('slotWarning').style.display='block';
+    document.getElementById('slotWarning').textContent = 'The salon is closed on this day.';
+    return;
+  }
+
+  const allSlots    = generateSlots(wh.open, wh.close, _settings.slotDuration||45);
+  const bookedCounts= await getBookedSlotsForDate(dateVal);
+  const maxPerSlot  = _settings.maxPerSlot||3;
+
+  sel.innerHTML = '<option value="">Choose a time...</option>';
+  let hasUnavailable = false;
+  allSlots.forEach(slot => {
+    const count = bookedCounts[slot]||0;
+    const avail = count < maxPerSlot;
+    if (!avail) hasUnavailable = true;
+    const opt = document.createElement('option');
+    opt.value = slot;
+    opt.textContent = avail ? `${slot} (${maxPerSlot-count} spots left)` : `${slot} — FULL`;
+    if (!avail) { opt.disabled=true; opt.style.color='var(--text-dim)'; }
+    sel.appendChild(opt);
+  });
+  document.getElementById('slotWarning').style.display = 'none';
+}
+
+document.getElementById('bDate').addEventListener('change', populateSlots);
+
+// Check capacity on slot select
+document.getElementById('bSlot').addEventListener('change', async function() {
+  const dateVal = document.getElementById('bDate').value;
+  if (!dateVal || !this.value) return;
+  const counts = await getBookedSlotsForDate(dateVal);
+  const max = _settings.maxPerSlot||3;
+  const count = counts[this.value]||0;
+  const warn = document.getElementById('slotWarning');
+  const forceWrap = document.getElementById('forceBookWrap');
+  if (count >= max) {
+    warn.style.display='block';
+    warn.textContent = `This slot is at full capacity (${count}/${max} bookings). `;
+    if (isSuper()) { forceWrap.style.display='block'; }
+  } else {
+    warn.style.display='none';
+    forceWrap.style.display='none';
+    document.getElementById('forceBook').checked=false;
+  }
+});
+
+document.getElementById('addBookingBtn').addEventListener('click', () => {
+  document.getElementById('bookingModalTitle').textContent = 'Add Manual Booking';
+  clearBookingForm();
+  openModal('addBookingModal');
+});
+
+function clearBookingForm() {
+  ['bClientName','bClientPhone','bClientEmail','bNote','bInternal'].forEach(id => {
+    document.getElementById(id).value='';
+  });
+  document.getElementById('bService').value='';
+  document.getElementById('bDate').value='';
+  document.getElementById('bSlot').innerHTML='<option value="">Select date first...</option>';
+  document.getElementById('slotWarning').style.display='none';
+  document.getElementById('forceBookWrap').style.display='none';
+}
+
+document.getElementById('saveBookingBtn').addEventListener('click', async () => {
+  const name  = document.getElementById('bClientName').value.trim();
+  const phone = document.getElementById('bClientPhone').value.trim();
+  const email = document.getElementById('bClientEmail').value.trim();
+  const service = document.getElementById('bService').value;
+  const date  = document.getElementById('bDate').value;
+  const slot  = document.getElementById('bSlot').value;
+  const artistSel = document.getElementById('bArtist');
+  const artistName = artistSel.options[artistSel.selectedIndex]?.text || '';
+  const artistId   = artistSel.value;
+  const source = document.getElementById('bSource').value;
+  const note   = document.getElementById('bNote').value.trim();
+  const internal = document.getElementById('bInternal').value.trim();
+  const force  = document.getElementById('forceBook').checked;
+
+  if (!name||!phone||!service||!date||!slot) {
+    error('Missing fields', 'Please fill in all required fields.'); return;
+  }
+
+  // Capacity check (unless force)
+  if (!force) {
+    const counts = await getBookedSlotsForDate(date);
+    const max = _settings.maxPerSlot||3;
+    if ((counts[slot]||0) >= max) {
+      error('Slot Full', 'This slot is at full capacity. Toggle "Force book" to override.'); return;
+    }
+  }
+
+  const btn = document.getElementById('saveBookingBtn');
+  btn.disabled=true; btn.textContent='Saving...';
+  try {
+    await createBooking({
+      status: 'confirmed', source,
+      service, date, slot,
+      staffId: artistId||null, staffName: artistName||null,
+      client: { name, phone, email, note },
+      internalNote: internal,
+    });
+    closeModal('addBookingModal');
+    success('Booking Added', `${name} — ${formatDisplayDate(date)} at ${slot}`);
+    await loadBookings();
+  } catch(e) { error('Error', 'Could not save booking.'); }
+  finally { btn.disabled=false; btn.textContent='Save Booking'; }
+});
+
+loadAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — NOIRE Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="assets/css/admin-global.css"/>
+  <link rel="stylesheet" href="assets/css/admin-components.css"/>
+</head>
+<body>
+<button class="sidebar-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+
+<div class="admin-shell">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" aria-label="Admin navigation">
+    <div class="sidebar__brand">
+      <div>
+        <div class="sidebar__brand-name">NOIRE<span class="sidebar__brand-dot"></span></div>
+        <div class="sidebar__brand-sub">Admin Panel</div>
+      </div>
+    </div>
+    <div class="sidebar__nav">
+      <div class="sidebar__section-label">Main</div>
+      <a href="dashboard.html" class="sidebar__link">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/></svg>
+        Dashboard
+        <span class="sidebar__link-badge" data-pending style="display:none;">0</span>
+      </a>
+      <a href="bookings.html" class="sidebar__link" data-requires-perm="bookings">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3a1 1 0 000 2h6a1 1 0 100-2H5zM3 7a1 1 0 011-1h8a1 1 0 110 2H4a1 1 0 01-1-1zm1 3a1 1 0 100 2h8a1 1 0 100-2H4z"/></svg>
+        Bookings
+      </a>
+      <a href="availability.html" class="sidebar__link" data-requires-perm="availability">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zm9.954 3H2.545A1 1 0 002 4v1h12V4a1 1 0 00-.546-.877zM2 7v7a1 1 0 001 1h10a1 1 0 001-1V7H2z"/></svg>
+        Availability
+      </a>
+      <a href="team.html" class="sidebar__link" data-requires-perm="team">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zm2-3a2 2 0 11-4 0 2 2 0 014 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg>
+        Team &amp; Artists
+      </a>
+      <div class="sidebar__section-label" style="margin-top:var(--sp-md);">System</div>
+      <a href="settings.html" class="sidebar__link" data-requires-perm="settings">
+        <svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4.754a3.246 3.246 0 100 6.492 3.246 3.246 0 000-6.492zM5.754 8a2.246 2.246 0 114.492 0 2.246 2.246 0 01-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 01-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 01-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 01.52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 011.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 011.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 01.52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 01-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 01-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 002.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 001.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 00-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 00-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 00-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 003.06 8.282l-.318-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 004.176 3.82l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 002.692-1.116l.094-.318z"/></svg>
+        Settings
+      </a>
+    </div>
+    <div class="sidebar__user">
+      <div class="sidebar__user-avatar" data-user-avatar>A</div>
+      <div class="sidebar__user-info">
+        <div class="sidebar__user-name" data-user-name>Loading...</div>
+        <div class="sidebar__user-role" data-user-role>—</div>
+      </div>
+      <button class="sidebar__signout" data-signout aria-label="Sign out" title="Sign out">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="admin-content">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar__left">
+        <span class="topbar__breadcrumb">NOIRE &rsaquo; <span>Dashboard</span></span>
+      </div>
+      <div class="topbar__right">
+        <div class="topbar__date"></div>
+        <div class="topbar__notif" title="Pending bookings">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16a2 2 0 002-2H6a2 2 0 002 2zM8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z"/></svg>
+          <span class="topbar__notif-badge" style="display:none;"></span>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-page">
+      <div class="page-header">
+        <div>
+          <div class="t-label" style="margin-bottom:var(--sp-xs);">Overview</div>
+          <h1 class="page-header__title">Dashboard</h1>
+        </div>
+        <a href="bookings.html" class="btn btn--primary">+ New Booking</a>
+      </div>
+
+      <!-- Stats -->
+      <div class="stat-grid" id="statGrid">
+        <div class="card"><div class="card__label">Pending Requests</div><div class="card__value card__value--gold" id="statPending">—</div><div class="card__sub">Awaiting confirmation</div></div>
+        <div class="card"><div class="card__label">Today's Bookings</div><div class="card__value" id="statToday">—</div><div class="card__sub" id="statTodayDate">—</div></div>
+        <div class="card"><div class="card__label">This Month</div><div class="card__value" id="statMonth">—</div><div class="card__sub">Confirmed bookings</div></div>
+        <div class="card"><div class="card__label">Cancellations</div><div class="card__value" id="statCancelled">—</div><div class="card__sub">This month</div></div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Pending Bookings -->
+        <div class="section-block">
+          <div class="section-block__header">
+            <span class="section-block__title">Pending Requests</span>
+            <a href="bookings.html" class="btn btn--ghost btn--sm">View All →</a>
+          </div>
+          <div id="pendingList">
+            <div style="padding:var(--sp-xl);text-align:center;"><span class="spinner"></span></div>
+          </div>
+        </div>
+
+        <!-- Today's Bookings -->
+        <div class="section-block">
+          <div class="section-block__header">
+            <span class="section-block__title">Today's Schedule</span>
+          </div>
+          <div id="todayList">
+            <div style="padding:var(--sp-xl);text-align:center;"><span class="spinner"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel reason modal -->
+<div class="modal-overlay" id="cancelModal">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal__header">
+      <div class="modal__title">Cancel Booking</div>
+      <button class="modal__close" aria-label="Close"></button>
+    </div>
+    <div class="modal__body">
+      <p style="font-size:.875rem;color:var(--warm-dim);margin-bottom:var(--sp-lg);">A cancellation email will be sent to the client.</p>
+      <div class="form-group">
+        <label class="form-label" for="cancelReason">Reason (optional)</label>
+        <input class="form-input" type="text" id="cancelReason" placeholder="e.g. Artist unavailable"/>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--outline" data-close-modal>Keep</button>
+      <button class="btn btn--danger" id="cancelConfirmBtn">Cancel Booking</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { init, doSignOut, getUID } from './assets/js/admin-auth.js';
+import { getTodayBookings, getPendingBookings, listenToPending,
+         confirmBooking, cancelBooking, getPendingCount,
+         formatDisplayDate, getTodayString } from './assets/js/admin-firebase.js';
+import { success, error, openModal, closeModal } from './assets/js/admin-ui.js';
+import { sendConfirmation, sendCancellation } from './assets/js/admin-email.js';
+
+await init();
+
+// Sign out
+document.querySelectorAll('[data-signout]').forEach(btn =>
+  btn.addEventListener('click', e => { e.preventDefault(); doSignOut(); })
+);
+
+let _cancelId = null, _cancelBooking = null;
+
+/* ── STATS ─────────────────────────────────────────────────── */
+async function loadStats() {
+  const today  = getTodayString();
+  const [todayB, pending] = await Promise.all([getTodayBookings(), getPendingCount()]);
+  document.getElementById('statPending').textContent = pending;
+  document.getElementById('statToday').textContent   = todayB.length;
+  document.getElementById('statTodayDate').textContent =
+    new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'});
+}
+loadStats();
+
+/* ── PENDING LIST (real-time) ────────────────────────────────── */
+function renderPendingRow(b) {
+  const div = document.createElement('div');
+  div.style.cssText = 'padding:var(--sp-md);border-bottom:1px solid var(--border);';
+  div.innerHTML = `
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-sm);flex-wrap:wrap;">
+      <div>
+        <div style="font-size:.9375rem;color:var(--warm-white);font-weight:400;">${b.client.name}</div>
+        <div style="font-size:.8125rem;color:var(--text-dim);margin-top:2px;">${b.service} &mdash; ${formatDisplayDate(b.date)} at ${b.slot}</div>
+        <div style="font-size:.75rem;color:var(--text-dim);margin-top:2px;">${b.client.phone}</div>
+      </div>
+      <div style="display:flex;gap:var(--sp-xs);flex-shrink:0;margin-top:2px;">
+        <button class="btn btn--success btn--sm" data-confirm="${b.id}">Confirm</button>
+        <button class="btn btn--danger btn--sm"  data-cancel="${b.id}">Cancel</button>
+      </div>
+    </div>
+    ${b.client.note ? `<div style="font-size:.75rem;color:var(--text-dim);margin-top:var(--sp-xs);padding:var(--sp-xs) var(--sp-sm);background:var(--surface-2);border-left:2px solid var(--border-light);">${b.client.note}</div>` : ''}
+  `;
+  return div;
+}
+
+listenToPending(bookings => {
+  const el = document.getElementById('pendingList');
+  if (!bookings.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-state__icon">✓</div><div class="empty-state__title">All clear</div><p class="empty-state__sub">No pending booking requests.</p></div>';
+    return;
+  }
+  el.innerHTML = '';
+  bookings.forEach(b => el.appendChild(renderPendingRow(b)));
+  // Re-bind buttons
+  el.querySelectorAll('[data-confirm]').forEach(btn => {
+    btn.addEventListener('click', () => handleConfirm(btn.getAttribute('data-confirm')));
+  });
+  el.querySelectorAll('[data-cancel]').forEach(btn => {
+    btn.addEventListener('click', () => openCancelModal(btn.getAttribute('data-cancel'), bookings.find(b=>b.id===btn.getAttribute('data-cancel'))));
+  });
+  // Update sidebar badge
+  document.querySelectorAll('.sidebar__link-badge[data-pending]').forEach(b => {
+    b.textContent = bookings.length; b.style.display = 'flex';
+  });
+  loadStats();
+});
+
+/* ── TODAY LIST ─────────────────────────────────────────────── */
+async function loadToday() {
+  const bookings = await getTodayBookings();
+  const el = document.getElementById('todayList');
+  if (!bookings.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-state__icon">◇</div><div class="empty-state__title">Nothing today</div><p class="empty-state__sub">No bookings scheduled for today.</p></div>';
+    return;
+  }
+  el.innerHTML = bookings.map(b => `
+    <div style="padding:var(--sp-md);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-sm);">
+      <div>
+        <div style="font-size:.9375rem;color:var(--warm-white);font-weight:400;">${b.client.name}</div>
+        <div style="font-size:.8125rem;color:var(--text-dim);margin-top:2px;">${b.service} &mdash; ${b.slot}</div>
+        ${b.staffName ? `<div style="font-size:.75rem;color:var(--gold-muted);margin-top:2px;">${b.staffName}</div>` : ''}
+      </div>
+      <span class="badge badge--${b.status}">${b.status}</span>
+    </div>
+  `).join('');
+}
+loadToday();
+
+/* ── CONFIRM ────────────────────────────────────────────────── */
+async function handleConfirm(id) {
+  const btn = document.querySelector(`[data-confirm="${id}"]`);
+  if (btn) { btn.disabled=true; btn.textContent='...'; }
+  try {
+    const booking = await import('./assets/js/admin-firebase.js').then(m => m.getBookingById(id));
+    await confirmBooking(id, getUID());
+    await sendConfirmation(booking).catch(e => console.warn('Email failed:', e));
+    success('Booking Confirmed', `${booking.client.name} — ${formatDisplayDate(booking.date)} at ${booking.slot}`);
+    loadStats(); loadToday();
+  } catch(e) {
+    error('Error', 'Could not confirm booking. Try again.');
+    if (btn) { btn.disabled=false; btn.textContent='Confirm'; }
+  }
+}
+
+/* ── CANCEL ─────────────────────────────────────────────────── */
+function openCancelModal(id, booking) {
+  _cancelId = id; _cancelBooking = booking;
+  document.getElementById('cancelReason').value = '';
+  openModal('cancelModal');
+}
+document.getElementById('cancelConfirmBtn').addEventListener('click', async () => {
+  if (!_cancelId) return;
+  const reason = document.getElementById('cancelReason').value.trim();
+  const btn = document.getElementById('cancelConfirmBtn');
+  btn.disabled=true; btn.textContent='Cancelling...';
+  try {
+    await cancelBooking(_cancelId, reason, getUID());
+    if (_cancelBooking) await sendCancellation(_cancelBooking, reason).catch(e => console.warn('Email failed:', e));
+    closeModal('cancelModal');
+    success('Booking Cancelled', 'Cancellation email sent to client.');
+    loadStats(); loadToday();
+  } catch(e) {
+    error('Error', 'Could not cancel booking.');
+  } finally {
+    btn.disabled=false; btn.textContent='Cancel Booking';
+    _cancelId=null; _cancelBooking=null;
+  }
+});
+</script>
+</body>
+</html>

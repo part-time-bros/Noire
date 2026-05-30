@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings — NOIRE Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="assets/css/admin-global.css"/>
+  <link rel="stylesheet" href="assets/css/admin-components.css"/>
+</head>
+<body>
+<button class="sidebar-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+
+<div class="admin-shell">
+  <nav class="sidebar">
+    <div class="sidebar__brand"><div><div class="sidebar__brand-name">NOIRE<span class="sidebar__brand-dot"></span></div><div class="sidebar__brand-sub">Admin Panel</div></div></div>
+    <div class="sidebar__nav">
+      <div class="sidebar__section-label">Main</div>
+      <a href="dashboard.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/></svg>Dashboard<span class="sidebar__link-badge" data-pending style="display:none;">0</span></a>
+      <a href="bookings.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3a1 1 0 000 2h6a1 1 0 100-2H5zM3 7a1 1 0 011-1h8a1 1 0 110 2H4a1 1 0 01-1-1zm1 3a1 1 0 100 2h8a1 1 0 100-2H4z"/></svg>Bookings</a>
+      <a href="availability.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zm9.954 3H2.545A1 1 0 002 4v1h12V4a1 1 0 00-.546-.877zM2 7v7a1 1 0 001 1h10a1 1 0 001-1V7H2z"/></svg>Availability</a>
+      <a href="team.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zm2-3a2 2 0 11-4 0 2 2 0 014 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>Team &amp; Artists</a>
+      <div class="sidebar__section-label" style="margin-top:var(--sp-md);">System</div>
+      <a href="settings.html" class="sidebar__link"><svg class="sidebar__link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4.754a3.246 3.246 0 100 6.492 3.246 3.246 0 000-6.492zM5.754 8a2.246 2.246 0 114.492 0 2.246 2.246 0 01-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 01-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 01-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 01.52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 011.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 011.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 01.52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 01-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 01-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 002.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 001.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 00-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 00-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 00-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 003.06 8.282l-.318-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 004.176 3.82l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 002.692-1.116l.094-.318z"/></svg>Settings</a>
+    </div>
+    <div class="sidebar__user">
+      <div class="sidebar__user-avatar" data-user-avatar>A</div>
+      <div class="sidebar__user-info"><div class="sidebar__user-name" data-user-name>Loading...</div><div class="sidebar__user-role" data-user-role>—</div></div>
+      <button class="sidebar__signout" data-signout aria-label="Sign out"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/></svg></button>
+    </div>
+  </nav>
+
+  <div class="admin-content">
+    <header class="topbar">
+      <div class="topbar__left"><span class="topbar__breadcrumb">NOIRE &rsaquo; <span>Settings</span></span></div>
+      <div class="topbar__right"><div class="topbar__date"></div><div class="topbar__notif"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16a2 2 0 002-2H6a2 2 0 002 2zM8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z"/></svg><span class="topbar__notif-badge" style="display:none;"></span></div></div>
+    </header>
+
+    <div class="admin-page">
+      <div class="page-header">
+        <div>
+          <div class="t-label" style="margin-bottom:var(--sp-xs);">Configuration</div>
+          <h1 class="page-header__title">Settings</h1>
+        </div>
+      </div>
+
+      <div class="grid-2" style="align-items:start;">
+
+        <!-- LEFT -->
+        <div>
+          <!-- Salon Info -->
+          <div class="section-block">
+            <div class="section-block__header">
+              <span class="section-block__title">Salon Information</span>
+              <button class="btn btn--primary btn--sm" id="saveSalonBtn">Save</button>
+            </div>
+            <div class="card">
+              <div class="form-grid">
+                <div class="form-group form-span-2">
+                  <label class="form-label" for="sName">Salon Name</label>
+                  <input class="form-input" type="text" id="sName" placeholder="NOIRE"/>
+                </div>
+                <div class="form-group form-span-2">
+                  <label class="form-label" for="sTagline">Tagline</label>
+                  <input class="form-input" type="text" id="sTagline" placeholder="Where craft meets ritual."/>
+                </div>
+                <div class="form-group form-span-2">
+                  <label class="form-label" for="sAddress">Address</label>
+                  <input class="form-input" type="text" id="sAddress"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="sPhone">Phone</label>
+                  <input class="form-input" type="tel" id="sPhone"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="sEmail">Email</label>
+                  <input class="form-input" type="email" id="sEmail"/>
+                </div>
+                <div class="form-group form-span-2">
+                  <label class="form-label" for="sWhatsapp">WhatsApp Number <span style="color:var(--text-dim);font-size:.75rem;">(with country code, no spaces)</span></label>
+                  <input class="form-input" type="text" id="sWhatsapp" placeholder="+912234567890"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- EmailJS Config -->
+          <div class="section-block">
+            <div class="section-block__header">
+              <span class="section-block__title">EmailJS Configuration</span>
+              <button class="btn btn--primary btn--sm" id="saveEmailBtn">Save</button>
+            </div>
+            <div class="card">
+              <div style="padding:var(--sp-sm) var(--sp-md);background:rgba(200,169,110,0.06);border-left:2px solid var(--gold-muted);margin-bottom:var(--sp-lg);">
+                <p style="font-size:.8125rem;color:var(--text-dim);line-height:1.6;">Get these values from <a href="https://emailjs.com" target="_blank" style="color:var(--gold);">emailjs.com</a> → Account → API Keys &amp; Email Templates.</p>
+              </div>
+              <div class="form-grid">
+                <div class="form-group form-span-2">
+                  <label class="form-label" for="ejPublicKey">Public Key</label>
+                  <input class="form-input" type="text" id="ejPublicKey" placeholder="e.g. QI9DY0kf0UbwSYK14"/>
+                </div>
+                <div class="form-group form-span-2">
+                  <label class="form-label" for="ejServiceId">Service ID</label>
+                  <input class="form-input" type="text" id="ejServiceId" placeholder="e.g. service_jfn9do8"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="ejConfirmId">Confirmation Template ID</label>
+                  <input class="form-input" type="text" id="ejConfirmId" placeholder="e.g. template_abc123"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="ejCancelId">Cancellation Template ID</label>
+                  <input class="form-input" type="text" id="ejCancelId" placeholder="e.g. template_xyz456"/>
+                </div>
+              </div>
+              <div style="margin-top:var(--sp-md);">
+                <button class="btn btn--outline btn--sm" id="testEmailBtn">Send Test Email</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+          <!-- Stats Overview (live from DB) -->
+          <div class="section-block">
+            <div class="section-block__header">
+              <span class="section-block__title">System Overview</span>
+            </div>
+            <div id="systemStats">
+              <div style="padding:var(--sp-xl);text-align:center;"><span class="spinner"></span></div>
+            </div>
+          </div>
+
+          <!-- Super Admin: Change Password -->
+          <div class="section-block" data-requires-super>
+            <div class="section-block__header">
+              <span class="section-block__title">Change Password</span>
+            </div>
+            <div class="card">
+              <div class="form-group">
+                <label class="form-label" for="newPass">New Password</label>
+                <input class="form-input" type="password" id="newPass" placeholder="Min 6 characters"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="confirmPass">Confirm Password</label>
+                <input class="form-input" type="password" id="confirmPass" placeholder="Repeat password"/>
+              </div>
+              <button class="btn btn--outline" id="changePassBtn" style="margin-top:var(--sp-sm);">Update Password</button>
+            </div>
+          </div>
+
+          <!-- Firestore Setup Guide -->
+          <div class="section-block">
+            <div class="section-block__header">
+              <span class="section-block__title">Setup Checklist</span>
+            </div>
+            <div class="card">
+              <div id="setupChecklist">
+                <div style="padding:var(--sp-md);text-align:center;"><span class="spinner"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Danger Zone (Super Admin) -->
+          <div class="section-block" data-requires-super>
+            <div class="section-block__header">
+              <span class="section-block__title" style="color:var(--status-cancelled);">Danger Zone</span>
+            </div>
+            <div class="card" style="border-color:rgba(239,83,80,.2);">
+              <p style="font-size:.875rem;color:var(--text-dim);margin-bottom:var(--sp-lg);">These actions cannot be undone.</p>
+              <button class="btn btn--danger" id="resetSettingsBtn">Reset All Settings to Default</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { init, doSignOut, isSuper, getUID } from './assets/js/admin-auth.js';
+import { getSettings, saveSettings, getDefaultSettings,
+         getBookings, getPendingCount, getClients, getAllUsers } from './assets/js/admin-firebase.js';
+import { success, error, confirm } from './assets/js/admin-ui.js';
+import { updatePassword, EmailAuthProvider, reauthenticateWithCredential,
+         auth } from 'https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js';
+
+await init('settings');
+document.querySelectorAll('[data-signout]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); doSignOut(); }));
+
+let _settings = {};
+
+/* ── LOAD ──────────────────────────────────────────────────── */
+async function loadAll() {
+  _settings = await getSettings();
+  populateForms();
+  loadSystemStats();
+  loadChecklist();
+}
+
+function populateForms() {
+  const c = _settings.contact || {};
+  document.getElementById('sName').value    = _settings.salonName || 'NOIRE';
+  document.getElementById('sTagline').value = _settings.tagline   || '';
+  document.getElementById('sAddress').value = c.address  || '';
+  document.getElementById('sPhone').value   = c.phone    || '';
+  document.getElementById('sEmail').value   = c.email    || '';
+  document.getElementById('sWhatsapp').value= c.whatsapp || '';
+
+  const ej = _settings.emailjs || {};
+  document.getElementById('ejPublicKey').value = ej.publicKey          || '';
+  document.getElementById('ejServiceId').value = ej.serviceId          || '';
+  document.getElementById('ejConfirmId').value = ej.confirmTemplateId  || '';
+  document.getElementById('ejCancelId').value  = ej.cancelTemplateId   || '';
+}
+
+/* ── SAVE SALON INFO ───────────────────────────────────────── */
+document.getElementById('saveSalonBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('saveSalonBtn');
+  btn.disabled=true; btn.textContent='Saving...';
+  try {
+    await saveSettings({
+      salonName: document.getElementById('sName').value.trim(),
+      tagline:   document.getElementById('sTagline').value.trim(),
+      contact: {
+        address:  document.getElementById('sAddress').value.trim(),
+        phone:    document.getElementById('sPhone').value.trim(),
+        email:    document.getElementById('sEmail').value.trim(),
+        whatsapp: document.getElementById('sWhatsapp').value.trim(),
+      },
+    });
+    success('Salon info saved');
+    loadChecklist();
+  } catch(e) { error('Error', 'Could not save.'); }
+  finally { btn.disabled=false; btn.textContent='Save'; }
+});
+
+/* ── SAVE EMAILJS ──────────────────────────────────────────── */
+document.getElementById('saveEmailBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('saveEmailBtn');
+  btn.disabled=true; btn.textContent='Saving...';
+  try {
+    await saveSettings({
+      emailjs: {
+        publicKey:         document.getElementById('ejPublicKey').value.trim(),
+        serviceId:         document.getElementById('ejServiceId').value.trim(),
+        confirmTemplateId: document.getElementById('ejConfirmId').value.trim(),
+        cancelTemplateId:  document.getElementById('ejCancelId').value.trim(),
+      },
+    });
+    success('EmailJS config saved');
+    loadChecklist();
+  } catch(e) { error('Error', 'Could not save.'); }
+  finally { btn.disabled=false; btn.textContent='Save'; }
+});
+
+/* ── TEST EMAIL ────────────────────────────────────────────── */
+document.getElementById('testEmailBtn').addEventListener('click', async () => {
+  const pk = document.getElementById('ejPublicKey').value.trim();
+  const svc= document.getElementById('ejServiceId').value.trim();
+  const tpl= document.getElementById('ejConfirmId').value.trim();
+  if (!pk||!svc||!tpl) { error('Configure EmailJS', 'Fill in and save your EmailJS details first.'); return; }
+  if (typeof emailjs === 'undefined') { error('EmailJS not loaded', 'Refresh the page and try again.'); return; }
+  const btn = document.getElementById('testEmailBtn');
+  btn.disabled=true; btn.textContent='Sending...';
+  try {
+    emailjs.init(pk);
+    await emailjs.send(svc, tpl, {
+      to_email:'test@example.com', guest_name:'Test Client',
+      phone:'+91 00000 00000', service:'Haircut & Style',
+      date:'Friday, 23 May 2026', time:'10:00 AM',
+      artist:'Test Artist', salon_name:'NOIRE',
+      salon_address:'42 Pali Hill, Bandra West', salon_phone:'+91 22 3456 7890',
+    });
+    success('Test email sent', 'Check your EmailJS activity log to confirm delivery.');
+  } catch(e) { error('Email failed', e.text || e.message || 'Check your EmailJS credentials.'); }
+  finally { btn.disabled=false; btn.textContent='Send Test Email'; }
+});
+
+/* ── SYSTEM STATS ──────────────────────────────────────────── */
+async function loadSystemStats() {
+  const el = document.getElementById('systemStats');
+  try {
+    const [pending, clients, users] = await Promise.all([
+      getPendingCount(), getClients(), getAllUsers(),
+    ]);
+    el.innerHTML = [
+      { label:'Pending Bookings', value:pending, color:'var(--status-pending)' },
+      { label:'Total Clients',    value:clients.length },
+      { label:'Admin Accounts',   value:users.length },
+      { label:'Firebase Project', value:'noiresalon' },
+    ].map(s => `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--sp-sm) 0;border-bottom:1px solid var(--border);">
+        <span style="font-size:.875rem;color:var(--warm-dim);">${s.label}</span>
+        <span style="font-size:.9375rem;font-weight:400;color:${s.color||'var(--warm-white)'};">${s.value}</span>
+      </div>
+    `).join('');
+  } catch(e) {
+    el.innerHTML = '<div style="color:var(--text-dim);font-size:.875rem;">Could not load stats.</div>';
+  }
+}
+
+/* ── SETUP CHECKLIST ───────────────────────────────────────── */
+async function loadChecklist() {
+  const s = await getSettings();
+  const checks = [
+    { label: 'Salon name configured',   done: !!s.salonName },
+    { label: 'Contact info set',        done: !!(s.contact?.phone && s.contact?.email) },
+    { label: 'Working hours set',       done: !!s.workingHours },
+    { label: 'EmailJS public key',      done: !!s.emailjs?.publicKey },
+    { label: 'Confirmation template',   done: !!s.emailjs?.confirmTemplateId },
+    { label: 'Cancellation template',   done: !!s.emailjs?.cancelTemplateId },
+    { label: 'Artists added',           done: (s.artists||[]).length > 0 },
+  ];
+  const done = checks.filter(c=>c.done).length;
+  document.getElementById('setupChecklist').innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-md);">
+      <span style="font-size:.8125rem;color:var(--text-dim);">Setup progress</span>
+      <span style="font-size:.875rem;color:${done===checks.length?'var(--status-confirmed)':'var(--gold)'};">${done}/${checks.length}</span>
+    </div>
+    <div style="height:3px;background:var(--border);margin-bottom:var(--sp-lg);">
+      <div style="height:100%;width:${Math.round(done/checks.length*100)}%;background:${done===checks.length?'var(--status-confirmed)':'var(--gold)'};transition:width .5s;"></div>
+    </div>
+    ${checks.map(c=>`
+      <div style="display:flex;align-items:center;gap:var(--sp-sm);padding:var(--sp-xs) 0;">
+        <span style="color:${c.done?'var(--status-confirmed)':'var(--border-light)'};font-size:.875rem;flex-shrink:0;">${c.done?'✓':'○'}</span>
+        <span style="font-size:.8125rem;color:${c.done?'var(--warm-dim)':'var(--text-dim)'};">${c.label}</span>
+      </div>
+    `).join('')}
+  `;
+}
+
+/* ── CHANGE PASSWORD ───────────────────────────────────────── */
+document.getElementById('changePassBtn')?.addEventListener('click', async () => {
+  const newPass  = document.getElementById('newPass').value;
+  const confirm2 = document.getElementById('confirmPass').value;
+  if (!newPass || newPass.length < 6) { error('Weak password', 'Password must be at least 6 characters.'); return; }
+  if (newPass !== confirm2) { error('Mismatch', 'Passwords do not match.'); return; }
+  const btn = document.getElementById('changePassBtn');
+  btn.disabled=true; btn.textContent='Updating...';
+  try {
+    await updatePassword(auth.currentUser, newPass);
+    success('Password updated');
+    document.getElementById('newPass').value='';
+    document.getElementById('confirmPass').value='';
+  } catch(e) {
+    if (e.code==='auth/requires-recent-login') {
+      error('Re-login required', 'Please sign out and sign back in before changing your password.');
+    } else {
+      error('Error', e.message);
+    }
+  } finally { btn.disabled=false; btn.textContent='Update Password'; }
+});
+
+/* ── RESET SETTINGS ────────────────────────────────────────── */
+document.getElementById('resetSettingsBtn')?.addEventListener('click', () => {
+  confirm('Reset all settings to default? This cannot be undone.', async () => {
+    try {
+      await saveSettings(getDefaultSettings());
+      success('Settings reset');
+      loadAll();
+    } catch(e) { error('Error', 'Could not reset settings.'); }
+  }, { danger:true, title:'Reset Settings', confirmLabel:'Yes, Reset' });
+});
+
+loadAll();
+</script>
+
+<!-- EmailJS for test send -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</body>
+</html>
